@@ -29,7 +29,7 @@ export default class MainScene extends Phaser.Scene {
     var tankertot = this.add.image(this.centerX, this.centerY, 'image');
     tankertot.scaleX = 0.1;
     tankertot.scaleY = 0.1;
-    
+
     var title = this.add.image(this.centerX, this.centerY-50, 'title');
     title.scaleX = 0.2;
     title.scaleY = 0.2;
