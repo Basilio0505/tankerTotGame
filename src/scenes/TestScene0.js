@@ -49,7 +49,7 @@ export default class TestScene0 extends Phaser.Scene {
     //Add squirrels
     this.squirrels = this.physics.add.group({
       key: "tanky",
-      repeat: 2,
+      repeat: 0,
       setXY: { x: 100, y: 50, stepX: Phaser.Math.Between(100, 275), stepY: Phaser.Math.Between(0, 50) },
     });
 
@@ -122,21 +122,7 @@ export default class TestScene0 extends Phaser.Scene {
     }
 
     //Squirrel Movement
-    this.squirrels.children.each(
-      function(b){
-        if(b.x % 2 == 0){
-          b.x += 4
-        }
-        else if(b.x % 2 != 0){
-          b.x -= 4
-        }
-        if(b.x > 700){
-          b.x -= 1
-        }
-        if(b.x < 100){
-          b.x += 1
-        }
-      });
+    this.squirrels.children.each(this.moveSquirrel());
 
     //Squirrel interaction
     this.bullets.children.each(
@@ -166,9 +152,7 @@ export default class TestScene0 extends Phaser.Scene {
   }
 
   moveSquirrel(b){
-    if(this.player.x <= b.x){
-      b.x -= enemySpeed;
-    }
+    this.physics.moveToObject(b, this.player);
   }
 
   shootSquirrel(bullet, squirrel){
