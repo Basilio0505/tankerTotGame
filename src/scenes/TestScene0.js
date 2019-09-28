@@ -14,12 +14,17 @@ export default class TestScene0 extends Phaser.Scene {
       frameWidth: 16,
       frameHeight: 16
     });
+    //All to be replaced
+    this.load.image("background", "./assets/Environment/map.png");
+    //this.load.image('hwall', './assets/Environment/horizontalWall.png');
+    //this.load.image('vwall', './assets/Environment/verticalWall.png');
+    this.load.image('gate', './assets/Environment/gate.png');
+
     this.load.image('bullet', './assets/bullet.png');
     this.load.image('rocket', './assets/rocket.png');
     this.load.image('squirrel','./assets/enemySquirrel.png');
     this.load.image('speedy','./assets/speedySquirrel.png');
     this.load.image('tanky','./assets/tankSquirrel.png' );
-    this.load.image('gate', './assets/gate.png');
 
     // Declare variables for center of the scene
     this.centerX = this.cameras.main.width / 2;
@@ -48,7 +53,7 @@ export default class TestScene0 extends Phaser.Scene {
 
     //Add squirrels
     this.squirrels = this.physics.add.group({
-      key: "tanky",
+      key: "squirrel",
       repeat: 0,
       setXY: { x: 100, y: 50, stepX: Phaser.Math.Between(100, 275), stepY: Phaser.Math.Between(0, 50) },
     });
@@ -92,11 +97,11 @@ export default class TestScene0 extends Phaser.Scene {
     //console.log(isOverlapping);
 
     //End of level checking
-    if (isOverlapping) {
-      if (this.squirrels.getLength() == 0) {
-        this.scene.start("TestScene1");
-      };
-    };
+    //if (isOverlapping) {
+    //  if (this.squirrels.getLength() == 0) {
+    //    this.scene.start("TestScene1");
+    //  };
+    //};
 
     //Movement
     var movement = this.input.keyboard.addKeys({

@@ -10,12 +10,12 @@ export default class MainScene extends Phaser.Scene {
 
   preload () {
     // Preload assets
-    this.load.spritesheet('start', './assets/Start_Button.png', {
+    this.load.spritesheet('start', './assets/StartMenu/Start_Button.png', {
       frameHeight: 20,
       frameWidth: 50
     });
-    this.load.image('title', './assets/TileText.png');
-    this.load.image('image', './assets/Starting_TankerTot.png');
+    this.load.image('title', './assets/StartMenu/TileText.png');
+    this.load.image('image', './assets/StartMenu/Starting_TankerTot.png');
 
     // Declare variables for center of the scene
     this.centerX = this.cameras.main.width / 2;
