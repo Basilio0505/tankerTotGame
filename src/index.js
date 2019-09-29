@@ -12,7 +12,7 @@ class Game extends Phaser.Game {
     this.scene.add('Main', MainScene);
     this.scene.add('TestScene0', TestScene0);
     this.scene.add('Parallax', Parallax);
-    this.scene.start('Parallax');
+    this.scene.start('Boot');
   }
 }
 

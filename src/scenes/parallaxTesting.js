@@ -26,13 +26,21 @@ export default class Parallax extends Phaser.Scene {
     //Create the scene
 
     //Add background
-    var background = this.add.sprite(this.centerX, this.centerY, 'background');
+    this.background = this.add.tileSprite(this.centerX,this.centerY,0,0, 'background');
+    this.tree1 = this.add.tileSprite(this.centerX,this.centerY,0,0, 'tree1');
+    this.tree2 = this.add.tileSprite(this.centerX,this.centerY,0,0, 'tree2');
+    this.tree3 = this.add.tileSprite(this.centerX,this.centerY,0,0, 'tree3');
+
 
 
   }
 
   update (time, delta) {
     // Update the scene
+    this.background.tilePositionX -= 0.05;
+    this.tree3.tilePositionX -= 0.1;
+    this.tree2.tilePositionX -= 0.2;
+    this.tree1.tilePositionX -= 0.3;
 
   }
 }
