@@ -30,6 +30,7 @@ export default class TestScene0 extends Phaser.Scene {
   }
 
   create (data) {
+    console.log('what')
     //Create the scene
     //Define Variables
     this.gameOver = false;

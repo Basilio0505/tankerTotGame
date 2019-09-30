@@ -46,7 +46,7 @@ export default class MainScene extends Phaser.Scene {
       this.setFrame(0);
     });
     start1.on("pointerup", function(){
-      this.scene.start("TestScene0");
+      this.scene.start("BasilioTest")
     }, this);
 
   }

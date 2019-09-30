@@ -33,8 +33,8 @@ export default class BasilioTest extends Phaser.Scene {
   create (data) {
     //Create the scene
     var background = this.add.sprite(this.centerX, this.centerY, 'background');
-    this.player = this.physics.add.sprite(this.centerX, this.centerY, 'tankertot');
-    this.cannon = this.physics.add.sprite(this.centerX, this.centerY, 'cannon');
+    this.player = this.physics.add.sprite(60, 540, 'tankertot');
+    this.cannon = this.physics.add.sprite(60, 540, 'cannon');
     //this.cannon.body.allowGravity = false;
 
     //this.container = this.add.container();
