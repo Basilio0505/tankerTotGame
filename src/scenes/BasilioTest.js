@@ -50,10 +50,6 @@ export default class BasilioTest extends Phaser.Scene {
     this.physics.add.collider(this.player, this.walls);
 
     //this.gameOver = false;
-
-    //var bullets, bullet;
-    //this.nextFire = 0;
-    //this.fireRate = 200;
     this.bounceCount = 0;
     this.bulletspeed = 300;
 
@@ -105,6 +101,7 @@ export default class BasilioTest extends Phaser.Scene {
           //if(b.y < 0 || b.y > 600 || b.x < 0 || b.x > 800){
           if(this.bounceCount >= 5){
             b.setActive(false);
+            b.disableBody(true, true);
             console.log("what");
             this.bounceCount = 0;
           }
