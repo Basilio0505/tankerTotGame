@@ -12,8 +12,11 @@ export default class TestScene0 extends Phaser.Scene {
     // Preload assets
     this.load.image('tankertot', './assets/TankerTot/tankerTot.png');
     this.load.image('cannon', './assets/TankerTot/cannon.png');
+
+    this.load.image('background','./assets/background.png');
+    this.load.image('mountains','./assets/mountains.png');
+    this.load.image('trees','./assets/trees.png');
     //All to be replaced
-    this.load.image("background", "./assets/Environment/map.png");
     this.load.image('hwall', './assets/Environment/horizontalWall.png');
     this.load.image('vwall', './assets/Environment/verticalWall.png');
     //this.load.image('gate', './assets/Environment/gate.png');
@@ -38,7 +41,9 @@ export default class TestScene0 extends Phaser.Scene {
     this.physics.world.setBounds(0, 0, 800, 600);
 
     //Add background
-    var background = this.add.sprite(this.centerX, this.centerY, 'background');
+    this.background = this.add.tileSprite(this.centerX,this.centerY,0,0, 'background');
+    this.mountains = this.add.tileSprite(this.centerX,this.centerY+100,0,0, 'mountains');
+    this.trees = this.add.tileSprite(this.centerX,this.centerY+150,0,0, 'trees');
 
     //Add Player
     this.player = this.physics.add.sprite(this.centerX, this.centerY, 'tankertot');
