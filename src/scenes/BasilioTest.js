@@ -11,10 +11,10 @@ export default class BasilioTest extends Phaser.Scene {
 
   preload () {
     // Preload assets
-    this.load.spritesheet('tankertot', './assets/tankerTotSpritesheet.png', {
-      frameWidth: 16,
-      frameHeight: 16
-    });
+    //##################################################################
+    this.load.image('tankertot', './assets/TankerTot/tankerTot.png');
+    this.load.image('cannon', './assets/TankerTot/cannon.png');
+    //##################################################################
     //All to be replaced
     this.load.image("background", "./assets/Environment/map.png");
     this.load.image('hwall', './assets/Environment/horizontalWall.png');
@@ -35,9 +35,16 @@ export default class BasilioTest extends Phaser.Scene {
   create (data) {
     //Create the scene
     var background = this.add.sprite(this.centerX, this.centerY, 'background');
-    this.player = this.physics.add.sprite(this.centerX, this.centerY, 'tankertot', 0);
-    this.player.scaleX = 4;
-    this.player.scaleY = 4;
+    //###############################################################################
+    this.player = this.physics.add.sprite(this.centerX, this.centerY, 'tankertot');
+    //this.cannon = this.physics.add.sprite(this.centerX, this.centerY, 'cannon');
+    //this.cannon.body.allowGravity = false;
+
+    //this.container = this.add.container();
+    //this.container.add(this.player);
+    //this.container.add(this.cannon);
+    //###############################################################################
+
     this.player.setCollideWorldBounds(true);
     this.physics.world.setBounds(0, 0, 800, 600);
 
@@ -74,11 +81,9 @@ export default class BasilioTest extends Phaser.Scene {
     if(movement.a.isDown){
       this.player.setVelocityX(-200);
       //this.player.body.velocity.x -= speed;
-      this.player.setFrame(3);
     } else if(movement.d.isDown){
       this.player.setVelocityX(200);
       //this.player.body.velocity.x += speed;
-      this.player.setFrame(0);
     } else{
       this.player.setVelocityX(0);
     }
@@ -92,17 +97,12 @@ export default class BasilioTest extends Phaser.Scene {
         b.setScale(2);
         this.physics.add.collider(b, this.walls, this.bulletBounce, null, this);
         b.body.bounce.setTo(1,1);
-        //if(b.body.checkCollision == true){
-        //  this.add.text(0, 0, 'Hello World', { fontFamily: '"Roboto Condensed"' });
-        //  this.bounceCount +=1;
-        //}
 
         if(b.active) {
           //if(b.y < 0 || b.y > 600 || b.x < 0 || b.x > 800){
           if(this.bounceCount >= 5){
             b.setActive(false);
             b.disableBody(true, true);
-            console.log("what");
             this.bounceCount = 0;
           }
         }
@@ -126,7 +126,6 @@ export default class BasilioTest extends Phaser.Scene {
   }
 
   bulletBounce(){
-    console.log(this.bounceCount);
     this.bounceCount += 1;
   }
 }

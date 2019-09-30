@@ -10,15 +10,13 @@ export default class TestScene0 extends Phaser.Scene {
 
   preload () {
     // Preload assets
-    this.load.spritesheet('tankertot', './assets/tankerTotSpritesheet.png', {
-      frameWidth: 16,
-      frameHeight: 16
-    });
+    this.load.image('tankertot', './assets/TankerTot/tankerTot.png');
+    this.load.image('cannon', './assets/TankerTot/cannon.png');
     //All to be replaced
     this.load.image("background", "./assets/Environment/map.png");
-    //this.load.image('hwall', './assets/Environment/horizontalWall.png');
-    //this.load.image('vwall', './assets/Environment/verticalWall.png');
-    this.load.image('gate', './assets/Environment/gate.png');
+    this.load.image('hwall', './assets/Environment/horizontalWall.png');
+    this.load.image('vwall', './assets/Environment/verticalWall.png');
+    //this.load.image('gate', './assets/Environment/gate.png');
 
     this.load.image('bullet', './assets/bullet.png');
     this.load.image('rocket', './assets/rocket.png');
@@ -42,14 +40,18 @@ export default class TestScene0 extends Phaser.Scene {
     var background = this.add.sprite(this.centerX, this.centerY, 'background');
 
     //Add Player
-    this.player = this.physics.add.sprite(this.centerX, this.centerY, 'tankertot', 0);
-    this.player.scaleX = 4;
-    this.player.scaleY = 4;
+    this.player = this.physics.add.sprite(this.centerX, this.centerY, 'tankertot');
     this.player.setCollideWorldBounds(true);
 
+    this.walls = this.physics.add.staticGroup();
+    this.walls.create(16,16, 'vwall');
+    this.walls.create(784,16, 'vwall');
+    this.walls.create(16,16, 'hwall');
+    this.walls.create(16,584, 'hwall');
+
     //Add Gate
-    this.gate = this.physics.add.staticGroup();
-    this.gate.create(this.centerX, 16, 'gate');
+    //this.gate = this.physics.add.staticGroup();
+    //this.gate.create(this.centerX, 16, 'gate');
 
     //Add squirrels
     this.squirrels = this.physics.add.group({
@@ -65,13 +67,8 @@ export default class TestScene0 extends Phaser.Scene {
     //Add Bullets
     this.bullets = this.physics.add.group({
       defaultKey: "bullet",
-      maxSize: 20
+      maxSize: 1
     });
-
-    this.bullets.children.iterate(function(child){
-      child.setScale(3);
-    });
-
     //Add input
     this.input.on("pointerdown", this.shoot, this);
 
@@ -112,30 +109,35 @@ export default class TestScene0 extends Phaser.Scene {
     var speed = 3;
 
     if(movement.a.isDown){
-      this.player.x -= speed;
-      this.player.setFrame(3);
+      this.player.setVelocityX(-200);
+      //this.player.body.velocity.x -= speed;
     } else if(movement.d.isDown){
-      this.player.x += speed;
-      this.player.setFrame(0);
+      this.player.setVelocityX(200);
+      //this.player.body.velocity.x += speed;
+    } else{
+      this.player.setVelocityX(0);
     }
-    if(movement.w.isDown){
-      this.player.y -= speed;
-      this.player.setFrame(1);
-    } else if(movement.s.isDown){
-      this.player.y += speed;
-      this.player.setFrame(2);
+    if(movement.w.isDown && this.player.body.touching.down){
+      this.player.setVelocityY(-200);
     }
 
     //Squirrel Movement
-    this.squirrels.children.each(this.moveSquirrel());
+    //this.squirrels.children.each(this.moveSquirrel());
 
     //Squirrel interaction
     this.bullets.children.each(
       function(b){
+        //var bounceCount = 0;
+        b.setScale(2);
+        this.physics.add.collider(b, this.walls, this.bulletBounce, null, this);
+        b.body.bounce.setTo(1,1);
+
         if(b.active) {
-            this.physics.add.overlap(b, this.squirrels, this.shootSquirrel, null, this);
-          if(b.y < 0 || b.y > 600 || b.x < 0 || b.x > 800){
+          //if(b.y < 0 || b.y > 600 || b.x < 0 || b.x > 800){
+          if(this.bounceCount >= 5){
             b.setActive(false);
+            b.disableBody(true, true);
+            this.bounceCount = 0;
           }
         }
       }.bind(this)
@@ -168,5 +170,9 @@ export default class TestScene0 extends Phaser.Scene {
 
   hitSquirrel(player, squirrel){
     this.gameOver = true;
+  }
+
+  bulletBounce(){
+      this.bounceCount += 1;
   }
 }
