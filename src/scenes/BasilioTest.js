@@ -18,12 +18,12 @@ export default class BasilioTest extends Phaser.Scene {
     this.load.image('hwall', './assets/Environment/horizontalWall.png');
     this.load.image('vwall', './assets/Environment/verticalWall.png');
     //this.load.image('gate', './assets/Environment/gate.png');
-
+    this.load.image('woodPlatform', './assets/smallWoodPlat.png');
     this.load.image('bullet', './assets/bullet.png');
     this.load.image('rocket', './assets/rocket.png');
-    //this.load.image('squirrel','./assets/enemySquirrel.png');
-    //this.load.image('speedy','./assets/speedySquirrel.png');
-    //this.load.image('tanky','./assets/tankSquirrel.png' );
+    this.load.image('squirrel','./assets/enemySquirrel.png');
+    this.load.image('speedy','./assets/speedySquirrel.png');
+    this.load.image('tanky','./assets/tankSquirrel.png' );
 
     // Declare variables for center of the scene
     this.centerX = this.cameras.main.width / 2;
@@ -52,6 +52,24 @@ export default class BasilioTest extends Phaser.Scene {
 
     this.physics.add.collider(this.player, this.walls);
     this.physics.add.collider(this.cannon, this.walls);
+
+    //create platforms and hitboxes
+    this.platforms = this.physics.add.staticGroup();
+
+    this.platforms.create(600, 440, "woodPlatform").setScale(2).refreshBody();
+    this.platforms.create(150, 300, "woodPlatform").setScale(2).refreshBody();
+    this.platforms.create(400, 200, "woodPlatform").setScale(2).refreshBody();
+
+    this.physics.add.collider(this.player, this.platforms);
+    this.physics.add.collider(this.cannon, this.platforms);
+
+    //place enemy squirrels
+    this.squirrels = this.physics.add.group();
+    this.physics.add.collider(this.squirrels, this.walls);
+    this.physics.add.collider(this.squirrels, this.platforms);
+    this.squirrels.create(605, 350, "squirrel").setScale(.8)
+    this.squirrels.create(155, 200, "speedy").setScale(5)
+    this.squirrels.create(405, 100, "tanky").setScale(5)
 
     //this.gameOver = false;
     this.bounceCount = 0;
@@ -106,6 +124,8 @@ export default class BasilioTest extends Phaser.Scene {
         //var bounceCount = 0;
         b.setScale(2);
         this.physics.add.collider(b, this.walls, this.bulletBounce, null, this);
+        this.physics.add.collider(b, this.platforms, this.bulletBounce, null, this);
+
         b.body.bounce.setTo(1,1);
 
         if(b.active) {
@@ -117,6 +137,16 @@ export default class BasilioTest extends Phaser.Scene {
         }
       }.bind(this)
     );
+    this.bullets.children.each(
+  function(b){
+    if(b.active) {
+        this.physics.add.overlap(b, this.squirrels, this.shootSquirrel, null, this);
+      if(b.y < 0 || b.y > 600 || b.x < 0 || b.x > 800){
+        b.setActive(false);
+      }
+    }
+  }.bind(this)
+);
   }
 
   shoot(pointer){
@@ -133,7 +163,10 @@ export default class BasilioTest extends Phaser.Scene {
       .enableBody(true, this.player.x, this.player.y, true, true)
       .setVelocity(velocity.x, velocity.y);
   }
-
+  shootSquirrel(bullet, squirrel){
+    squirrel.disableBody(true, true);
+    this.squirrels.remove(squirrel);
+  }
   bulletBounce(){
     this.bounceCount += 1;
   }
