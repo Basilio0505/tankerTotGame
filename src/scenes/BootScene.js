@@ -25,6 +25,6 @@ export default class BootScene extends Phaser.Scene {
   update (time, delta) {
     // Update the scene
     console.log('Boot');
-    this.scene.start('Parallax');
+    this.scene.start('Main');
   }
 }

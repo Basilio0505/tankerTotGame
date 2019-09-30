@@ -49,6 +49,9 @@ export default class TestScene0 extends Phaser.Scene {
     this.walls.create(16,16, 'hwall');
     this.walls.create(16,584, 'hwall');
 
+    this.physics.add.collider(this.player, this.walls);
+    this.physics.add.collider(this.cannon, this.walls);
+
     //Add Gate
     //this.gate = this.physics.add.staticGroup();
     //this.gate.create(this.centerX, 16, 'gate');
@@ -69,7 +72,17 @@ export default class TestScene0 extends Phaser.Scene {
       defaultKey: "bullet",
       maxSize: 1
     });
+
     //Add input
+    this.input.on(
+      "pointermove",
+      function(pointer){
+        var betweenPoints = Phaser.Math.Angle.BetweenPoints;
+        var angle = Phaser.Math.RAD_TO_DEG * betweenPoints(this.cannon, pointer);
+        this.cannon.setAngle(angle);
+      }, this
+    );
+
     this.input.on("pointerdown", this.shoot, this);
 
     //Add collider
@@ -110,15 +123,19 @@ export default class TestScene0 extends Phaser.Scene {
 
     if(movement.a.isDown){
       this.player.setVelocityX(-200);
+      this.cannon.setVelocityX(-200);
       //this.player.body.velocity.x -= speed;
     } else if(movement.d.isDown){
       this.player.setVelocityX(200);
+      this.cannon.setVelocityX(200);
       //this.player.body.velocity.x += speed;
     } else{
       this.player.setVelocityX(0);
+      this.cannon.setVelocityX(0);
     }
     if(movement.w.isDown && this.player.body.touching.down){
       this.player.setVelocityY(-200);
+      this.cannon.setVelocityY(-200);
     }
 
     //Squirrel Movement
