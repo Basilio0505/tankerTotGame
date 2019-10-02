@@ -24,6 +24,10 @@ export default class EndLevelScene extends Phaser.Scene {
     this.load.image('woodPlatform', './assets/smallWoodPlat.png');
     this.load.image('tankertot', './assets/TankerTot/tankerTot.png');
     this.load.image('cannon', './assets/TankerTot/cannon.png');
+    this.load.image('emptystar','./assets/UI/emptystar.png');
+    this.load.image('fullstar','./assets/UI/fullstar.png');
+    this.load.image('restart','./assets/UI/restartlevelbutton.png');
+    this.load.image('next','./assets/UI/nextlevelbutton.png');
 
     // Declare variables for center of the scene
     this.centerX = this.cameras.main.width / 2;
@@ -55,6 +59,17 @@ export default class EndLevelScene extends Phaser.Scene {
     this.platforms.create(400, 200, "woodPlatform").setScale(2).refreshBody();
     console.log(this.shotCount);
 
+    var star1 = this.add.image(this.centerX - 125, this.centerY, 'fullstar');
+    star1.setScale(0.6);
+    var star2 = this.add.image(this.centerX, this.centerY, 'fullstar');
+    star2.setScale(0.6);
+    var star3 = this.add.image(this.centerX + 125, this.centerY, 'fullstar');
+    star3.setScale(0.6);
+
+    var nextButton = this.add.image(this.centerX + 150, this.centerY + 150, 'next');
+    var restartButton = this.add.image(this.centerX - 150, this.centerY + 150, 'restart');
+    nextButton.setScale(0.75);
+    restartButton.setScale(0.75);
 
 
 
