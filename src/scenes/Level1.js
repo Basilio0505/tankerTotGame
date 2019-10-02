@@ -102,7 +102,7 @@ export default class Level1 extends Phaser.Scene {
     // Update the scene
 
     if (this.squirrels.getLength() == 0) {
-      this.scene.start('EndLevelScene', {
+      this.scene.start('Level1End', {
           shotCount: this.shotCount,
           backgroundX: this.background.tilePositionX,
           mountainsX: this.mountains.tilePositionX,
