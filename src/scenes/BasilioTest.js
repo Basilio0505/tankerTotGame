@@ -95,10 +95,21 @@ export default class BasilioTest extends Phaser.Scene {
     );
 
     this.input.on("pointerdown", this.shoot, this);
+    this.shotCount = 0;
   }
 
   update (time, delta) {
     // Update the scene
+
+    if (this.squirrels.getLength() == 0) {
+      this.scene.start('EndLevelScene', {
+          shotCount: this.shotCount,
+          backgroundX: this.background.tilePositionX,
+          mountainsX: this.mountains.tilePositionX,
+          treesX: this.trees.tilePositionX,
+          tankerX: this.player.x
+        });
+    }
 
     var movement = this.input.keyboard.addKeys({
       w:Phaser.Input.Keyboard.KeyCodes.W,
@@ -177,6 +188,8 @@ export default class BasilioTest extends Phaser.Scene {
     bullet
       .enableBody(true, this.player.x, this.player.y, true, true)
       .setVelocity(velocity.x, velocity.y);
+    this.shotCount += 1;
+    console.log(this.shotCount);
   }
   shootSquirrel(bullet, squirrel){
     squirrel.disableBody(true, true);
