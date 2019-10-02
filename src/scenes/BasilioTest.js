@@ -129,10 +129,10 @@ export default class BasilioTest extends Phaser.Scene {
       this.player.setVelocityX(0);
       this.cannon.setVelocityX(0);
     }
-    if(movement.w.isDown && this.player.body.touching.down){
-      this.player.setVelocityY(-200);
-      this.cannon.setVelocityY(-200);
-    }
+    //if(movement.w.isDown && this.player.body.touching.down){
+      //this.player.setVelocityY(-200);
+      //this.cannon.setVelocityY(-200);
+    //}
 
     this.bullets.children.each(
       function(b){
