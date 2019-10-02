@@ -1,7 +1,7 @@
 /*global Phaser*/
-export default class BasilioTest extends Phaser.Scene {
+export default class Level1 extends Phaser.Scene {
   constructor () {
-    super('BasilioTest');
+    super('Level1');
   }
 
   init (data) {

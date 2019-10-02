@@ -1,7 +1,7 @@
 /*global Phaser*/
 export default class MainScene extends Phaser.Scene {
   constructor () {
-    super('Main');
+    super('MainScene');
   }
 
   init (data) {
@@ -25,7 +25,7 @@ export default class MainScene extends Phaser.Scene {
   create (data) {
     //Create the scene
     this.cameras.main.setBackgroundColor(0xE83009);
-
+    console.log('car')
     var tankertot = this.add.image(this.centerX, this.centerY, 'image');
     tankertot.scaleX = 0.1;
     tankertot.scaleY = 0.1;
@@ -46,7 +46,7 @@ export default class MainScene extends Phaser.Scene {
       this.setFrame(0);
     });
     start1.on("pointerup", function(){
-      this.scene.start("BasilioTest")
+      this.scene.start("Level1")
     }, this);
 
   }
