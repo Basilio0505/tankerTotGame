@@ -110,16 +110,20 @@ export default class BasilioTest extends Phaser.Scene {
     if(movement.a.isDown){
       this.player.setVelocityX(-200);
       this.cannon.setVelocityX(-200);
-      this.background.tilePositionX -= 0.1;
-      this.mountains.tilePositionX -= 0.2;
-      this.trees.tilePositionX -= 0.3;
+      if(this.player.x > 100){
+        this.background.tilePositionX -= 0.1;
+        this.mountains.tilePositionX -= 0.2;
+        this.trees.tilePositionX -= 0.3;
+      };
       //this.player.body.velocity.x -= speed;
     } else if(movement.d.isDown){
       this.player.setVelocityX(200);
       this.cannon.setVelocityX(200);
-      this.background.tilePositionX += 0.1;
-      this.mountains.tilePositionX += 0.2;
-      this.trees.tilePositionX += 0.3;
+      if(this.player.x < 700){
+        this.background.tilePositionX += 0.1;
+        this.mountains.tilePositionX += 0.2;
+        this.trees.tilePositionX += 0.3;
+      };
       //this.player.body.velocity.x += speed;
     } else{
       this.player.setVelocityX(0);
