@@ -26,7 +26,10 @@ export default class Level1End extends Phaser.Scene {
     this.load.image('cannon', './assets/TankerTot/cannon.png');
     this.load.image('emptystar','./assets/UI/emptystar.png');
     this.load.image('fullstar','./assets/UI/fullstar.png');
-    this.load.image('restart','./assets/UI/restartlevelbutton.png');
+    this.load.spritesheet('restart','./assets/UI/restartlevelbutton.png', {
+      frameHeight: 100,
+      frameWidth: 200
+    });
     this.load.image('next','./assets/UI/nextlevelbutton.png');
 
     // Declare variables for center of the scene
@@ -66,11 +69,27 @@ export default class Level1End extends Phaser.Scene {
     var star3 = this.add.image(this.centerX + 125, this.centerY, 'fullstar');
     star3.setScale(0.6);
 
-    var nextButton = this.add.image(this.centerX + 150, this.centerY + 150, 'next');
-    var restartButton = this.add.image(this.centerX - 150, this.centerY + 150, 'restart');
+    //################################################################
+    var nextButton = this.add.sprite(this.centerX + 150, this.centerY + 150, 'next');
+    nextButton.setInteractive();
     nextButton.setScale(0.75);
-    restartButton.setScale(0.75);
+    nextButton.on("pointerup", function(){
+      this.scene.start("Title")
+    }, this);
 
+    var restartButton = this.add.sprite(this.centerX - 150, this.centerY + 150, 'restart',0);
+    restartButton.setInteractive();
+    restartButton.setScale(0.75);
+    restartButton.on("pointerover", function(){
+      this.setFrame(1);
+    });
+    restartButton.on("pointerout", function(){
+      this.setFrame(0);
+    });
+    restartButton.on("pointerup", function(){
+      this.scene.start("Level1")
+    }, this);
+    //################################################################
 
 
   }
