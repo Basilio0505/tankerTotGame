@@ -28,6 +28,11 @@ export default class Level1 extends Phaser.Scene {
     this.load.image('speedy','./assets/speedySquirrel.png');
     this.load.image('tanky','./assets/tankSquirrel.png' );
 
+    //Load Sound FX
+    this.load.audio('shot','./assets/Sounds/FX/shot.wav');
+    this.load.audio('squirreldeath','./assets/Sounds/FX/squirreldeath.wav');
+    this.load.audio('bounce','./assets/Sounds/FX/bounce.wav');
+
     // Declare variables for center of the scene
     this.centerX = this.cameras.main.width / 2;
     this.centerY = this.cameras.main.height / 2;
@@ -190,12 +195,15 @@ export default class Level1 extends Phaser.Scene {
       .setVelocity(velocity.x, velocity.y);
     this.shotCount += 1;
     console.log(this.shotCount);
+    this.sound.play('shot');
   }
   shootSquirrel(bullet, squirrel){
     squirrel.disableBody(true, true);
     this.squirrels.remove(squirrel);
+    this.sound.play('squirreldeath');
   }
   bulletBounce(){
     this.bounceCount += 1;
+    this.sound.play('bounce');
   }
 }
