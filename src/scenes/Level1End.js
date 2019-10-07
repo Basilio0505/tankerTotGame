@@ -63,9 +63,9 @@ export default class Level1End extends Phaser.Scene {
     this.physics.add.collider(this.player, this.walls);
     this.physics.add.collider(this.cannon, this.walls);
     this.platforms = this.physics.add.staticGroup();
-    this.platforms.create(600, 440, "woodPlatform").setScale(2).refreshBody();
-    this.platforms.create(150, 300, "woodPlatform").setScale(2).refreshBody();
-    this.platforms.create(400, 200, "woodPlatform").setScale(2).refreshBody();
+    this.platforms.create(400, 500, "woodPlatform").setScale(1.5).refreshBody();
+    this.platforms.create(400, 200, "woodPlatform").setScale(1.5).refreshBody();
+    this.platforms.create(400, 350, "woodPlatform").setScale(1.5).refreshBody();
     console.log(this.shotCount);
 
     if(this.shotCount == 1){
