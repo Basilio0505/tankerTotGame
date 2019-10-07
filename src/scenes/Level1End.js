@@ -66,7 +66,6 @@ export default class Level1End extends Phaser.Scene {
     this.platforms.create(400, 500, "woodPlatform").setScale(1.5).refreshBody();
     this.platforms.create(400, 200, "woodPlatform").setScale(1.5).refreshBody();
     this.platforms.create(400, 350, "woodPlatform").setScale(1.5).refreshBody();
-    console.log(this.shotCount);
 
     if(this.shotCount == 1){
       var star1 = this.add.image(this.centerX - 125, this.centerY, 'fullstar');

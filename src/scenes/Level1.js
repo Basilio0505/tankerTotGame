@@ -66,9 +66,9 @@ export default class Level1 extends Phaser.Scene {
     //create platforms and hitboxes
     this.platforms = this.physics.add.staticGroup();
 
-    this.platforms.create(400, 500, "woodPlatform").setScale(1.5).refreshBody();
+    this.platforms.create(400, 520, "woodPlatform").setScale(1.5).refreshBody();
     this.platforms.create(400, 200, "woodPlatform").setScale(1.5).refreshBody();
-    this.platforms.create(400, 350, "woodPlatform").setScale(1.5).refreshBody();
+    this.platforms.create(400, 365, "woodPlatform").setScale(1.5).refreshBody();
 
     this.physics.add.collider(this.player, this.platforms);
     this.physics.add.collider(this.cannon, this.platforms);
@@ -77,9 +77,9 @@ export default class Level1 extends Phaser.Scene {
     this.squirrels = this.physics.add.group();
     this.physics.add.collider(this.squirrels, this.walls);
     this.physics.add.collider(this.squirrels, this.platforms);
-    this.squirrels.create(395, 435, "squirrel").setScale(.8)
+    this.squirrels.create(395, 455, "squirrel").setScale(.8)
     this.squirrels.create(411, 135, "speedy").setScale(5)
-    this.squirrels.create(411, 285, "tanky").setScale(5)
+    this.squirrels.create(411, 300, "tanky").setScale(5)
 
     //this.gameOver = false;
     this.bounceCount = 0;
