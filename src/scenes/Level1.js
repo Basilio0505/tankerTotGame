@@ -9,22 +9,25 @@ export default class Level1 extends Phaser.Scene {
 
   }
 
-  preload () {
-    // Preload assets
+  preload () {// Preload assets
     this.load.image('tankertot', './assets/TankerTot/tankerTot.png');
     this.load.image('cannon', './assets/TankerTot/cannon.png');
-    //All to be replaced
-    //this.load.image("background", "./assets/Environment/map.png");
-    this.load.image('hwall', './assets/Environment/horizontalWall.png');
-    this.load.image('vwall', './assets/Environment/verticalWall.png');
+    this.load.image('bullet', './assets/bullet.png');
+
+    this.load.image('squirrel','./assets/enemySquirrel.png');
+
+    //Environment
+    this.load.image('ground', './assets/Environment/groundGrass.png');
     this.load.image('background','./assets/background.png');
     this.load.image('mountains','./assets/mountains.png');
     this.load.image('trees','./assets/trees.png');
-    //this.load.image('gate', './assets/Environment/gate.png');
     this.load.image('woodPlatform', './assets/smallWoodPlat.png');
-    this.load.image('bullet', './assets/bullet.png');
+
+    //All to be replaced
+    this.load.image('hwall', './assets/Environment/horizontalWall.png');
+    this.load.image('vwall', './assets/Environment/verticalWall.png');
+    //this.load.image('gate', './assets/Environment/gate.png');
     this.load.image('rocket', './assets/rocket.png');
-    this.load.image('squirrel','./assets/enemySquirrel.png');
     this.load.image('speedy','./assets/speedySquirrel.png');
     this.load.image('tanky','./assets/tankSquirrel.png' );
 
@@ -45,11 +48,6 @@ export default class Level1 extends Phaser.Scene {
     this.trees = this.add.tileSprite(this.centerX,this.centerY+150,0,0, 'trees');
     this.player = this.physics.add.sprite(60, 540, 'tankertot');
     this.cannon = this.physics.add.sprite(60, 540, 'cannon');
-    //this.cannon.body.allowGravity = false;
-
-    //this.container = this.add.container();
-    //this.container.add(this.player);
-    //this.container.add(this.cannon);
 
     this.player.setCollideWorldBounds(true);
     this.physics.world.setBounds(0, 0, 800, 600);
@@ -58,7 +56,7 @@ export default class Level1 extends Phaser.Scene {
     this.walls.create(16,16, 'vwall');
     this.walls.create(784,16, 'vwall');
     this.walls.create(16,16, 'hwall');
-    this.walls.create(16,584, 'hwall');
+    this.walls.create(16,584, 'ground');
 
     this.physics.add.collider(this.player, this.walls);
     this.physics.add.collider(this.cannon, this.walls);
