@@ -1,12 +1,16 @@
 /*global Phaser*/
-export default class Level1End extends Phaser.Scene {
+export default class Section1End extends Phaser.Scene {
   constructor () {
-    super('Level1End');
+    super('Section1End');
   }
 
   init (data) {
     // Initialization code goes here
+    this.currentLevel = data.currentLevel;
     this.shotCount = data.shotCount;
+    this.threeStar = data.threeStar;
+    this.twoStar = data.twoStar;
+    this.oneStar = data. oneStar;
     this.backgroundX = data.backgroundX;
     this.mountainsX = data.mountainsX;
     this.treesX = data.treesX;
@@ -62,12 +66,12 @@ export default class Level1End extends Phaser.Scene {
     this.walls.create(16,584, 'hwall');
     this.physics.add.collider(this.player, this.walls);
     this.physics.add.collider(this.cannon, this.walls);
-    this.platforms = this.physics.add.staticGroup();
-    this.platforms.create(400, 500, "woodPlatform").setScale(1.5).refreshBody();
-    this.platforms.create(400, 200, "woodPlatform").setScale(1.5).refreshBody();
-    this.platforms.create(400, 350, "woodPlatform").setScale(1.5).refreshBody();
+    //this.platforms = this.physics.add.staticGroup();
+    //this.platforms.create(400, 500, "woodPlatform").setScale(1.5).refreshBody();
+    //this.platforms.create(400, 200, "woodPlatform").setScale(1.5).refreshBody();
+    //this.platforms.create(400, 350, "woodPlatform").setScale(1.5).refreshBody();
 
-    if(this.shotCount == 1){
+    if(this.shotCount == this.threeStar){
       var star1 = this.add.image(this.centerX - 125, this.centerY, 'fullstar');
       star1.setScale(0.6);
       var star2 = this.add.image(this.centerX, this.centerY, 'fullstar');
@@ -76,7 +80,7 @@ export default class Level1End extends Phaser.Scene {
       star3.setScale(0.6);
       this.advance = true;
 
-    } else if(this.shotCount <= 3){
+    } else if(this.shotCount <= this.twoStar){
       var star1 = this.add.image(this.centerX - 125, this.centerY, 'fullstar');
       star1.setScale(0.6);
       var star2 = this.add.image(this.centerX, this.centerY, 'fullstar');
@@ -85,7 +89,7 @@ export default class Level1End extends Phaser.Scene {
       star3.setScale(0.6);
       this.advance = true;
 
-    } else if(this.shotCount <= 5){
+    } else if(this.shotCount <= this.oneStar){
       var star1 = this.add.image(this.centerX - 125, this.centerY, 'fullstar');
       star1.setScale(0.6);
       var star2 = this.add.image(this.centerX, this.centerY, 'emptystar');
@@ -116,7 +120,7 @@ export default class Level1End extends Phaser.Scene {
         this.setFrame(0);
       });
       nextButton.on("pointerup", function(){
-        this.scene.start("Title")
+        this.scene.start("Level"+(this.currentLevel+1));
       }, this);
     }
 
@@ -130,7 +134,7 @@ export default class Level1End extends Phaser.Scene {
       this.setFrame(0);
     });
     restartButton.on("pointerup", function(){
-      this.scene.start("Level1")
+      this.scene.start("Level"+this.currentLevel);
     }, this);
     //################################################################
   }

@@ -1,16 +1,12 @@
 /*global Phaser*/
-export default class Level1 extends Phaser.Scene {
+export default class Level2 extends Phaser.Scene {
   constructor () {
-    super('Level1');
+    super('Level2');
   }
 
   init (data) {
     // Initialization code goes here
-    this.threeStar = 1;
-    this.twoStar = 3;
-    this.oneStar = 5;
-    
-    this.currentLevel = 1;
+
   }
 
   preload () {// Preload assets
@@ -109,12 +105,8 @@ export default class Level1 extends Phaser.Scene {
     // Update the scene
 
     if (this.squirrels.getLength() == 0) {
-      this.scene.start('Level1End', {
-          currentLevel: this.currentLevel,
+      this.scene.start('Level2End', {
           shotCount: this.shotCount,
-          threeStar: this.threeStar,
-          twoStar: this.twoStar,
-          oneStar: this.oneStar,
           backgroundX: this.background.tilePositionX,
           mountainsX: this.mountains.tilePositionX,
           treesX: this.trees.tilePositionX,
