@@ -18,9 +18,9 @@ export default class Level1 extends Phaser.Scene {
 
     //Environment
     this.load.image('ground', './assets/Environment/groundGrass.png');
-    this.load.image('background','./assets/background.png');
-    this.load.image('mountains','./assets/mountains.png');
-    this.load.image('trees','./assets/trees.png');
+    this.load.image('background','./assets/Environment/background.png');
+    this.load.image('mountains','./assets/Environment/mountains.png');
+    this.load.image('trees','./assets/Environment/trees.png');
     this.load.image('woodPlatform', './assets/smallWoodPlat.png');
 
     //All to be replaced
