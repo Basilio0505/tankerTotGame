@@ -7,6 +7,12 @@ export default class Level2 extends Phaser.Scene {
   init (data) {
     // Initialization code goes here
 
+    this.threeStar = 2;
+    this.twoStar = 4;
+    this.oneStar = 6;
+
+    this.currentLevel = 1; //##########CHANGE AFTER LEVEL 3 CREATED
+
   }
 
   preload () {// Preload assets
@@ -22,6 +28,7 @@ export default class Level2 extends Phaser.Scene {
     this.load.image('mountains','./assets/Environment/mountains.png');
     this.load.image('trees','./assets/Environment/trees.png');
     this.load.image('woodPlatform', './assets/smallWoodPlat.png');
+    this.load.image('wideWoodPlat', './assets/wideWoodPlat.png');
 
     //All to be replaced
     this.load.image('hwall', './assets/Environment/horizontalWall.png');
@@ -64,8 +71,8 @@ export default class Level2 extends Phaser.Scene {
     //create platforms and hitboxes
     this.platforms = this.physics.add.staticGroup();
 
-    this.platforms.create(400, 520, "woodPlatform").setScale(1.5).refreshBody();
-    this.platforms.create(400, 200, "woodPlatform").setScale(1.5).refreshBody();
+    this.platforms.create(128, 300, "wideWoodPlat").setScale(1.5).refreshBody();
+    this.platforms.create(670, 200, "wideWoodPlat").setScale(1.5).refreshBody();
     this.platforms.create(400, 365, "woodPlatform").setScale(1.5).refreshBody();
 
     this.physics.add.collider(this.player, this.platforms);
@@ -75,8 +82,8 @@ export default class Level2 extends Phaser.Scene {
     this.squirrels = this.physics.add.group();
     this.physics.add.collider(this.squirrels, this.walls);
     this.physics.add.collider(this.squirrels, this.platforms);
-    this.squirrels.create(395, 455, "squirrel").setScale(.8)
-    this.squirrels.create(411, 135, "speedy").setScale(5)
+    this.squirrels.create(74, 240, "squirrel").setScale(.8)
+    this.squirrels.create(681, 135, "speedy").setScale(5)
     this.squirrels.create(411, 300, "tanky").setScale(5)
 
     //this.gameOver = false;
@@ -105,13 +112,17 @@ export default class Level2 extends Phaser.Scene {
     // Update the scene
 
     if (this.squirrels.getLength() == 0) {
-      this.scene.start('Level2End', {
-          shotCount: this.shotCount,
-          backgroundX: this.background.tilePositionX,
-          mountainsX: this.mountains.tilePositionX,
-          treesX: this.trees.tilePositionX,
-          tankerX: this.player.x
-        });
+      this.scene.start('Section1End', {
+        currentLevel: this.currentLevel,
+        shotCount: this.shotCount,
+        threeStar: this.threeStar,
+        twoStar: this.twoStar,
+        oneStar: this.oneStar,
+        backgroundX: this.background.tilePositionX,
+        mountainsX: this.mountains.tilePositionX,
+        treesX: this.trees.tilePositionX,
+        tankerX: this.player.x
+      });
     }
 
     var movement = this.input.keyboard.addKeys({

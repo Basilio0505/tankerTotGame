@@ -9,7 +9,7 @@ export default class Level1 extends Phaser.Scene {
     this.threeStar = 1;
     this.twoStar = 3;
     this.oneStar = 5;
-    
+
     this.currentLevel = 1;
   }
 
@@ -109,7 +109,7 @@ export default class Level1 extends Phaser.Scene {
     // Update the scene
 
     if (this.squirrels.getLength() == 0) {
-      this.scene.start('Level1End', {
+      this.scene.start('Section1End', {
           currentLevel: this.currentLevel,
           shotCount: this.shotCount,
           threeStar: this.threeStar,
