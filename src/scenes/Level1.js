@@ -97,7 +97,7 @@ export default class Level1 extends Phaser.Scene {
         var betweenPoints = Phaser.Math.Angle.BetweenPoints;
         var angle = Phaser.Math.RAD_TO_DEG * betweenPoints(this.cannon, pointer);
         this.cannon.setAngle(angle);
-        console.log(angle)
+        //console.log(angle)
       }, this
     );
 
@@ -184,7 +184,8 @@ export default class Level1 extends Phaser.Scene {
     this.bullets.children.each(
       function(b){
         if(b.active) {
-          this.physics.add.overlap(b, this.player, this.shootSquirrel, null, this);
+          this.physics.add.overlap(b, this.player, this.shootPlayer, null, this);
+          this.physics.add.overlap(b, this.cannon, this.shootPlayer, null, this);
         }
       }.bind(this)
     );
@@ -200,10 +201,9 @@ export default class Level1 extends Phaser.Scene {
     bullet.body.allowGravity = false;
     bullet.setAngle(Phaser.Math.RAD_TO_DEG * angle);
     bullet
-      .enableBody(true, this.player.x, this.player.y, true, true)
+      .enableBody(true, this.player.x + (Math.cos(angle) * 45), this.player.y + (Math.sin(angle) * 45), true, true)
       .setVelocity(velocity.x, velocity.y);
-    //console.log(Math.cos(Math.pi))
-    console.log(angle)
+    console.log(Math.cos(angle))
     this.shotCount += 1;
     this.sound.play('shot');
     this.bulletPresent = true
@@ -212,6 +212,16 @@ export default class Level1 extends Phaser.Scene {
     squirrel.disableBody(true, true);
     this.squirrels.remove(squirrel);
     this.sound.play('squirreldeath');
+  }
+  shootPlayer(bullet, player){
+    this.player.disableBody(true, true);
+    this.cannon.disableBody(true, true);
+    this.scene.start('Level1End', {
+        shotCount: 100,
+        backgroundX: this.background.tilePositionX,
+        mountainsX: this.mountains.tilePositionX,
+        treesX: this.trees.tilePositionX,
+      });
   }
   bulletBounce(){
     this.bounceCount += 1;
