@@ -1,7 +1,7 @@
 /*global Phaser*/
-export default class Level1End extends Phaser.Scene {
+export default class Level3End extends Phaser.Scene {
   constructor () {
-    super('Level1End');
+    super('Level3End');
   }
 
   init (data) {
@@ -130,7 +130,7 @@ export default class Level1End extends Phaser.Scene {
       this.setFrame(0);
     });
     restartButton.on("pointerup", function(){
-      this.scene.start("Level1")
+      this.scene.start("Level3")
     }, this);
     //################################################################
   }
