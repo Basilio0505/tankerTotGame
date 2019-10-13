@@ -6,7 +6,7 @@ export default class Level2 extends Phaser.Scene {
 
   init (data) {
     // Initialization code goes here
-
+    this.bulltPresent = false
     this.threeStar = 2;
     this.twoStar = 4;
     this.oneStar = 6;
@@ -110,8 +110,9 @@ export default class Level2 extends Phaser.Scene {
 
   update (time, delta) {
     // Update the scene
-
+    console.log(this.squirrels.getLength())
     if (this.squirrels.getLength() == 0) {
+      console.log(this.bulletPresent)
       if (this.bulletPresent == false){
         this.scene.start('Section1End', {
             currentLevel: this.currentLevel,
@@ -175,6 +176,7 @@ export default class Level2 extends Phaser.Scene {
           if(this.bounceCount >= 5){
             b.setActive(false);
             b.disableBody(true, true);
+            this.bulletPresent = false
             this.bounceCount = 0;
           }
         }
@@ -193,6 +195,7 @@ export default class Level2 extends Phaser.Scene {
   }
 
   shoot(pointer){
+    this.bulletPresent = true
     var betweenPoints = Phaser.Math.Angle.BetweenPoints;
     var angle = betweenPoints(this.player, pointer);
     var velocityFromRotation = this.physics.velocityFromRotation;
@@ -206,7 +209,6 @@ export default class Level2 extends Phaser.Scene {
       .enableBody(true, this.player.x + (Math.cos(angle) * 45), this.player.y + (Math.sin(angle) * 45), true, true)
       .setVelocity(velocity.x, velocity.y);
     this.shotCount += 1;
-    console.log(this.shotCount);
     this.sound.play('shot');
   }
   shootPlayer(bullet, player){
