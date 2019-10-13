@@ -20,11 +20,20 @@ export default class TitleScene extends Phaser.Scene {
     // Declare variables for center of the scene
     this.centerX = this.cameras.main.width / 2;
     this.centerY = this.cameras.main.height / 2;
+
+    this.load.audio('music', './assets/Sounds/Music/8bitStage1Loop.wav');
   }
 
   create (data) {
     //Create the scene
     this.cameras.main.setBackgroundColor(0xE83009);
+
+    this.music = this.sound.add('music',{
+      loop: true
+    });
+
+    this.music.play();
+
     console.log('car')
     var tankertot = this.add.image(this.centerX, this.centerY, 'image');
     tankertot.scaleX = 0.1;
