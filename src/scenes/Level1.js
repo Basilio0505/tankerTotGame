@@ -116,17 +116,19 @@ export default class Level1 extends Phaser.Scene {
     // Update the scene
 
     if (this.squirrels.getLength() == 0) {
-      this.scene.start('Section1End', {
-          currentLevel: this.currentLevel,
-          shotCount: this.shotCount,
-          threeStar: this.threeStar,
-          twoStar: this.twoStar,
-          oneStar: this.oneStar,
-          backgroundX: this.background.tilePositionX,
-          mountainsX: this.mountains.tilePositionX,
-          treesX: this.trees.tilePositionX,
-          tankerX: this.player.x
-        });
+      if (this.bulletPresent == false){
+        this.scene.start('Section1End', {
+            currentLevel: this.currentLevel,
+            shotCount: this.shotCount,
+            threeStar: this.threeStar,
+            twoStar: this.twoStar,
+            oneStar: this.oneStar,
+            backgroundX: this.background.tilePositionX,
+            mountainsX: this.mountains.tilePositionX,
+            treesX: this.trees.tilePositionX,
+            tankerX: this.player.x
+          });
+        }
     }
 
     var movement = this.input.keyboard.addKeys({
@@ -173,7 +175,7 @@ export default class Level1 extends Phaser.Scene {
         b.body.bounce.setTo(1,1);
 
         if(b.active) {
-          if(this.bounceCount >= 5){
+          if(this.bounceCount >= 4){
             this.bulletPresent = false
             b.setActive(false);
             b.disableBody(true, true);
@@ -227,11 +229,17 @@ export default class Level1 extends Phaser.Scene {
   shootPlayer(bullet, player){
     this.player.disableBody(true, true);
     this.cannon.disableBody(true, true);
-    this.scene.start('Level1End', {
-        shotCount: 100,
-        backgroundX: this.background.tilePositionX,
-        mountainsX: this.mountains.tilePositionX,
-        treesX: this.trees.tilePositionX,
+    console.log('this')
+    this.scene.start('Section1End', {
+      currentLevel: this.currentLevel,
+      shotCount: 100,
+      threeStar: this.threeStar,
+      twoStar: this.twoStar,
+      oneStar: this.oneStar,
+      backgroundX: this.background.tilePositionX,
+      mountainsX: this.mountains.tilePositionX,
+      treesX: this.trees.tilePositionX,
+      tankerX: this.player.x
       });
   }
   bulletBounce(){
