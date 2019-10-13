@@ -187,18 +187,12 @@ export default class Level1 extends Phaser.Scene {
     this.bullets.children.each(
       function(b){
         if(b.active) {
+          this.physics.add.overlap(b, this.player, this.shootPlayer, null, this);
+          this.physics.add.overlap(b, this.cannon, this.shootPlayer, null, this);
           this.physics.add.overlap(b, this.squirrels, this.shootSquirrel, null, this);
           if(b.y < 0 || b.y > 600 || b.x < 0 || b.x > 800){
             b.setActive(false);
           }
-        }
-      }.bind(this)
-    );
-    this.bullets.children.each(
-      function(b){
-        if(b.active) {
-          this.physics.add.overlap(b, this.player, this.shootPlayer, null, this);
-          this.physics.add.overlap(b, this.cannon, this.shootPlayer, null, this);
         }
       }.bind(this)
     );
@@ -229,7 +223,6 @@ export default class Level1 extends Phaser.Scene {
   shootPlayer(bullet, player){
     this.player.disableBody(true, true);
     this.cannon.disableBody(true, true);
-    console.log('this')
     this.scene.start('Section1End', {
       currentLevel: this.currentLevel,
       shotCount: 100,

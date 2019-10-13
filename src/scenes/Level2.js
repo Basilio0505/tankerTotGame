@@ -112,19 +112,20 @@ export default class Level2 extends Phaser.Scene {
     // Update the scene
 
     if (this.squirrels.getLength() == 0) {
-      this.scene.start('Section1End', {
-        currentLevel: this.currentLevel,
-        shotCount: this.shotCount,
-        threeStar: this.threeStar,
-        twoStar: this.twoStar,
-        oneStar: this.oneStar,
-        backgroundX: this.background.tilePositionX,
-        mountainsX: this.mountains.tilePositionX,
-        treesX: this.trees.tilePositionX,
-        tankerX: this.player.x
-      });
+      if (this.bulletPresent == false){
+        this.scene.start('Section1End', {
+            currentLevel: this.currentLevel,
+            shotCount: this.shotCount,
+            threeStar: this.threeStar,
+            twoStar: this.twoStar,
+            oneStar: this.oneStar,
+            backgroundX: this.background.tilePositionX,
+            mountainsX: this.mountains.tilePositionX,
+            treesX: this.trees.tilePositionX,
+            tankerX: this.player.x
+          });
+        }
     }
-
     var movement = this.input.keyboard.addKeys({
       w:Phaser.Input.Keyboard.KeyCodes.W,
       s:Phaser.Input.Keyboard.KeyCodes.S,
@@ -169,6 +170,8 @@ export default class Level2 extends Phaser.Scene {
         b.body.bounce.setTo(1,1);
 
         if(b.active) {
+          this.physics.add.overlap(b, this.player, this.shootPlayer, null, this);
+          this.physics.add.overlap(b, this.cannon, this.shootPlayer, null, this);
           if(this.bounceCount >= 5){
             b.setActive(false);
             b.disableBody(true, true);
@@ -200,11 +203,24 @@ export default class Level2 extends Phaser.Scene {
     bullet.body.allowGravity = false;
     bullet.setAngle(Phaser.Math.RAD_TO_DEG * angle);
     bullet
-      .enableBody(true, this.player.x, this.player.y, true, true)
+      .enableBody(true, this.player.x + (Math.cos(angle) * 45), this.player.y + (Math.sin(angle) * 45), true, true)
       .setVelocity(velocity.x, velocity.y);
     this.shotCount += 1;
     console.log(this.shotCount);
     this.sound.play('shot');
+  }
+  shootPlayer(bullet, player){
+    this.scene.start('Section1End', {
+      currentLevel: this.currentLevel,
+      shotCount: 100,
+      threeStar: this.threeStar,
+      twoStar: this.twoStar,
+      oneStar: this.oneStar,
+      backgroundX: this.background.tilePositionX,
+      mountainsX: this.mountains.tilePositionX,
+      treesX: this.trees.tilePositionX,
+      tankerX: this.player.x
+      });
   }
   shootSquirrel(bullet, squirrel){
     squirrel.disableBody(true, true);
