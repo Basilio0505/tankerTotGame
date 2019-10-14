@@ -1,32 +1,28 @@
 /*global Phaser*/
-export default class Section2End extends Phaser.Scene {
+export default class Section3End extends Phaser.Scene {
   constructor () {
-    super('Section2End');
+    super('Section3End');
   }
 
   init (data) {
     // Initialization code goes here
     this.currentLevel = data.currentLevel;
     this.shotCount = data.shotCount;
-    this.threeStar = 1;
+    this.threeStar = data.threeStar;
     this.twoStar = data.twoStar;
     this.oneStar = data. oneStar;
     this.backgroundX = data.backgroundX;
-    this.dunes1X = data.dunes1X,
-    this.dunes2X = data.dunes2X,
-    this.dunes3X = data.dunes3X,
-    this.dunes4X = data.dunes4X,
+    this.mountainsX = data.mountainsX;
+    this.treesX = data.treesX;
     this.tankerX = data.tankerX;
   }
 
   preload () {
     // Preload assets
-
-    this.load.image('background','./assets/Environment/background.png');
-    this.load.image('dunes1','./assets/Environment/dunes1.png');
-    this.load.image('dunes2','./assets/Environment/dunes2.png');
-    this.load.image('dunes3','./assets/Environment/dunes3.png');
-    this.load.image('dunes4','./assets/Environment/dunes4.png');
+    console.log('her')
+    this.load.image('background','./assets/background.png');
+    this.load.image('mountains','./assets/mountains.png');
+    this.load.image('trees','./assets/trees.png');
     this.load.image('hwall', './assets/Environment/horizontalWall.png');
     this.load.image('vwall', './assets/Environment/verticalWall.png');
     this.load.image('woodPlatform', './assets/smallWoodPlat.png');
@@ -56,14 +52,11 @@ export default class Section2End extends Phaser.Scene {
 
     //Add background
     this.background = this.add.tileSprite(this.centerX,this.centerY,0,0, 'background');
-    this.dunes1 = this.add.tileSprite(this.centerX,this.centerY+20,0,0, 'dunes1');
-    this.dunes2 = this.add.tileSprite(this.centerX,this.centerY+30,0,0, 'dunes2');
-    this.dunes3 = this.add.tileSprite(this.centerX,this.centerY+40,0,0, 'dunes3');
-    this.dunes4 = this.add.tileSprite(this.centerX,this.centerY+50,0,0, 'dunes4');
-    this.dunes1.tilePositionX = this.dunes1X;
-    this.dunes2.tilePositionX = this.dunes2X;
-    this.dunes3.tilePositionX = this.dunes3X;
-    this.dunes4.tilePositionX = this.dunes4X;
+    this.mountains = this.add.tileSprite(this.centerX,this.centerY+100,0,0, 'mountains');
+    this.trees = this.add.tileSprite(this.centerX,this.centerY+150,0,0, 'trees');
+    this.background.tilePositionX = this.backgroundX;
+    this.mountains.tilePositionX = this.mountainsX;
+    this.trees.tilePositionX = this.treesX;
     this.player = this.physics.add.sprite(this.tankerX, 540, 'tankertot');
     this.cannon = this.physics.add.sprite(this.tankerX, 540, 'cannon');
     this.walls = this.physics.add.staticGroup();

@@ -30,6 +30,7 @@ export default class Level1 extends Phaser.Scene {
     //All to be replaced
     this.load.image('hwall', './assets/Environment/horizontalWall.png');
     this.load.image('vwall', './assets/Environment/verticalWall.png');
+    this.load.image('shield', './assets/shield.png');
     //this.load.image('gate', './assets/Environment/gate.png');
     this.load.image('rocket', './assets/rocket.png');
     this.load.image('speedy','./assets/speedySquirrel.png');
@@ -73,6 +74,7 @@ export default class Level1 extends Phaser.Scene {
 
     //create platforms and hitboxes
     this.platforms = this.physics.add.staticGroup();
+    this.shields = this.physics.add.staticGroup();
 
     this.platforms.create(400, 520, "woodPlatform").setScale(1.5).refreshBody();
     this.platforms.create(400, 200, "woodPlatform").setScale(1.5).refreshBody();
@@ -80,7 +82,7 @@ export default class Level1 extends Phaser.Scene {
 
     this.physics.add.collider(this.player, this.platforms);
     this.physics.add.collider(this.cannon, this.platforms);
-
+    this.shields.create(370, 315, "shield").setScale(.1).refreshBody();
     //place enemy squirrels
     this.squirrels = this.physics.add.group();
     this.physics.add.collider(this.squirrels, this.walls);
@@ -104,7 +106,6 @@ export default class Level1 extends Phaser.Scene {
         var betweenPoints = Phaser.Math.Angle.BetweenPoints;
         var angle = Phaser.Math.RAD_TO_DEG * betweenPoints(this.cannon, pointer);
         this.cannon.setAngle(angle);
-        //console.log(angle)
       }, this
     );
 
@@ -187,6 +188,8 @@ export default class Level1 extends Phaser.Scene {
     this.bullets.children.each(
       function(b){
         if(b.active) {
+          this.physics.add.overlap(b, this.shields, this.bulletAbsorb, null, this);
+
           this.physics.add.overlap(b, this.player, this.shootPlayer, null, this);
           this.physics.add.overlap(b, this.cannon, this.shootPlayer, null, this);
           this.physics.add.overlap(b, this.squirrels, this.shootSquirrel, null, this);
@@ -210,7 +213,6 @@ export default class Level1 extends Phaser.Scene {
     bullet
       .enableBody(true, this.player.x + (Math.cos(angle) * 45), this.player.y + (Math.sin(angle) * 45), true, true)
       .setVelocity(velocity.x, velocity.y);
-    console.log(Math.cos(angle))
     this.shotCount += 1;
     this.sound.play('shot');
     this.bulletPresent = true
@@ -234,6 +236,10 @@ export default class Level1 extends Phaser.Scene {
       treesX: this.trees.tilePositionX,
       tankerX: this.player.x
       });
+  }
+  bulletAbsorb(bullet, object){
+    bullet.disableBody(true, true)
+    this.sound.play('bounce');
   }
   bulletBounce(){
     this.bounceCount += 1;

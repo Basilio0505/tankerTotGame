@@ -34,7 +34,6 @@ export default class TitleScene extends Phaser.Scene {
 
     this.music.play();
 
-    console.log('car')
     var tankertot = this.add.image(this.centerX, this.centerY, 'image');
     tankertot.scaleX = 0.1;
     tankertot.scaleY = 0.1;
