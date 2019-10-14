@@ -118,15 +118,17 @@ export default class Level2 extends Phaser.Scene {
     if (this.squirrels.getLength() == 0) {
       console.log(this.bulletPresent)
       if (this.bulletPresent == false){
-        this.scene.start('Section1End', {
+        this.scene.start('Section2End', {
             currentLevel: this.currentLevel,
             shotCount: this.shotCount,
             threeStar: this.threeStar,
             twoStar: this.twoStar,
             oneStar: this.oneStar,
             backgroundX: this.background.tilePositionX,
-            mountainsX: this.mountains.tilePositionX,
-            treesX: this.trees.tilePositionX,
+            dunes1X: this.dunes1.tilePositionX,
+            dunes2X: this.dunes2.tilePositionX,
+            dunes3X: this.dunes3.tilePositionX,
+            dunes4X: this.dunes4.tilePositionX,
             tankerX: this.player.x
           });
         }
@@ -227,8 +229,10 @@ export default class Level2 extends Phaser.Scene {
       twoStar: this.twoStar,
       oneStar: this.oneStar,
       backgroundX: this.background.tilePositionX,
-      mountainsX: this.mountains.tilePositionX,
-      treesX: this.trees.tilePositionX,
+      dunes1X: this.dunes1.tilePositionX,
+      dunes2X: this.dunes2.tilePositionX,
+      dunes3X: this.dunes3.tilePositionX,
+      dunes4X: this.dunes4.tilePositionX,
       tankerX: this.player.x
       });
   }
