@@ -16,7 +16,7 @@ class Game extends Phaser.Game {
     this.scene.add('Section1End', Section1End);
     this.scene.add('Section2End', Section2End);
     this.scene.add('TestScene0', TestScene0);
-    this.scene.start('Title');
+    this.scene.start('TestScene0');
   }
 }
 
