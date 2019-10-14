@@ -25,8 +25,10 @@ export default class Level2 extends Phaser.Scene {
     //Environment
     this.load.image('ground', './assets/Environment/groundGrass.png');
     this.load.image('background','./assets/Environment/background.png');
-    this.load.image('mountains','./assets/Environment/mountains.png');
-    this.load.image('trees','./assets/Environment/trees.png');
+    this.load.image('dunes1','./assets/Environment/dunes1.png');
+    this.load.image('dunes2','./assets/Environment/dunes2.png');
+    this.load.image('dunes3','./assets/Environment/dunes3.png');
+    this.load.image('dunes4','./assets/Environment/dunes4.png');
     this.load.image('woodPlatform', './assets/smallWoodPlat.png');
     this.load.image('wideWoodPlat', './assets/wideWoodPlat.png');
 
@@ -51,8 +53,10 @@ export default class Level2 extends Phaser.Scene {
   create (data) {
     //Create the scene
     this.background = this.add.tileSprite(this.centerX,this.centerY,0,0, 'background');
-    this.mountains = this.add.tileSprite(this.centerX,this.centerY+100,0,0, 'mountains');
-    this.trees = this.add.tileSprite(this.centerX,this.centerY+150,0,0, 'trees');
+    this.dunes1 = this.add.tileSprite(this.centerX,this.centerY+20,0,0, 'dunes1');
+    this.dunes2 = this.add.tileSprite(this.centerX,this.centerY+30,0,0, 'dunes2');
+    this.dunes3 = this.add.tileSprite(this.centerX,this.centerY+40,0,0, 'dunes3');
+    this.dunes4 = this.add.tileSprite(this.centerX,this.centerY+50,0,0, 'dunes4');
     this.player = this.physics.add.sprite(60, 540, 'tankertot');
     this.cannon = this.physics.add.sprite(60, 540, 'cannon');
 
@@ -112,15 +116,17 @@ export default class Level2 extends Phaser.Scene {
     // Update the scene
     if (this.squirrels.getLength() == 0) {
       if (this.bulletPresent == false){
-        this.scene.start('Section1End', {
+        this.scene.start('Section2End', {
             currentLevel: this.currentLevel,
             shotCount: this.shotCount,
             threeStar: this.threeStar,
             twoStar: this.twoStar,
             oneStar: this.oneStar,
             backgroundX: this.background.tilePositionX,
-            mountainsX: this.mountains.tilePositionX,
-            treesX: this.trees.tilePositionX,
+            dunes1X: this.dunes1.tilePositionX,
+            dunes2X: this.dunes2.tilePositionX,
+            dunes3X: this.dunes3.tilePositionX,
+            dunes4X: this.dunes4.tilePositionX,
             tankerX: this.player.x
           });
         }
@@ -137,8 +143,10 @@ export default class Level2 extends Phaser.Scene {
       this.cannon.setVelocityX(-200);
       if(this.player.x > 100){
         this.background.tilePositionX -= 0.1;
-        this.mountains.tilePositionX -= 0.2;
-        this.trees.tilePositionX -= 0.3;
+        this.dunes1.tilePositionX -= 0.15;
+        this.dunes2.tilePositionX -= 0.2;
+        this.dunes3.tilePositionX -= 0.25;
+        this.dunes4.tilePositionX -= 0.3;
       };
       //this.player.body.velocity.x -= speed;
     } else if(movement.d.isDown){
@@ -146,8 +154,10 @@ export default class Level2 extends Phaser.Scene {
       this.cannon.setVelocityX(200);
       if(this.player.x < 700){
         this.background.tilePositionX += 0.1;
-        this.mountains.tilePositionX += 0.2;
-        this.trees.tilePositionX += 0.3;
+        this.dunes1.tilePositionX += 0.15;
+        this.dunes2.tilePositionX += 0.2;
+        this.dunes3.tilePositionX += 0.25;
+        this.dunes4.tilePositionX += 0.3;
       };
       //this.player.body.velocity.x += speed;
     } else{
@@ -210,15 +220,17 @@ export default class Level2 extends Phaser.Scene {
     this.sound.play('shot');
   }
   shootPlayer(bullet, player){
-    this.scene.start('Section1End', {
+    this.scene.start('Section2End', {
       currentLevel: this.currentLevel,
       shotCount: 100,
       threeStar: this.threeStar,
       twoStar: this.twoStar,
       oneStar: this.oneStar,
       backgroundX: this.background.tilePositionX,
-      mountainsX: this.mountains.tilePositionX,
-      treesX: this.trees.tilePositionX,
+      dunes1X: this.dunes1.tilePositionX,
+      dunes2X: this.dunes2.tilePositionX,
+      dunes3X: this.dunes3.tilePositionX,
+      dunes4X: this.dunes4.tilePositionX,
       tankerX: this.player.x
       });
   }
