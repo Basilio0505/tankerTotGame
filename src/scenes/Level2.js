@@ -222,7 +222,7 @@ export default class Level2 extends Phaser.Scene {
     this.sound.play('shot');
   }
   shootPlayer(bullet, player){
-    this.scene.start('Section1End', {
+    this.scene.start('Section2End', {
       currentLevel: this.currentLevel,
       shotCount: 100,
       threeStar: this.threeStar,

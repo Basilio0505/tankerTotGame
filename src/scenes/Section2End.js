@@ -12,8 +12,10 @@ export default class Section2End extends Phaser.Scene {
     this.twoStar = data.twoStar;
     this.oneStar = data. oneStar;
     this.backgroundX = data.backgroundX;
-    this.mountainsX = data.mountainsX;
-    this.treesX = data.treesX;
+    this.dunes1X = data.dunes1X,
+    this.dunes2X = data.dunes2X,
+    this.dunes3X = data.dunes3X,
+    this.dunes4X = data.dunes4X,
     this.tankerX = data.tankerX;
   }
 
@@ -58,6 +60,10 @@ export default class Section2End extends Phaser.Scene {
     this.dunes2 = this.add.tileSprite(this.centerX,this.centerY+30,0,0, 'dunes2');
     this.dunes3 = this.add.tileSprite(this.centerX,this.centerY+40,0,0, 'dunes3');
     this.dunes4 = this.add.tileSprite(this.centerX,this.centerY+50,0,0, 'dunes4');
+    this.dunes1.tilePositionX = this.dunes1X;
+    this.dunes2.tilePositionX = this.dunes2X;
+    this.dunes3.tilePositionX = this.dunes3X;
+    this.dunes4.tilePositionX = this.dunes4X;
     this.player = this.physics.add.sprite(this.tankerX, 540, 'tankertot');
     this.cannon = this.physics.add.sprite(this.tankerX, 540, 'cannon');
     this.walls = this.physics.add.staticGroup();
