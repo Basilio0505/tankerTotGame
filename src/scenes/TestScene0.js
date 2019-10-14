@@ -23,6 +23,13 @@ export default class TestScene0 extends Phaser.Scene {
     this.load.image('trees','./assets/Environment/trees.png');
     this.load.image('woodPlatform', './assets/smallWoodPlat.png');
 
+    //#########################################################################
+    this.load.spritesheet('breakable', './assets/smallWoodPlat_Breakable.png', {
+      frameHeight: 32,
+      frameWidth: 64
+    });
+    //###########################################################################
+
     //All to be replaced
     this.load.image('hwall', './assets/Environment/horizontalWall.png');
     this.load.image('vwall', './assets/Environment/verticalWall.png');
@@ -51,10 +58,6 @@ export default class TestScene0 extends Phaser.Scene {
     var bulletPresent = false;
     //this.cannon.body.allowGravity = false;
 
-    //this.container = this.add.container();
-    //this.container.add(this.player);
-    //this.container.add(this.cannon);
-
     this.player.setCollideWorldBounds(true);
     this.physics.world.setBounds(0, 0, 800, 600);
 
@@ -73,6 +76,7 @@ export default class TestScene0 extends Phaser.Scene {
     this.platforms.create(400, 520, "woodPlatform").setScale(1.5).refreshBody();
     this.platforms.create(400, 200, "woodPlatform").setScale(1.5).refreshBody();
     this.platforms.create(400, 365, "woodPlatform").setScale(1.5).refreshBody();
+
 
     this.physics.add.collider(this.player, this.platforms);
     this.physics.add.collider(this.cannon, this.platforms);
@@ -93,6 +97,28 @@ export default class TestScene0 extends Phaser.Scene {
       defaultKey: "bullet",
       maxSize: 1
     });
+
+
+
+    //################################################################################3
+    this.breakable = this.physics.add.staticGroup({
+      key: 'breakable',
+      repeat: 2,
+      setXY:{
+        x: 100,
+        y: 100,
+        stepX: 100
+      }
+    });
+
+      this.breakable.children.each(
+      function(b){
+        b.setScale(1.5);
+      });
+    this.physics.add.collider(this.player, this.breakable);
+    this.physics.add.collider(this.cannon, this.breakable);
+
+    //################################################################################
 
     this.input.on(
       "pointermove",
@@ -167,6 +193,9 @@ export default class TestScene0 extends Phaser.Scene {
         b.setScale(2);
         this.physics.add.collider(b, this.walls, this.bulletBounce, null, this);
         this.physics.add.collider(b, this.platforms, this.bulletBounce, null, this);
+        //##########################################################################
+        this.physics.add.collider(b, this.breakable, this.bulletBounce, null, this);
+        //##########################################################################
 
         b.body.bounce.setTo(1,1);
 
