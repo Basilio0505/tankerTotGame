@@ -50,14 +50,14 @@ export default class Level3 extends Phaser.Scene {
     this.background = this.add.tileSprite(this.centerX,this.centerY,0,0, 'background');
     this.mountains = this.add.tileSprite(this.centerX,this.centerY+100,0,0, 'mountains');
     this.trees = this.add.tileSprite(this.centerX,this.centerY+150,0,0, 'trees');
-    //this.player = this.physics.add.sprite(60, 540, 'tankertot');
-    //this.cannon = this.physics.add.sprite(60, 540, 'cannon');
+    this.player = this.physics.add.sprite(60, 540, 'tankertot');
+    this.cannon = this.physics.add.sprite(60, 540, 'cannon');
     var bulletPresent = false;
     //this.cannon.body.allowGravity = false;
 
-    //this.container = this.add.container();
-    //this.container.add(this.player);
-    //this.container.add(this.cannon);
+    this.container = this.add.container();
+    this.container.add(this.player);
+    this.container.add(this.cannon);
 
     this.player.setCollideWorldBounds(true);
     this.physics.world.setBounds(0, 0, 800, 600);
