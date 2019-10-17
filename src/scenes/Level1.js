@@ -51,8 +51,8 @@ export default class Level1 extends Phaser.Scene {
     this.background = this.add.tileSprite(this.centerX,this.centerY,0,0, 'background');
     this.mountains = this.add.tileSprite(this.centerX,this.centerY+100,0,0, 'mountains');
     this.trees = this.add.tileSprite(this.centerX,this.centerY+150,0,0, 'trees');
-    this.player = this.physics.add.sprite(60, 540, 'tankertot');
-    this.cannon = this.physics.add.sprite(60, 540, 'cannon');
+    this.player = this.matter.add.sprite(60, 540, 'tankertot');
+    this.cannon = this.matter.add.sprite(60, 540, 'cannon');
     var bulletPresent = false;
     //this.cannon.body.allowGravity = false;
 
@@ -61,41 +61,41 @@ export default class Level1 extends Phaser.Scene {
     //this.container.add(this.cannon);
 
     this.player.setCollideWorldBounds(true);
-    this.physics.world.setBounds(0, 0, 800, 600);
+    this.matter.world.setBounds(0, 0, 800, 600);
 
-    this.walls = this.physics.add.staticGroup();
-    this.walls.create(16,16, 'vwall');
-    this.walls.create(784,16, 'vwall');
-    this.walls.create(16,16, 'hwall');
-    this.walls.create(16,584, 'ground');
+    //this.walls = this.matter.add.staticGroup();
+    //this.walls.create(16,16, 'vwall');
+    //this.walls.create(784,16, 'vwall');
+    //this.walls.create(16,16, 'hwall');
+    //this.walls.create(16,584, 'ground');
 
-    this.physics.add.collider(this.player, this.walls);
-    this.physics.add.collider(this.cannon, this.walls);
+    //this.matter.add.collider(this.player, this.walls);
+    //this.matter.add.collider(this.cannon, this.walls);
 
     //create platforms and hitboxes
-    this.platforms = this.physics.add.staticGroup();
-    this.shields = this.physics.add.staticGroup();
+    //this.platforms = this.matter.add.staticGroup();
+    //this.shields = this.matter.add.staticGroup();
 
-    this.platforms.create(400, 520, "woodPlatform").setScale(1.5).refreshBody();
-    this.platforms.create(400, 200, "woodPlatform").setScale(1.5).refreshBody();
-    this.platforms.create(400, 365, "woodPlatform").setScale(1.5).refreshBody();
+    //this.platforms.create(400, 520, "woodPlatform").setScale(1.5).refreshBody();
+    //this.platforms.create(400, 200, "woodPlatform").setScale(1.5).refreshBody();
+    //this.platforms.create(400, 365, "woodPlatform").setScale(1.5).refreshBody();
 
-    this.physics.add.collider(this.player, this.platforms);
-    this.physics.add.collider(this.cannon, this.platforms);
-    this.shields.create(370, 315, "shield").setScale(.1).refreshBody();
+    //this.matter.add.collider(this.player, this.platforms);
+    //this.matter.add.collider(this.cannon, this.platforms);
+    //this.shields.create(370, 315, "shield").setScale(.1).refreshBody();
     //place enemy squirrels
-    this.squirrels = this.physics.add.group();
-    this.physics.add.collider(this.squirrels, this.walls);
-    this.physics.add.collider(this.squirrels, this.platforms);
-    this.squirrels.create(395, 455, "squirrel").setScale(.8)
-    this.squirrels.create(411, 135, "speedy").setScale(5)
-    this.squirrels.create(411, 300, "tanky").setScale(5)
+    //this.squirrels = this.matter.add.group();
+    //this.matter.add.collider(this.squirrels, this.walls);
+    //this.matter.add.collider(this.squirrels, this.platforms);
+    //this.squirrels.create(395, 455, "squirrel").setScale(.8)
+    //this.squirrels.create(411, 135, "speedy").setScale(5)
+    //this.squirrels.create(411, 300, "tanky").setScale(5)
 
     //this.gameOver = false;
     this.bounceCount = 0;
     this.bulletspeed = 400;
 
-    this.bullets = this.physics.add.group({
+    this.bullets = this.matter.add.group({
       defaultKey: "bullet",
       maxSize: 1
     });
@@ -170,8 +170,8 @@ export default class Level1 extends Phaser.Scene {
       function(b){
         //var bounceCount = 0;
         b.setScale(2);
-        this.physics.add.collider(b, this.walls, this.bulletBounce, null, this);
-        this.physics.add.collider(b, this.platforms, this.bulletBounce, null, this);
+        this.matter.add.collider(b, this.walls, this.bulletBounce, null, this);
+        this.matter.add.collider(b, this.platforms, this.bulletBounce, null, this);
 
         b.body.bounce.setTo(1,1);
 
@@ -188,11 +188,11 @@ export default class Level1 extends Phaser.Scene {
     this.bullets.children.each(
       function(b){
         if(b.active) {
-          this.physics.add.overlap(b, this.shields, this.bulletAbsorb, null, this);
+          this.matter.add.overlap(b, this.shields, this.bulletAbsorb, null, this);
 
-          this.physics.add.overlap(b, this.player, this.shootPlayer, null, this);
-          this.physics.add.overlap(b, this.cannon, this.shootPlayer, null, this);
-          this.physics.add.overlap(b, this.squirrels, this.shootSquirrel, null, this);
+          this.matter.add.overlap(b, this.player, this.shootPlayer, null, this);
+          this.matter.add.overlap(b, this.cannon, this.shootPlayer, null, this);
+          this.matter.add.overlap(b, this.squirrels, this.shootSquirrel, null, this);
           if(b.y < 0 || b.y > 600 || b.x < 0 || b.x > 800){
             b.setActive(false);
           }
@@ -204,7 +204,7 @@ export default class Level1 extends Phaser.Scene {
   shoot(pointer){
     var betweenPoints = Phaser.Math.Angle.BetweenPoints;
     var angle = betweenPoints(this.player, pointer);
-    var velocityFromRotation = this.physics.velocityFromRotation;
+    var velocityFromRotation = this.matter.velocityFromRotation;
     var velocity = new Phaser.Math.Vector2();
     velocityFromRotation(angle, this.bulletspeed, velocity);
     var bullet = this.bullets.get();
@@ -244,5 +244,18 @@ export default class Level1 extends Phaser.Scene {
   bulletBounce(){
     this.bounceCount += 1;
     this.sound.play('bounce');
+  }
+
+  createplat(platform,label,angle){
+    this.matter.add.gameObject(platform,{
+      label: label,
+      shape: {type: 'rectangle', width: platform.width, height: platform.height},
+      isStatic: true,
+      ignoreGravity: true,
+      angle: angle,
+      restitution: 1,
+      collisionFilter: platforms
+
+    });
   }
 }
