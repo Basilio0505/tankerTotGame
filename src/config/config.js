@@ -11,10 +11,10 @@ export default {
   height: 600,
   physics: {
     default: 'matter',
-    arcade: {
-        gravity: { y: 200 },
-        debug: true
-    },
+    //arcade: {
+        //gravity: { y: 200 },
+        //debug: true
+    //},
     matter: {
       debug: true,
       gravity: {y: 0.5}

@@ -51,23 +51,27 @@ export default class Level1 extends Phaser.Scene {
     this.background = this.add.tileSprite(this.centerX,this.centerY,0,0, 'background');
     this.mountains = this.add.tileSprite(this.centerX,this.centerY+100,0,0, 'mountains');
     this.trees = this.add.tileSprite(this.centerX,this.centerY+150,0,0, 'trees');
-    this.player = this.matter.add.sprite(60, 540, 'tankertot');
-    this.cannon = this.matter.add.sprite(60, 540, 'cannon');
-    var bulletPresent = false;
+    this.player = this.matter.add.image(60, 530, 'tankertot', null, {friction:0});//,{
+      //label: 'player',
+      //shape: 'rectangle',
+      //isStatic: false
+    //});
+    //this.cannon = this.matter.add.image(60, 540, 'cannon');
+    //var bulletPresent = false;
     //this.cannon.body.allowGravity = false;
 
     //this.container = this.add.container();
     //this.container.add(this.player);
     //this.container.add(this.cannon);
 
-    this.player.setCollideWorldBounds(true);
-    this.matter.world.setBounds(0, 0, 800, 600);
+    //this.player.setCollideWorldBounds(true);
+    //this.matter.world.setBounds(0, 0, 800, 600);
 
     //this.walls = this.matter.add.staticGroup();
-    //this.walls.create(16,16, 'vwall');
-    //this.walls.create(784,16, 'vwall');
-    //this.walls.create(16,16, 'hwall');
-    //this.walls.create(16,584, 'ground');
+    this.matter.add.image(16,16, 'vwall', null, { isStatic: true });
+    this.matter.add.image(784,16, 'vwall', null, { isStatic: true });
+    this.matter.add.image(16,16, 'hwall', null, { isStatic: true });
+    this.matter.add.image(16,584, 'ground', null, { isStatic: true, friction: 0 });
 
     //this.matter.add.collider(this.player, this.walls);
     //this.matter.add.collider(this.cannon, this.walls);
@@ -92,45 +96,45 @@ export default class Level1 extends Phaser.Scene {
     //this.squirrels.create(411, 300, "tanky").setScale(5)
 
     //this.gameOver = false;
-    this.bounceCount = 0;
-    this.bulletspeed = 400;
+    //this.bounceCount = 0;
+    //this.bulletspeed = 400;
 
-    this.bullets = this.matter.add.group({
-      defaultKey: "bullet",
-      maxSize: 1
-    });
+    //this.bullets = this.matter.add.group({
+      //defaultKey: "bullet",
+      //maxSize: 1
+    //});
 
-    this.input.on(
-      "pointermove",
-      function(pointer){
-        var betweenPoints = Phaser.Math.Angle.BetweenPoints;
-        var angle = Phaser.Math.RAD_TO_DEG * betweenPoints(this.cannon, pointer);
-        this.cannon.setAngle(angle);
-      }, this
-    );
+    //this.input.on(
+      //"pointermove",
+      //function(pointer){
+        //var betweenPoints = Phaser.Math.Angle.BetweenPoints;
+        //var angle = Phaser.Math.RAD_TO_DEG * betweenPoints(this.cannon, pointer);
+        //this.cannon.setAngle(angle);
+      //}, this
+    //);
 
-    this.input.on("pointerdown", this.shoot, this);
-    this.shotCount = 0;
+    //this.input.on("pointerdown", this.shoot, this);
+    //this.shotCount = 0;
   }
 
   update (time, delta) {
     // Update the scene
 
-    if (this.squirrels.getLength() == 0) {
-      if (this.bulletPresent == false){
-        this.scene.start('Section1End', {
-            currentLevel: this.currentLevel,
-            shotCount: this.shotCount,
-            threeStar: this.threeStar,
-            twoStar: this.twoStar,
-            oneStar: this.oneStar,
-            backgroundX: this.background.tilePositionX,
-            mountainsX: this.mountains.tilePositionX,
-            treesX: this.trees.tilePositionX,
-            tankerX: this.player.x
-          });
-        }
-    }
+    //if (this.squirrels.getLength() == 0) {
+      //if (this.bulletPresent == false){
+        //this.scene.start('Section1End', {
+            //currentLevel: this.currentLevel,
+            //shotCount: this.shotCount,
+            //threeStar: this.threeStar,
+            //twoStar: this.twoStar,
+            //oneStar: this.oneStar,
+            //backgroundX: this.background.tilePositionX,
+            //mountainsX: this.mountains.tilePositionX,
+            //treesX: this.trees.tilePositionX,
+            //tankerX: this.player.x
+          //});
+        //}
+    //}
 
     var movement = this.input.keyboard.addKeys({
       w:Phaser.Input.Keyboard.KeyCodes.W,
@@ -140,8 +144,8 @@ export default class Level1 extends Phaser.Scene {
     var speed = 3;
 
     if(movement.a.isDown){
-      this.player.setVelocityX(-200);
-      this.cannon.setVelocityX(-200);
+      this.player.setVelocityX(-2);
+      //this.cannon.setVelocityX(-2);
       if(this.player.x > 100){
         this.background.tilePositionX -= 0.1;
         this.mountains.tilePositionX -= 0.2;
@@ -149,8 +153,8 @@ export default class Level1 extends Phaser.Scene {
       };
       //this.player.body.velocity.x -= speed;
     } else if(movement.d.isDown){
-      this.player.setVelocityX(200);
-      this.cannon.setVelocityX(200);
+      this.player.setVelocityX(2);
+      //this.cannon.setVelocityX(2);
       if(this.player.x < 700){
         this.background.tilePositionX += 0.1;
         this.mountains.tilePositionX += 0.2;
@@ -159,103 +163,103 @@ export default class Level1 extends Phaser.Scene {
       //this.player.body.velocity.x += speed;
     } else{
       this.player.setVelocityX(0);
-      this.cannon.setVelocityX(0);
+      //this.cannon.setVelocityX(0);
     }
     //if(movement.w.isDown && this.player.body.touching.down){
       //this.player.setVelocityY(-200);
       //this.cannon.setVelocityY(-200);
     //}
 
-    this.bullets.children.each(
-      function(b){
+    //this.bullets.children.each(
+      //function(b){
         //var bounceCount = 0;
-        b.setScale(2);
-        this.matter.add.collider(b, this.walls, this.bulletBounce, null, this);
-        this.matter.add.collider(b, this.platforms, this.bulletBounce, null, this);
+        //b.setScale(2);
+        //this.matter.add.collider(b, this.walls, this.bulletBounce, null, this);
+        //this.matter.add.collider(b, this.platforms, this.bulletBounce, null, this);
 
-        b.body.bounce.setTo(1,1);
+        //b.body.bounce.setTo(1,1);
 
-        if(b.active) {
-          if(this.bounceCount >= 4){
-            this.bulletPresent = false
-            b.setActive(false);
-            b.disableBody(true, true);
-            this.bounceCount = 0;
-          }
-        }
-      }.bind(this)
-    );
-    this.bullets.children.each(
-      function(b){
-        if(b.active) {
-          this.matter.add.overlap(b, this.shields, this.bulletAbsorb, null, this);
+        //if(b.active) {
+          //if(this.bounceCount >= 4){
+            //this.bulletPresent = false
+            //b.setActive(false);
+            //b.disableBody(true, true);
+            //this.bounceCount = 0;
+          //}
+        //}
+      //}.bind(this)
+    //);
+    //this.bullets.children.each(
+      //function(b){
+        //if(b.active) {
+          //this.matter.add.overlap(b, this.shields, this.bulletAbsorb, null, this);
 
-          this.matter.add.overlap(b, this.player, this.shootPlayer, null, this);
-          this.matter.add.overlap(b, this.cannon, this.shootPlayer, null, this);
-          this.matter.add.overlap(b, this.squirrels, this.shootSquirrel, null, this);
-          if(b.y < 0 || b.y > 600 || b.x < 0 || b.x > 800){
-            b.setActive(false);
-          }
-        }
-      }.bind(this)
-    );
-  }
-
-  shoot(pointer){
-    var betweenPoints = Phaser.Math.Angle.BetweenPoints;
-    var angle = betweenPoints(this.player, pointer);
-    var velocityFromRotation = this.matter.velocityFromRotation;
-    var velocity = new Phaser.Math.Vector2();
-    velocityFromRotation(angle, this.bulletspeed, velocity);
-    var bullet = this.bullets.get();
-    bullet.body.allowGravity = false;
-    bullet.setAngle(Phaser.Math.RAD_TO_DEG * angle);
-    bullet
-      .enableBody(true, this.player.x + (Math.cos(angle) * 45), this.player.y + (Math.sin(angle) * 45), true, true)
-      .setVelocity(velocity.x, velocity.y);
-    this.shotCount += 1;
-    this.sound.play('shot');
-    this.bulletPresent = true
-  }
-  shootSquirrel(bullet, squirrel){
-    squirrel.disableBody(true, true);
-    this.squirrels.remove(squirrel);
-    this.sound.play('squirreldeath');
-  }
-  shootPlayer(bullet, player){
-    this.player.disableBody(true, true);
-    this.cannon.disableBody(true, true);
-    this.scene.start('Section1End', {
-      currentLevel: this.currentLevel,
-      shotCount: 100,
-      threeStar: this.threeStar,
-      twoStar: this.twoStar,
-      oneStar: this.oneStar,
-      backgroundX: this.background.tilePositionX,
-      mountainsX: this.mountains.tilePositionX,
-      treesX: this.trees.tilePositionX,
-      tankerX: this.player.x
-      });
-  }
-  bulletAbsorb(bullet, object){
-    bullet.disableBody(true, true)
-    this.sound.play('bounce');
-  }
-  bulletBounce(){
-    this.bounceCount += 1;
-    this.sound.play('bounce');
+          //this.matter.add.overlap(b, this.player, this.shootPlayer, null, this);
+          //this.matter.add.overlap(b, this.cannon, this.shootPlayer, null, this);
+          //this.matter.add.overlap(b, this.squirrels, this.shootSquirrel, null, this);
+          //if(b.y < 0 || b.y > 600 || b.x < 0 || b.x > 800){
+            //b.setActive(false);
+          //}
+        //}
+      //}.bind(this)
+    //);
   }
 
-  createplat(platform,label,angle){
-    this.matter.add.gameObject(platform,{
-      label: label,
-      shape: {type: 'rectangle', width: platform.width, height: platform.height},
-      isStatic: true,
-      ignoreGravity: true,
-      angle: angle,
-      restitution: 1,
-      collisionFilter: platforms
+  //shoot(pointer){
+    //var betweenPoints = Phaser.Math.Angle.BetweenPoints;
+    //var angle = betweenPoints(this.player, pointer);
+    //var velocityFromRotation = this.matter.velocityFromRotation;
+    //var velocity = new Phaser.Math.Vector2();
+    //velocityFromRotation(angle, this.bulletspeed, velocity);
+    //var bullet = this.bullets.get();
+    //bullet.body.allowGravity = false;
+    //bullet.setAngle(Phaser.Math.RAD_TO_DEG * angle);
+    //bullet
+      //.enableBody(true, this.player.x + (Math.cos(angle) * 45), this.player.y + (Math.sin(angle) * 45), true, true)
+      //.setVelocity(velocity.x, velocity.y);
+    //this.shotCount += 1;
+    //this.sound.play('shot');
+    //this.bulletPresent = true
+  //}
+  //shootSquirrel(bullet, squirrel){
+    //squirrel.disableBody(true, true);
+    //this.squirrels.remove(squirrel);
+    //this.sound.play('squirreldeath');
+  //}
+  //shootPlayer(bullet, player){
+    //this.player.disableBody(true, true);
+    //this.cannon.disableBody(true, true);
+    //this.scene.start('Section1End', {
+      //currentLevel: this.currentLevel,
+      //shotCount: 100,
+      //threeStar: this.threeStar,
+      //twoStar: this.twoStar,
+      //oneStar: this.oneStar,
+      //backgroundX: this.background.tilePositionX,
+      //mountainsX: this.mountains.tilePositionX,
+      //treesX: this.trees.tilePositionX,
+      //tankerX: this.player.x
+      //});
+  //}
+  //bulletAbsorb(bullet, object){
+    //bullet.disableBody(true, true)
+    //this.sound.play('bounce');
+  //}
+  //bulletBounce(){
+    //this.bounceCount += 1;
+    //this.sound.play('bounce');
+  //}
 
-    });
-  }
+  //createplat(platform,label,angle){
+    //this.matter.add.gameObject(platform,{
+      //label: label,
+      //shape: {type: 'rectangle', width: platform.width, height: platform.height},
+      //isStatic: true,
+      //ignoreGravity: true,
+      //angle: angle,
+      //restitution: 1,
+      //collisionFilter: platforms
+
+    //});
+  //}
 }
