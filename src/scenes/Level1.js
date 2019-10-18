@@ -51,70 +51,36 @@ export default class Level1 extends Phaser.Scene {
     this.background = this.add.tileSprite(this.centerX,this.centerY,0,0, 'background');
     this.mountains = this.add.tileSprite(this.centerX,this.centerY+100,0,0, 'mountains');
     this.trees = this.add.tileSprite(this.centerX,this.centerY+150,0,0, 'trees');
-    this.player = this.matter.add.image(60, 530, 'tankertot', null, {friction:0});//,{
-      //label: 'player',
-      //shape: 'rectangle',
-      //isStatic: false
-    //});
-    //this.cannon = this.matter.add.image(60, 540, 'cannon');
-    //var bulletPresent = false;
-    //this.cannon.body.allowGravity = false;
+    this.player = this.matter.add.image(60, 535, 'tankertot', null, {friction:0});
 
-    //this.container = this.add.container();
-    //this.container.add(this.player);
-    //this.container.add(this.cannon);
+    var bulletPresent = false;
 
-    //this.player.setCollideWorldBounds(true);
-    //this.matter.world.setBounds(0, 0, 800, 600);
-
-    //this.walls = this.matter.add.staticGroup();
     this.matter.add.image(16,16, 'vwall', null, { isStatic: true });
     this.matter.add.image(784,16, 'vwall', null, { isStatic: true });
     this.matter.add.image(16,16, 'hwall', null, { isStatic: true });
     this.matter.add.image(16,584, 'ground', null, { isStatic: true, friction: 0 });
 
-    //this.matter.add.collider(this.player, this.walls);
-    //this.matter.add.collider(this.cannon, this.walls);
+    this.matter.add.image(400, 520, "woodPlatform", null, { isStatic: true }).setScale(1.5);
+    this.matter.add.image(400, 200, "woodPlatform", null, { isStatic: true }).setScale(1.5);
+    this.matter.add.image(400, 365, "woodPlatform", null, { isStatic: true }).setScale(1.5);
 
-    //create platforms and hitboxes
-    //this.platforms = this.matter.add.staticGroup();
-    //this.shields = this.matter.add.staticGroup();
+    this.matter.add.image(370, 315, "shield", null, { isStatic: true }).setScale(.1);
 
-    //this.platforms.create(400, 520, "woodPlatform").setScale(1.5).refreshBody();
-    //this.platforms.create(400, 200, "woodPlatform").setScale(1.5).refreshBody();
-    //this.platforms.create(400, 365, "woodPlatform").setScale(1.5).refreshBody();
+    this.matter.add.image(395, 455, "squirrel").setScale(.8);
+    this.matter.add.image(411, 135, "speedy").setScale(5);
+    this.matter.add.image(411, 300, "tanky").setScale(5);
 
-    //this.matter.add.collider(this.player, this.platforms);
-    //this.matter.add.collider(this.cannon, this.platforms);
-    //this.shields.create(370, 315, "shield").setScale(.1).refreshBody();
-    //place enemy squirrels
-    //this.squirrels = this.matter.add.group();
-    //this.matter.add.collider(this.squirrels, this.walls);
-    //this.matter.add.collider(this.squirrels, this.platforms);
-    //this.squirrels.create(395, 455, "squirrel").setScale(.8)
-    //this.squirrels.create(411, 135, "speedy").setScale(5)
-    //this.squirrels.create(411, 300, "tanky").setScale(5)
+    this.gameOver = false;
+    this.bounceCount = 0;
+    this.bulletspeed = 400;
 
-    //this.gameOver = false;
-    //this.bounceCount = 0;
-    //this.bulletspeed = 400;
-
-    //this.bullets = this.matter.add.group({
+    //this.bullets = this.physics.add.group({
       //defaultKey: "bullet",
       //maxSize: 1
     //});
 
-    //this.input.on(
-      //"pointermove",
-      //function(pointer){
-        //var betweenPoints = Phaser.Math.Angle.BetweenPoints;
-        //var angle = Phaser.Math.RAD_TO_DEG * betweenPoints(this.cannon, pointer);
-        //this.cannon.setAngle(angle);
-      //}, this
-    //);
-
-    //this.input.on("pointerdown", this.shoot, this);
-    //this.shotCount = 0;
+    this.matter.events.on("pointerdown", this.shoot, this);
+    this.shotCount = 0;
   }
 
   update (time, delta) {
@@ -145,30 +111,21 @@ export default class Level1 extends Phaser.Scene {
 
     if(movement.a.isDown){
       this.player.setVelocityX(-2);
-      //this.cannon.setVelocityX(-2);
       if(this.player.x > 100){
         this.background.tilePositionX -= 0.1;
         this.mountains.tilePositionX -= 0.2;
         this.trees.tilePositionX -= 0.3;
       };
-      //this.player.body.velocity.x -= speed;
     } else if(movement.d.isDown){
       this.player.setVelocityX(2);
-      //this.cannon.setVelocityX(2);
       if(this.player.x < 700){
         this.background.tilePositionX += 0.1;
         this.mountains.tilePositionX += 0.2;
         this.trees.tilePositionX += 0.3;
       };
-      //this.player.body.velocity.x += speed;
     } else{
       this.player.setVelocityX(0);
-      //this.cannon.setVelocityX(0);
     }
-    //if(movement.w.isDown && this.player.body.touching.down){
-      //this.player.setVelocityY(-200);
-      //this.cannon.setVelocityY(-200);
-    //}
 
     //this.bullets.children.each(
       //function(b){
@@ -245,21 +202,8 @@ export default class Level1 extends Phaser.Scene {
     //bullet.disableBody(true, true)
     //this.sound.play('bounce');
   //}
-  //bulletBounce(){
-    //this.bounceCount += 1;
-    //this.sound.play('bounce');
-  //}
-
-  //createplat(platform,label,angle){
-    //this.matter.add.gameObject(platform,{
-      //label: label,
-      //shape: {type: 'rectangle', width: platform.width, height: platform.height},
-      //isStatic: true,
-      //ignoreGravity: true,
-      //angle: angle,
-      //restitution: 1,
-      //collisionFilter: platforms
-
-    //});
-  //}
+  bulletBounce(){
+    this.bounceCount += 1;
+    this.sound.play('bounce');
+  }
 }
