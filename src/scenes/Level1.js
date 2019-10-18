@@ -98,6 +98,7 @@ export default class Level1 extends Phaser.Scene {
     var cat2 = this.matter.world.nextCategory()
 
     enemy.setCollisionCategory(cat1);
+
     //this.bullets = this.physics.add.group({
       //defaultKey: "bullet",
       //maxSize: 1
