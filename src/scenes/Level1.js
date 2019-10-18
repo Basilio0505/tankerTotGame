@@ -183,6 +183,16 @@ export default class Level1 extends Phaser.Scene {
     var betweenPoints = Phaser.Math.Angle.BetweenPoints;
     var angle = betweenPoints(this.player, pointer);
     console.log(angle);
+    var bullet = this.matter.add.sprite(this.player.x + (Math.cos(angle)*45),
+    this.player.y+ (Math.sin(angle)*45),
+    'bullet',null,{
+        ignoreGravity: true,
+        collisionFilter: {group: 1},
+        isStatic: false,
+        restitution: 1
+
+    });
+    bullet.setVelocity(Math.cos(angle)*10, Math.sin(angle)*10);
     //var velocityFromRotation = this.matter.velocityFromRotation;
     //var velocity = new Phaser.Math.Vector2();
     //velocityFromRotation(angle, this.bulletspeed, velocity);
