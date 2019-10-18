@@ -93,9 +93,13 @@ export default class Level1 extends Phaser.Scene {
     });
     var enemy = this.matter.add.image(150, 100, 'squirrel').setScale(.8)
     enemy.setExistingBody(compoundBody);
-
+    
     var cat1 = this.matter.world.nextCategory()
     var cat2 = this.matter.world.nextCategory()
+
+    var block = this.matter.add.image(150, 100, 'squirrel').setScale(.8).setCollisionCategory(enemyCategory);
+
+    block.setExistingBody(compoundBody);
 
     enemy.setCollisionCategory(cat1);
 
