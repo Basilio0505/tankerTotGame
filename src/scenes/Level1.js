@@ -93,7 +93,7 @@ export default class Level1 extends Phaser.Scene {
     });
     var enemy = this.matter.add.image(150, 100, 'squirrel').setScale(.8)
     enemy.setExistingBody(compoundBody);
-    
+
     var cat1 = this.matter.world.nextCategory()
     var cat2 = this.matter.world.nextCategory()
 
@@ -106,9 +106,6 @@ export default class Level1 extends Phaser.Scene {
       //defaultKey: "bullet",
       //maxSize: 1
     //});
-
-    //this.matter.events.on("pointerdown", this.shoot, this);
-    //this.matter.addEventListener("mousedown", this.shoot(this.pointer));
     this.input.on("pointerdown", this.shoot, this);
     this.shotCount = 0;
   }
@@ -141,6 +138,7 @@ export default class Level1 extends Phaser.Scene {
 
     if(movement.a.isDown){
       this.player.setVelocityX(-2);
+      this.cannon.setVelocityX(-2);
       if(this.player.x > 100){
         this.background.tilePositionX -= 0.1;
         this.mountains.tilePositionX -= 0.2;
@@ -148,6 +146,7 @@ export default class Level1 extends Phaser.Scene {
       };
     } else if(movement.d.isDown){
       this.player.setVelocityX(2);
+      this.cannon.setVelocityX(2);
       if(this.player.x < 700){
         this.background.tilePositionX += 0.1;
         this.mountains.tilePositionX += 0.2;
@@ -155,6 +154,7 @@ export default class Level1 extends Phaser.Scene {
       };
     } else{
       this.player.setVelocityX(0);
+      this.cannon.setVelocityX(0);
     }
 
     //this.bullets.children.each(
