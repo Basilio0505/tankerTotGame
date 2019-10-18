@@ -74,6 +74,18 @@ export default class Level1 extends Phaser.Scene {
     this.bounceCount = 0;
     this.bulletspeed = 400;
 
+    var Bodies = Phaser.Physics.Matter.Matter.Bodies;
+    var rectA = Bodies.rectangle(100, 200, 40, 65.6);
+    var rectB = Bodies.rectangle(140, 200, 40, 65.6);
+    var compoundBody = Phaser.Physics.Matter.Matter.Body.create({
+        parts: [rectA, rectB]
+    });
+
+    var block = this.matter.add.image(150, 100, 'squirrel').setScale(.8);
+
+    block.setExistingBody(compoundBody);
+
+    block.setFrictionAir(0.001).setBounce(0.9);
     //this.bullets = this.physics.add.group({
       //defaultKey: "bullet",
       //maxSize: 1

@@ -17,7 +17,7 @@ export default {
     //},
     matter: {
       debug: true,
-      gravity: {y: 0.5}
+      gravity: {y: 0}
     }
   },
 pixelArt: true
