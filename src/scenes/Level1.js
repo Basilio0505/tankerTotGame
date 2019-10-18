@@ -75,8 +75,8 @@ export default class Level1 extends Phaser.Scene {
     this.bulletspeed = 400;
 
     var Bodies = Phaser.Physics.Matter.Matter.Bodies;
-    var rectA = Bodies.rectangle(100, 200, 40, 65.6);
-    var rectB = Bodies.rectangle(140, 200, 40, 65.6);
+    var rectA = Bodies.rectangle(395, 455, 40, 65.6);
+    var rectB = Bodies.rectangle(435, 455, 40, 65.6);
     var compoundBody = Phaser.Physics.Matter.Matter.Body.create({
         parts: [rectA, rectB]
     });
