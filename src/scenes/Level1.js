@@ -102,6 +102,7 @@ export default class Level1 extends Phaser.Scene {
     block.setExistingBody(compoundBody);
 
     enemy.setCollisionCategory(cat1);
+
     //this.bullets = this.physics.add.group({
       //defaultKey: "bullet",
       //maxSize: 1
