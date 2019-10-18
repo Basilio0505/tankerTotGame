@@ -77,10 +77,9 @@ export default class Level1 extends Phaser.Scene {
     var enemyCategory = this.matter.world.nextCategory();
     this.matter.add.image(370, 315, "shield", null, { isStatic: true }).setScale(.1).setCollisionCategory(enemyCategory);
 
-    this.matter.add.image(395, 455, "squirrel").setScale(.8).setCollisionCategory(enemyCategory);
     this.matter.add.image(411, 135, "speedy").setScale(5).setCollisionCategory(enemyCategory);
     this.matter.add.image(411, 300, "tanky").setScale(5).setCollisionCategory(enemyCategory);
-      
+
     var bulletPresent = false;
     this.gameOver = false;
     this.bounceCount = 0;
@@ -93,7 +92,7 @@ export default class Level1 extends Phaser.Scene {
         parts: [rectA, rectB]
     });
 
-    var block = this.matter.add.image(150, 100, 'squirrel').setScale(.8);
+    var block = this.matter.add.image(150, 100, 'squirrel').setScale(.8).setCollisionCategory(enemyCategory);
 
     block.setExistingBody(compoundBody);
 
