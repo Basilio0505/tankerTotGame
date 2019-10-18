@@ -55,10 +55,10 @@ export default class Level1 extends Phaser.Scene {
 
     var bulletPresent = false;
 
-    this.matter.add.image(16,16, 'vwall', null, { isStatic: true });
-    this.matter.add.image(784,16, 'vwall', null, { isStatic: true });
-    this.matter.add.image(16,16, 'hwall', null, { isStatic: true });
-    this.matter.add.image(16,584, 'ground', null, { isStatic: true, friction: 0 });
+    this.matter.add.image(16,16, 'vwall', null, { isStatic: true, restitution: 1 });
+    this.matter.add.image(784,16, 'vwall', null, { isStatic: true, restitution: 1 });
+    this.matter.add.image(16,16, 'hwall', null, { isStatic: true, restitution: 1 });
+    this.matter.add.image(16,584, 'ground', null, { isStatic: true, restitution: 1, friction: 0 });
 
     this.matter.add.image(400, 520, "woodPlatform", null, { isStatic: true }).setScale(1.5);
     this.matter.add.image(400, 200, "woodPlatform", null, { isStatic: true }).setScale(1.5);
@@ -175,25 +175,17 @@ export default class Level1 extends Phaser.Scene {
     var bullet = this.matter.add.sprite(this.player.x + (Math.cos(angle)*45),
     this.player.y+ (Math.sin(angle)*45),
     'bullet',null,{
+        shape: 'circle',
         ignoreGravity: true,
         collisionFilter: {group: 1},
         isStatic: false,
-        restitution: 1
-
-    });
+        restitution: 1,
+        frictionAir: 0
+    }).setScale(2);
     bullet.setVelocity(Math.cos(angle)*10, Math.sin(angle)*10);
-    //var velocityFromRotation = this.matter.velocityFromRotation;
-    //var velocity = new Phaser.Math.Vector2();
-    //velocityFromRotation(angle, this.bulletspeed, velocity);
-    //var bullet = this.bullets.get();
-    //bullet.body.allowGravity = false;
-    //bullet.setAngle(Phaser.Math.RAD_TO_DEG * angle);
-    //bullet
-      //.enableBody(true, this.player.x + (Math.cos(angle) * 45), this.player.y + (Math.sin(angle) * 45), true, true)
-      //.setVelocity(velocity.x, velocity.y);
-    //this.shotCount += 1;
-    //this.sound.play('shot');
-    //this.bulletPresent = true
+    this.shotCount += 1;
+    this.sound.play('shot');
+    this.bulletPresent = true
   }
   //shootSquirrel(bullet, squirrel){
     //squirrel.disableBody(true, true);
