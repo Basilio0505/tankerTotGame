@@ -54,7 +54,6 @@ export default class Level1 extends Phaser.Scene {
 
     this.player = this.matter.add.image(60, 535, 'tankertot', null, {friction:0});
     this.cannon = this.matter.add.image(60, 535, 'cannon', null, {friction:0});
-
     var playerCategory = this.matter.world.nextCategory();
     this.player.setCollisionCategory(playerCategory);
     this.cannon.setCollisionCategory(playerCategory);
@@ -93,7 +92,7 @@ export default class Level1 extends Phaser.Scene {
     });
     var enemy = this.matter.add.image(150, 100, 'squirrel').setScale(.8)
     enemy.setExistingBody(compoundBody);
-    
+
     var cat1 = this.matter.world.nextCategory()
     var cat2 = this.matter.world.nextCategory()
 
@@ -107,7 +106,14 @@ export default class Level1 extends Phaser.Scene {
       //defaultKey: "bullet",
       //maxSize: 1
     //});
-
+    this.input.on(
+      "pointermove",
+      function(pointer){
+        var betweenPoints = Phaser.Math.Angle.BetweenPoints;
+        var angle = Phaser.Math.RAD_TO_DEG * betweenPoints(this.cannon, pointer);
+        this.cannon.setAngle(angle);
+      }, this
+    );
     //this.matter.events.on("pointerdown", this.shoot, this);
     //this.matter.addEventListener("mousedown", this.shoot(this.pointer));
     this.input.on("pointerdown", this.shoot, this);
