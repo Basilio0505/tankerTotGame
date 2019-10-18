@@ -75,16 +75,17 @@ export default class Level1 extends Phaser.Scene {
 
     var Bodies = Phaser.Physics.Matter.Matter.Bodies;
     var rectA = Bodies.rectangle(380, 455, 40, 65.6);
-    var rectB = Bodies.rectangle(420, 455, 40, 65.6);
+    var rectB = Bodies.rectangle(421, 455, 40, 65.6);
     var compoundBody = Phaser.Physics.Matter.Matter.Body.create({
         parts: [rectA, rectB]
     });
+    var enemy = this.matter.add.image(150, 100, 'squirrel').setScale(.8)
+    enemy.setExistingBody(compoundBody);
 
-    var block = this.matter.add.image(150, 100, 'squirrel').setScale(.8);
+    var cat1 = this.matter.world.nextCategory()
+    var cat2 = this.matter.world.nextCategory()
 
-    block.setExistingBody(compoundBody);
-
-    block.setFrictionAir(0.001).setBounce(0.9);
+    enemy.setCollisionCategory(cat1);
     //this.bullets = this.physics.add.group({
       //defaultKey: "bullet",
       //maxSize: 1
@@ -176,10 +177,6 @@ export default class Level1 extends Phaser.Scene {
   }
 
   shoot(pointer){
-    console.log(pointer.x);
-    console.log(pointer.y);
-    console.log(this.player);
-    console.log(pointer);
     var betweenPoints = Phaser.Math.Angle.BetweenPoints;
     var angle = betweenPoints(this.player, pointer);
     console.log(angle);
