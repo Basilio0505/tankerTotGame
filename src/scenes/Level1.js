@@ -80,7 +80,8 @@ export default class Level1 extends Phaser.Scene {
     //});
 
     //this.matter.events.on("pointerdown", this.shoot, this);
-    this.matter.addEventListener("mousedown", this.shoot(this.pointer));
+    //this.matter.addEventListener("mousedown", this.shoot(this.pointer));
+    this.input.on("pointerdown", this.shoot, this);
     this.shotCount = 0;
   }
 
@@ -164,8 +165,12 @@ export default class Level1 extends Phaser.Scene {
   }
 
   shoot(pointer){
+    console.log(pointer.x);
+    console.log(pointer.y);
+    console.log(this.player);
+    console.log(pointer);
     var betweenPoints = Phaser.Math.Angle.BetweenPoints;
-    var angle = betweenPoints(this.player, this.pointer);
+    var angle = betweenPoints(this.player, pointer);
     console.log(angle);
     //var velocityFromRotation = this.matter.velocityFromRotation;
     //var velocity = new Phaser.Math.Vector2();
