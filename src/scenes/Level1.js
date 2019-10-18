@@ -66,7 +66,6 @@ export default class Level1 extends Phaser.Scene {
 
     this.matter.add.image(370, 315, "shield", null, { isStatic: true }).setScale(.1);
 
-    this.matter.add.image(395, 455, "squirrel").setScale(.8);
     this.matter.add.image(411, 135, "speedy").setScale(5);
     this.matter.add.image(411, 300, "tanky").setScale(5);
 
@@ -75,8 +74,8 @@ export default class Level1 extends Phaser.Scene {
     this.bulletspeed = 400;
 
     var Bodies = Phaser.Physics.Matter.Matter.Bodies;
-    var rectA = Bodies.rectangle(395, 455, 40, 65.6);
-    var rectB = Bodies.rectangle(435, 455, 40, 65.6);
+    var rectA = Bodies.rectangle(380, 455, 40, 65.6);
+    var rectB = Bodies.rectangle(420, 455, 40, 65.6);
     var compoundBody = Phaser.Physics.Matter.Matter.Body.create({
         parts: [rectA, rectB]
     });
