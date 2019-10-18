@@ -148,6 +148,7 @@ export default class Level1 extends Phaser.Scene {
 
     if(movement.a.isDown){
       this.player.setVelocityX(-2);
+      this.cannon.setVelocityX(-2);
       if(this.player.x > 100){
         this.background.tilePositionX -= 0.1;
         this.mountains.tilePositionX -= 0.2;
@@ -155,6 +156,7 @@ export default class Level1 extends Phaser.Scene {
       };
     } else if(movement.d.isDown){
       this.player.setVelocityX(2);
+      this.cannon.setVelocityX(2);
       if(this.player.x < 700){
         this.background.tilePositionX += 0.1;
         this.mountains.tilePositionX += 0.2;
@@ -162,6 +164,7 @@ export default class Level1 extends Phaser.Scene {
       };
     } else{
       this.player.setVelocityX(0);
+      this.cannon.setVelocityX(0);
     }
 
     //this.bullets.children.each(
