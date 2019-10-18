@@ -79,7 +79,8 @@ export default class Level1 extends Phaser.Scene {
       //maxSize: 1
     //});
 
-    this.matter.events.on("pointerdown", this.shoot, this);
+    //this.matter.events.on("pointerdown", this.shoot, this);
+    this.matter.addEventListener("mousedown", this.shoot(this.pointer));
     this.shotCount = 0;
   }
 
@@ -162,9 +163,10 @@ export default class Level1 extends Phaser.Scene {
     //);
   }
 
-  //shoot(pointer){
-    //var betweenPoints = Phaser.Math.Angle.BetweenPoints;
-    //var angle = betweenPoints(this.player, pointer);
+  shoot(pointer){
+    var betweenPoints = Phaser.Math.Angle.BetweenPoints;
+    var angle = betweenPoints(this.player, this.pointer);
+    console.log(angle);
     //var velocityFromRotation = this.matter.velocityFromRotation;
     //var velocity = new Phaser.Math.Vector2();
     //velocityFromRotation(angle, this.bulletspeed, velocity);
@@ -177,7 +179,7 @@ export default class Level1 extends Phaser.Scene {
     //this.shotCount += 1;
     //this.sound.play('shot');
     //this.bulletPresent = true
-  //}
+  }
   //shootSquirrel(bullet, squirrel){
     //squirrel.disableBody(true, true);
     //this.squirrels.remove(squirrel);
