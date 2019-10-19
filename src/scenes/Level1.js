@@ -44,6 +44,7 @@ export default class Level1 extends Phaser.Scene {
     // Declare variables for center of the scene
     this.centerX = this.cameras.main.width / 2;
     this.centerY = this.cameras.main.height / 2;
+
   }
 
   create (data) {
@@ -79,7 +80,7 @@ export default class Level1 extends Phaser.Scene {
     this.matter.add.image(411, 135, "speedy").setScale(5).setCollisionCategory(enemyCategory);
     this.matter.add.image(411, 300, "tanky").setScale(5).setCollisionCategory(enemyCategory);
 
-    var bulletPresent = false;
+    this.bulletPresent = false;
     this.gameOver = false;
     this.bounceCount = 0;
     this.bulletspeed = 400;
@@ -90,22 +91,12 @@ export default class Level1 extends Phaser.Scene {
     var compoundBody = Phaser.Physics.Matter.Matter.Body.create({
         parts: [rectA, rectB]
     });
-    var enemy = this.matter.add.image(150, 100, 'squirrel').setScale(.8)
-    enemy.setExistingBody(compoundBody);
-
-    var cat1 = this.matter.world.nextCategory()
-    var cat2 = this.matter.world.nextCategory()
+    //var enemy = this.matter.add.image(150, 100, 'squirrel').setScale(.8).setCollisionCategory(enemyCategory);
+    //enemy.setExistingBody(compoundBody);
 
     var block = this.matter.add.image(150, 100, 'squirrel').setScale(.8).setCollisionCategory(enemyCategory);
-
     block.setExistingBody(compoundBody);
 
-    enemy.setCollisionCategory(cat1);
-
-    //this.bullets = this.physics.add.group({
-      //defaultKey: "bullet",
-      //maxSize: 1
-    //});
     this.input.on(
       "pointermove",
       function(pointer){
@@ -114,10 +105,26 @@ export default class Level1 extends Phaser.Scene {
         this.cannon.setAngle(angle);
       }, this
     );
-    //this.matter.events.on("pointerdown", this.shoot, this);
-    //this.matter.addEventListener("mousedown", this.shoot(this.pointer));
+
     this.input.on("pointerdown", this.shoot, this);
     this.shotCount = 0;
+
+    //Decects collision of two objects
+    this.matter.world.on('collisionstart', function(event){
+      //console.log(event.pairs[0].bodyA.gameObject == block);
+      //console.log(event.pairs[0].bodyB.gameObject == this.bullet);
+      //console.log(this.bullet);
+
+      //Checks if the two objects colliding are the regular squirrel and bullet
+      if(event.pairs[0].bodyA.gameObject == block && event.pairs[0].bodyB.gameObject == this.bullet){
+        //this.shootSquirrel(block);
+        this.bullet.destroy();
+        this.bulletPresent = false;
+        block.destroy();
+        this.sound.play('squirreldeath');
+      }
+    }, this);
+
   }
 
   update (time, delta) {
@@ -206,26 +213,29 @@ export default class Level1 extends Phaser.Scene {
     var betweenPoints = Phaser.Math.Angle.BetweenPoints;
     var angle = betweenPoints(this.player, pointer);
     console.log(angle);
-    var bullet = this.matter.add.sprite(this.player.x + (Math.cos(angle)*45),
-    this.player.y+ (Math.sin(angle)*45),
-    'bullet',null,{
-        shape: 'circle',
-        ignoreGravity: true,
-        collisionFilter: {group: 1},
-        isStatic: false,
-        restitution: 1,
-        frictionAir: 0
-    }).setScale(2);
-    bullet.setVelocity(Math.cos(angle)*10, Math.sin(angle)*10);
-    this.shotCount += 1;
-    this.sound.play('shot');
-    this.bulletPresent = true
+    if(this.bulletPresent == false){
+      this.bullet = this.matter.add.sprite(this.player.x + (Math.cos(angle)*45),
+      this.player.y+ (Math.sin(angle)*45),
+      'bullet',null,{
+          shape: 'circle',
+          ignoreGravity: true,
+          collisionFilter: {group: 1},
+          isStatic: false,
+          restitution: 1,
+          frictionAir: 0
+      }).setScale(2);
+      this.bullet.setVelocity(Math.cos(angle)*10, Math.sin(angle)*10);
+      this.shotCount += 1;
+      this.sound.play('shot');
+      this.bulletPresent = true
+    }
   }
-  //shootSquirrel(bullet, squirrel){
-    //squirrel.disableBody(true, true);
+  shootSquirrel(bullet, squirrel){
+    bullet.destroy();
+    squirrel.destroy();//disableBody(true, true);
     //this.squirrels.remove(squirrel);
-    //this.sound.play('squirreldeath');
-  //}
+    this.sound.play('squirreldeath');
+  }
   //shootPlayer(bullet, player){
     //this.player.disableBody(true, true);
     //this.cannon.disableBody(true, true);

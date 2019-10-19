@@ -203,7 +203,7 @@ export default class Level2 extends Phaser.Scene {
   }
 
   shoot(pointer){
-    this.bulletPresent = true
+    this.bulletPresent = true;
     var betweenPoints = Phaser.Math.Angle.BetweenPoints;
     var angle = betweenPoints(this.player, pointer);
     var velocityFromRotation = this.physics.velocityFromRotation;
