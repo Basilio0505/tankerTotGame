@@ -66,6 +66,7 @@ export default class Level1 extends Phaser.Scene {
     this.matter.add.image(16,16, 'hwall', null, { isStatic: true }).setCollisionCategory(borderCategory);
     this.matter.add.image(16,584, 'ground', null, { isStatic: true, friction: 0 }).setCollisionCategory(borderCategory);
 
+
     var environmentCategory = this.matter.world.nextCategory();
     this.matter.add.image(400, 520, "woodPlatform", null, { isStatic: true }).setScale(1.5).setCollisionCategory(environmentCategory);
     this.matter.add.image(400, 200, "woodPlatform", null, { isStatic: true }).setScale(1.5).setCollisionCategory(environmentCategory);
@@ -75,17 +76,16 @@ export default class Level1 extends Phaser.Scene {
     this.cannon.setCollidesWith([borderCategory, environmentCategory]);
 
     var enemyCategory = this.matter.world.nextCategory();
-    this.matter.add.image(370, 315, "shield", null, { isStatic: true }).setScale(.1).setCollisionCategory(enemyCategory);
-
-    this.matter.add.image(411, 135, "speedy").setScale(5).setCollisionCategory(enemyCategory);
-    this.matter.add.image(411, 300, "tanky").setScale(5).setCollisionCategory(enemyCategory);
+    var squirrel = this.matter.add.image(420, 455, "squirrel", null, { isStatic: true }).setScale(.8).setCollisionCategory(enemyCategory).setSensor(true);
+    var speedy = this.matter.add.image(411, 135, "speedy", null, { isStatic: true }).setScale(5).setCollisionCategory(enemyCategory).setSensor(true);
+    var tanky = this.matter.add.image(411, 300, "tanky", null, { isStatic: true }).setScale(5).setCollisionCategory(enemyCategory).setSensor(true);
 
     this.bulletPresent = false;
     this.gameOver = false;
     this.bounceCount = 0;
     this.bulletspeed = 400;
 
-    var Bodies = Phaser.Physics.Matter.Matter.Bodies;
+    /*var Bodies = Phaser.Physics.Matter.Matter.Bodies;
     var rectA = Bodies.rectangle(380, 455, 40, 65.6);
     var rectB = Bodies.rectangle(421, 455, 40, 65.6);
     var compoundBody = Phaser.Physics.Matter.Matter.Body.create({
@@ -94,8 +94,8 @@ export default class Level1 extends Phaser.Scene {
     //var enemy = this.matter.add.image(150, 100, 'squirrel').setScale(.8).setCollisionCategory(enemyCategory);
     //enemy.setExistingBody(compoundBody);
 
-    var block = this.matter.add.image(150, 100, 'squirrel').setScale(.8).setCollisionCategory(enemyCategory);
-    block.setExistingBody(compoundBody);
+    var tank = this.matter.add.image(150, 100, 'squirrel').setScale(.8).setCollisionCategory(enemyCategory);
+    tank.setExistingBody(compoundBody);*/
 
     this.input.on(
       "pointermove",
@@ -114,13 +114,23 @@ export default class Level1 extends Phaser.Scene {
       //console.log(event.pairs[0].bodyA.gameObject == block);
       //console.log(event.pairs[0].bodyB.gameObject == this.bullet);
       //console.log(this.bullet);
-
-      //Checks if the two objects colliding are the regular squirrel and bullet
-      if(event.pairs[0].bodyA.gameObject == block && event.pairs[0].bodyB.gameObject == this.bullet){
+      if(event.pairs[0].bodyA.gameObject == squirrel && event.pairs[0].bodyB.gameObject == this.bullet){
         //this.shootSquirrel(block);
-        this.bullet.destroy();
         this.bulletPresent = false;
-        block.destroy();
+        squirrel.destroy();
+        this.sound.play('squirreldeath');
+      }
+      if(event.pairs[0].bodyA.gameObject == tanky && event.pairs[0].bodyB.gameObject == this.bullet){
+        //this.shootSquirrel(block);
+        this.bulletPresent = false;
+        tanky.destroy();
+        this.sound.play('squirreldeath');
+      }
+      //Checks if the two objects colliding are the regular squirrel and bullet
+      if(event.pairs[0].bodyA.gameObject == speedy && event.pairs[0].bodyB.gameObject == this.bullet){
+        //this.shootSquirrel(block);
+        this.bulletPresent = false;
+        speedy.destroy();
         this.sound.play('squirreldeath');
       }
     }, this);
@@ -231,7 +241,6 @@ export default class Level1 extends Phaser.Scene {
     }
   }
   shootSquirrel(bullet, squirrel){
-    bullet.destroy();
     squirrel.destroy();//disableBody(true, true);
     //this.squirrels.remove(squirrel);
     this.sound.play('squirreldeath');
