@@ -107,18 +107,18 @@ export default class Level1 extends Phaser.Scene {
         this.squirrelCount -= 1;
         this.sound.play('squirreldeath');
       }//Checks if the two objects colliding are the tank squirrel and bullet
-      if(event.pairs[0].bodyA.gameObject == tanky && event.pairs[0].bodyB.gameObject == this.bullet){
+      else if(event.pairs[0].bodyA.gameObject == tanky && event.pairs[0].bodyB.gameObject == this.bullet){
         tanky.destroy();
         this.squirrelCount -= 1;
         this.sound.play('squirreldeath');
       }
       //Checks if the two objects colliding are the speedy squirrel and bullet
-      if(event.pairs[0].bodyA.gameObject == speedy && event.pairs[0].bodyB.gameObject == this.bullet){
+      else if(event.pairs[0].bodyA.gameObject == speedy && event.pairs[0].bodyB.gameObject == this.bullet){
         speedy.destroy();
         this.squirrelCount -= 1;
         this.sound.play('squirreldeath');
       }
-      if(event.pairs[0].bodyA.gameObject == this.player && event.pairs[0].bodyB.gameObject == this.bullet){
+      else if(event.pairs[0].bodyA.gameObject == this.player && event.pairs[0].bodyB.gameObject == this.bullet){
         console.log("Hit Player");
         this.scene.start('Section1End', {
           currentLevel: this.currentLevel,
@@ -133,7 +133,7 @@ export default class Level1 extends Phaser.Scene {
           });
       }
       //Checks if the two objects colliding are the walls or platforms and bullet
-      if((event.pairs[0].bodyA.gameObject == plat1 ||
+      else if((event.pairs[0].bodyA.gameObject == plat1 ||
           event.pairs[0].bodyA.gameObject == plat2 ||
           event.pairs[0].bodyA.gameObject == plat3 ||
           event.pairs[0].bodyA.gameObject == ground ||
@@ -141,7 +141,9 @@ export default class Level1 extends Phaser.Scene {
           event.pairs[0].bodyA.gameObject == vwall1 ||
           event.pairs[0].bodyA.gameObject == vwall2) && event.pairs[0].bodyB.gameObject == this.bullet){
         this.bounceCount += 1;
+        this.sound.play('bounce');
       }
+
       if (this.bounceCount > 3){
         this.bullet.destroy();
         this.bulletPresent = false;
@@ -249,8 +251,8 @@ export default class Level1 extends Phaser.Scene {
     //this.sound.play('bounce');
   //}
 
-  bulletBounce(){
-    this.bounceCount += 1;
-    this.sound.play('bounce');
-  }
+  //bulletBounce(){
+  //  this.bounceCount += 1;
+    //this.sound.play('bounce');
+  //}
 }
