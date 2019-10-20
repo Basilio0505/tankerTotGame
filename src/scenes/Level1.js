@@ -11,6 +11,8 @@ export default class Level1 extends Phaser.Scene {
     this.oneStar = 5;
 
     this.currentLevel = 1;
+
+    this.squirrelCount = 3;
   }
 
   preload () {// Preload assets
@@ -80,6 +82,8 @@ export default class Level1 extends Phaser.Scene {
     var speedy = this.matter.add.image(411, 135, "speedy", null, { isStatic: true }).setScale(5).setCollisionCategory(enemyCategory).setSensor(true);
     var tanky = this.matter.add.image(411, 300, "tanky", null, { isStatic: true }).setScale(5).setCollisionCategory(enemyCategory).setSensor(true);
 
+    //this.squirrelCount = 3;
+
     this.bulletPresent = false;
     this.gameOver = false;
     this.bounceCount = 0;
@@ -111,41 +115,31 @@ export default class Level1 extends Phaser.Scene {
 
     //Decects collision of two objects
     this.matter.world.on('collisionstart', function(event){
-      //console.log(event.pairs[0].bodyA.gameObject == block);
-      //console.log(event.pairs[0].bodyB.gameObject == this.bullet);
-      //console.log(this.bullet);
+      //Checks if the two objects colliding are the regular squirrel and bullet
       if(event.pairs[0].bodyA.gameObject == squirrel && event.pairs[0].bodyB.gameObject == this.bullet){
         squirrel.destroy();
+        this.squirrelCount -= 1;
         this.sound.play('squirreldeath');
-      }
+      }//Checks if the two objects colliding are the tank squirrel and bullet
       if(event.pairs[0].bodyA.gameObject == tanky && event.pairs[0].bodyB.gameObject == this.bullet){
         tanky.destroy();
+        this.squirrelCount -= 1;
         this.sound.play('squirreldeath');
       }
-      //Checks if the two objects colliding are the regular squirrel and bullet
+      //Checks if the two objects colliding are the speedy squirrel and bullet
       if(event.pairs[0].bodyA.gameObject == speedy && event.pairs[0].bodyB.gameObject == this.bullet){
         speedy.destroy();
+        this.squirrelCount -= 1;
         this.sound.play('squirreldeath');
       }
-      if(event.pairs[0].bodyA.gameObject == vwall1 && event.pairs[0].bodyB.gameObject == this.bullet){
-        this.bounceCount += 1;
-      }
-      if(event.pairs[0].bodyA.gameObject == vwall2 && event.pairs[0].bodyB.gameObject == this.bullet){
-        this.bounceCount += 1;
-      }
-      if(event.pairs[0].bodyA.gameObject == hwall && event.pairs[0].bodyB.gameObject == this.bullet){
-        this.bounceCount += 1;
-      }
-      if(event.pairs[0].bodyA.gameObject == ground && event.pairs[0].bodyB.gameObject == this.bullet){
-        this.bounceCount += 1;
-      }
-      if(event.pairs[0].bodyA.gameObject == plat1 && event.pairs[0].bodyB.gameObject == this.bullet){
-        this.bounceCount += 1;
-      }
-      if(event.pairs[0].bodyA.gameObject == plat2 && event.pairs[0].bodyB.gameObject == this.bullet){
-        this.bounceCount += 1;
-      }
-      if(event.pairs[0].bodyA.gameObject == plat3 && event.pairs[0].bodyB.gameObject == this.bullet){
+      //Checks if the two objects colliding are the walls or platforms and bullet
+      if((event.pairs[0].bodyA.gameObject == plat1 ||
+          event.pairs[0].bodyA.gameObject == plat2 ||
+          event.pairs[0].bodyA.gameObject == plat3 ||
+          event.pairs[0].bodyA.gameObject == ground ||
+          event.pairs[0].bodyA.gameObject == hwall ||
+          event.pairs[0].bodyA.gameObject == vwall1 ||
+          event.pairs[0].bodyA.gameObject == vwall2) && event.pairs[0].bodyB.gameObject == this.bullet){
         this.bounceCount += 1;
       }
       if (this.bounceCount > 3){
@@ -160,21 +154,24 @@ export default class Level1 extends Phaser.Scene {
   update (time, delta) {
     // Update the scene
 
-    //if (this.squirrels.getLength() == 0) {
-      //if (this.bulletPresent == false){
-        //this.scene.start('Section1End', {
-            //currentLevel: this.currentLevel,
-            //shotCount: this.shotCount,
-            //threeStar: this.threeStar,
-            //twoStar: this.twoStar,
-            //oneStar: this.oneStar,
-            //backgroundX: this.background.tilePositionX,
-            //mountainsX: this.mountains.tilePositionX,
-            //treesX: this.trees.tilePositionX,
-            //tankerX: this.player.x
-          //});
-        //}
-    //}
+    //Checks if Winning Condition is met
+    if (this.squirrelCount == 0) {
+      //Makes sure there is no active bullet present
+      if (this.bulletPresent == false){
+        //Loads score Scene and passes info for display over
+        this.scene.start('Section1End', {
+            currentLevel: this.currentLevel,
+            shotCount: this.shotCount,
+            threeStar: this.threeStar,
+            twoStar: this.twoStar,
+            oneStar: this.oneStar,
+            backgroundX: this.background.tilePositionX,
+            mountainsX: this.mountains.tilePositionX,
+            treesX: this.trees.tilePositionX,
+            tankerX: this.player.x
+          });
+        }
+    }
 
     var movement = this.input.keyboard.addKeys({
       w:Phaser.Input.Keyboard.KeyCodes.W,
