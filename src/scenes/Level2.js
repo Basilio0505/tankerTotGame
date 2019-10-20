@@ -56,8 +56,8 @@ export default class Level2 extends Phaser.Scene {
     this.trees = this.add.tileSprite(this.centerX,this.centerY+150,0,0, 'trees');
 
     var playerCategory = this.matter.world.nextCategory();
-    this.player = this.matter.add.image(63, 535, 'tankertot', null, {friction:0}).setCollisionCategory(playerCategory);
-    this.cannon = this.matter.add.image(61, 535, 'cannon', null, {friction:0, shape: 'circle'}).setCollisionCategory(playerCategory);
+    this.player = this.matter.add.image(68, 530, 'tankertot', null, {friction:0}).setCollisionCategory(playerCategory);
+    this.cannon = this.matter.add.image(65, 530, 'cannon', null, {friction:0, shape: 'circle'}).setCollisionCategory(playerCategory);
 
     var borderCategory = this.matter.world.nextCategory();
     var vwall1 = this.matter.add.image(16,16, 'vwall', null, { isStatic: true, friction: 0 }).setCollisionCategory(borderCategory);
