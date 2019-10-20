@@ -53,18 +53,18 @@ export default class Level1 extends Phaser.Scene {
     this.mountains = this.add.tileSprite(this.centerX,this.centerY+100,0,0, 'mountains');
     this.trees = this.add.tileSprite(this.centerX,this.centerY+150,0,0, 'trees');
 
-    this.player = this.matter.add.image(60, 535, 'tankertot', null, {friction:0});
-    this.cannon = this.matter.add.image(60, 535, 'cannon', null, {friction:0});
+    this.player = this.matter.add.image(63, 535, 'tankertot', null, {friction:0});
+    this.cannon = this.matter.add.image(61, 535, 'cannon', null, {friction:0, shape: 'circle'});
     var playerCategory = this.matter.world.nextCategory();
     this.player.setCollisionCategory(playerCategory);
     this.cannon.setCollisionCategory(playerCategory);
     //this.player.setCollidesWith([playerCategory, borderCategory]);
 
     var borderCategory = this.matter.world.nextCategory();
-    this.matter.add.image(16,16, 'vwall', null, { isStatic: true }).setCollisionCategory(borderCategory);
-    this.matter.add.image(784,16, 'vwall', null, { isStatic: true }).setCollisionCategory(borderCategory);
-    this.matter.add.image(16,16, 'hwall', null, { isStatic: true }).setCollisionCategory(borderCategory);
-    this.matter.add.image(16,584, 'ground', null, { isStatic: true, friction: 0 }).setCollisionCategory(borderCategory);
+    var vwall1 = this.matter.add.image(16,16, 'vwall', null, { isStatic: true }).setCollisionCategory(borderCategory);
+    var vwall2 = this.matter.add.image(784,16, 'vwall', null, { isStatic: true }).setCollisionCategory(borderCategory);
+    var hwall = this.matter.add.image(16,16, 'hwall', null, { isStatic: true }).setCollisionCategory(borderCategory);
+    var ground = this.matter.add.image(16,584, 'ground', null, { isStatic: true, friction: 0 }).setCollisionCategory(borderCategory);
 
 
     var environmentCategory = this.matter.world.nextCategory();
@@ -76,7 +76,7 @@ export default class Level1 extends Phaser.Scene {
     this.cannon.setCollidesWith([borderCategory, environmentCategory]);
 
     var enemyCategory = this.matter.world.nextCategory();
-    var squirrel = this.matter.add.image(420, 455, "squirrel", null, { isStatic: true }).setScale(.8).setCollisionCategory(enemyCategory).setSensor(true);
+    var squirrel = this.matter.add.image(411, 463, "squirrel", null, { isStatic: true }).setScale(.8).setCollisionCategory(enemyCategory).setSensor(true);
     var speedy = this.matter.add.image(411, 135, "speedy", null, { isStatic: true }).setScale(5).setCollisionCategory(enemyCategory).setSensor(true);
     var tanky = this.matter.add.image(411, 300, "tanky", null, { isStatic: true }).setScale(5).setCollisionCategory(enemyCategory).setSensor(true);
 
@@ -115,24 +115,35 @@ export default class Level1 extends Phaser.Scene {
       //console.log(event.pairs[0].bodyB.gameObject == this.bullet);
       //console.log(this.bullet);
       if(event.pairs[0].bodyA.gameObject == squirrel && event.pairs[0].bodyB.gameObject == this.bullet){
-        //this.shootSquirrel(block);
-        this.bulletPresent = false;
         squirrel.destroy();
         this.sound.play('squirreldeath');
       }
       if(event.pairs[0].bodyA.gameObject == tanky && event.pairs[0].bodyB.gameObject == this.bullet){
-        //this.shootSquirrel(block);
-        this.bulletPresent = false;
         tanky.destroy();
         this.sound.play('squirreldeath');
       }
       //Checks if the two objects colliding are the regular squirrel and bullet
       if(event.pairs[0].bodyA.gameObject == speedy && event.pairs[0].bodyB.gameObject == this.bullet){
-        //this.shootSquirrel(block);
-        this.bulletPresent = false;
         speedy.destroy();
         this.sound.play('squirreldeath');
       }
+      if(event.pairs[0].bodyA.gameObject == vwall1 && event.pairs[0].bodyB.gameObject == this.bullet){
+        this.bounceCount += 1;
+      }
+      if(event.pairs[0].bodyA.gameObject == vwall2 && event.pairs[0].bodyB.gameObject == this.bullet){
+        this.bounceCount += 1;
+      }
+      if(event.pairs[0].bodyA.gameObject == hwall && event.pairs[0].bodyB.gameObject == this.bullet){
+        this.bounceCount += 1;
+      }
+      if(event.pairs[0].bodyA.gameObject == ground && event.pairs[0].bodyB.gameObject == this.bullet){
+        this.bounceCount += 1;
+      }
+      if (this.bounceCount > 3){
+        this.bullet.destroy();
+        this.bulletPresent = false;
+        this.bounceCount = 0;
+      };
     }, this);
 
   }
