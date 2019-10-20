@@ -11,6 +11,8 @@ export default class Level3 extends Phaser.Scene {
     this.oneStar = 5;
 
     this.currentLevel = 3;
+
+    this.squirrelCount = 3;
   }
 
   preload () {// Preload assets
@@ -30,10 +32,10 @@ export default class Level3 extends Phaser.Scene {
     //All to be replaced
     this.load.image('hwall', './assets/Environment/horizontalWall.png');
     this.load.image('vwall', './assets/Environment/verticalWall.png');
+    this.load.image('shield', './assets/shield.png');
     //this.load.image('gate', './assets/Environment/gate.png');
     this.load.image('rocket', './assets/rocket.png');
     this.load.image('speedy','./assets/speedySquirrel.png');
-    this.load.image('shield','./assets/shield.png' );
     this.load.image('tanky','./assets/tankSquirrel.png' );
 
     //Load Sound FX
@@ -44,6 +46,7 @@ export default class Level3 extends Phaser.Scene {
     // Declare variables for center of the scene
     this.centerX = this.cameras.main.width / 2;
     this.centerY = this.cameras.main.height / 2;
+
   }
 
   create (data) {
@@ -51,48 +54,53 @@ export default class Level3 extends Phaser.Scene {
     this.background = this.add.tileSprite(this.centerX,this.centerY,0,0, 'background');
     this.mountains = this.add.tileSprite(this.centerX,this.centerY+100,0,0, 'mountains');
     this.trees = this.add.tileSprite(this.centerX,this.centerY+150,0,0, 'trees');
-    this.player = this.physics.add.sprite(60, 540, 'tankertot');
-    this.cannon = this.physics.add.sprite(60, 540, 'cannon');
-    var bulletPresent = false;
-    //this.cannon.body.allowGravity = false;
 
-    this.container = this.add.container();
-    this.container.add(this.player);
-    this.container.add(this.cannon);
+    this.player = this.matter.add.image(63, 535, 'tankertot', null, {friction:0});
+    this.cannon = this.matter.add.image(61, 535, 'cannon', null, {friction:0, shape: 'circle'});
+    var playerCategory = this.matter.world.nextCategory();
+    this.player.setCollisionCategory(playerCategory);
+    this.cannon.setCollisionCategory(playerCategory);
+    //this.player.setCollidesWith([playerCategory, borderCategory]);
 
-    this.player.setCollideWorldBounds(true);
-    this.physics.world.setBounds(0, 0, 800, 600);
+    var borderCategory = this.matter.world.nextCategory();
+    var vwall1 = this.matter.add.image(16,16, 'vwall', null, { isStatic: true }).setCollisionCategory(borderCategory);
+    var vwall2 = this.matter.add.image(784,16, 'vwall', null, { isStatic: true }).setCollisionCategory(borderCategory);
+    var hwall = this.matter.add.image(16,16, 'hwall', null, { isStatic: true }).setCollisionCategory(borderCategory);
+    var ground = this.matter.add.image(16,584, 'ground', null, { isStatic: true, friction: 0 }).setCollisionCategory(borderCategory);
 
-    this.walls = this.physics.add.staticGroup();
-    this.walls.create(16,16, 'vwall');
-    this.walls.create(784,16, 'vwall');
-    this.walls.create(16,16, 'hwall');
-    this.walls.create(16,584, 'ground');
 
-    this.physics.add.collider(this.player, this.walls);
-    this.physics.add.collider(this.cannon, this.walls);
+    var environmentCategory = this.matter.world.nextCategory();
+    var plat1 = this.matter.add.image(500, 200, "woodPlatform", null, { isStatic: true }).setScale(1.5).setCollisionCategory(environmentCategory);
+    var plat2 = this.matter.add.image(250, 200, "woodPlatform", null, { isStatic: true }).setScale(1.5).setCollisionCategory(environmentCategory);
+    var plat3 = this.matter.add.image(100, 125, "woodPlatform", null, { isStatic: true }).setScale(1.5).setCollisionCategory(environmentCategory).setAngle(-45);
+    var plat4 = this.matter.add.image(700, 125, "woodPlatform", null, { isStatic: true }).setScale(1.5).setCollisionCategory(environmentCategory).setAngle(45);
 
-    //create platforms and hitboxes
-    this.platforms = this.physics.add.staticGroup();
+    this.player.setCollidesWith([borderCategory, environmentCategory]);
+    this.cannon.setCollidesWith([borderCategory, environmentCategory]);
 
-    this.platforms.create(400, 450, "woodPlatform").setScale(5).refreshBody();
-    this.physics.add.collider(this.player, this.platforms);
-    this.physics.add.collider(this.cannon, this.platforms);
+    var enemyCategory = this.matter.world.nextCategory();
+    var squirrel = this.matter.add.image(511, 143, "squirrel", null, { isStatic: true }).setScale(.8).setCollisionCategory(enemyCategory).setSensor(true);
+    var speedy = this.matter.add.image(261, 135, "speedy", null, { isStatic: true }).setScale(5).setCollisionCategory(enemyCategory).setSensor(true);
+    var tanky = this.matter.add.image(700, 528, "tanky", null, { isStatic: true }).setScale(5).setCollisionCategory(enemyCategory).setSensor(true);
 
-    //place enemy squirrels
-    this.squirrels = this.physics.add.group();
-    this.physics.add.collider(this.squirrels, this.walls);
-    this.physics.add.collider(this.squirrels, this.platforms);
-    this.squirrels.create(600, 520, "squirrel").setScale(.8)
+    //this.squirrelCount = 3;
 
-    //this.gameOver = false;
+    this.bulletPresent = false;
+    this.gameOver = false;
     this.bounceCount = 0;
     this.bulletspeed = 400;
 
-    this.bullets = this.physics.add.group({
-      defaultKey: "bullet",
-      maxSize: 1
+    /*var Bodies = Phaser.Physics.Matter.Matter.Bodies;
+    var rectA = Bodies.rectangle(380, 455, 40, 65.6);
+    var rectB = Bodies.rectangle(421, 455, 40, 65.6);
+    var compoundBody = Phaser.Physics.Matter.Matter.Body.create({
+        parts: [rectA, rectB]
     });
+    //var enemy = this.matter.add.image(150, 100, 'squirrel').setScale(.8).setCollisionCategory(enemyCategory);
+    //enemy.setExistingBody(compoundBody);
+
+    var tank = this.matter.add.image(150, 100, 'squirrel').setScale(.8).setCollisionCategory(enemyCategory);
+    tank.setExistingBody(compoundBody);*/
 
     this.input.on(
       "pointermove",
@@ -105,13 +113,54 @@ export default class Level3 extends Phaser.Scene {
 
     this.input.on("pointerdown", this.shoot, this);
     this.shotCount = 0;
+
+    //Decects collision of two objects
+    this.matter.world.on('collisionstart', function(event){
+      //Checks if the two objects colliding are the regular squirrel and bullet
+      if(event.pairs[0].bodyA.gameObject == squirrel && event.pairs[0].bodyB.gameObject == this.bullet){
+        squirrel.destroy();
+        this.squirrelCount -= 1;
+        this.sound.play('squirreldeath');
+      }//Checks if the two objects colliding are the tank squirrel and bullet
+      if(event.pairs[0].bodyA.gameObject == tanky && event.pairs[0].bodyB.gameObject == this.bullet){
+        tanky.destroy();
+        this.squirrelCount -= 1;
+        this.sound.play('squirreldeath');
+      }
+      //Checks if the two objects colliding are the speedy squirrel and bullet
+      if(event.pairs[0].bodyA.gameObject == speedy && event.pairs[0].bodyB.gameObject == this.bullet){
+        speedy.destroy();
+        this.squirrelCount -= 1;
+        this.sound.play('squirreldeath');
+      }
+      //Checks if the two objects colliding are the walls or platforms and bullet
+      if((event.pairs[0].bodyA.gameObject == plat1 ||
+          event.pairs[0].bodyA.gameObject == plat2 ||
+          event.pairs[0].bodyA.gameObject == plat3 ||
+          event.pairs[0].bodyA.gameObject == plat4 ||
+          event.pairs[0].bodyA.gameObject == ground ||
+          event.pairs[0].bodyA.gameObject == hwall ||
+          event.pairs[0].bodyA.gameObject == vwall1 ||
+          event.pairs[0].bodyA.gameObject == vwall2) && event.pairs[0].bodyB.gameObject == this.bullet){
+        this.bounceCount += 1;
+      }
+      if (this.bounceCount > 3){
+        this.bullet.destroy();
+        this.bulletPresent = false;
+        this.bounceCount = 0;
+      };
+    }, this);
+
   }
 
   update (time, delta) {
     // Update the scene
 
-    if (this.squirrels.getLength() == 0) {
+    //Checks if Winning Condition is met
+    if (this.squirrelCount == 0) {
+      //Makes sure there is no active bullet present
       if (this.bulletPresent == false){
+        //Loads score Scene and passes info for display over
         this.scene.start('Section1End', {
             currentLevel: this.currentLevel,
             shotCount: this.shotCount,
@@ -134,101 +183,105 @@ export default class Level3 extends Phaser.Scene {
     var speed = 3;
 
     if(movement.a.isDown){
-      this.player.setVelocityX(-200);
-      this.cannon.setVelocityX(-200);
+      this.player.setVelocityX(-2);
+      this.cannon.setVelocityX(-2);
       if(this.player.x > 100){
         this.background.tilePositionX -= 0.1;
         this.mountains.tilePositionX -= 0.2;
         this.trees.tilePositionX -= 0.3;
       };
-      //this.player.body.velocity.x -= speed;
     } else if(movement.d.isDown){
-      this.player.setVelocityX(200);
-      this.cannon.setVelocityX(200);
+      this.player.setVelocityX(2);
+      this.cannon.setVelocityX(2);
       if(this.player.x < 700){
         this.background.tilePositionX += 0.1;
         this.mountains.tilePositionX += 0.2;
         this.trees.tilePositionX += 0.3;
       };
-      //this.player.body.velocity.x += speed;
     } else{
       this.player.setVelocityX(0);
       this.cannon.setVelocityX(0);
     }
-    //if(movement.w.isDown && this.player.body.touching.down){
-      //this.player.setVelocityY(-200);
-      //this.cannon.setVelocityY(-200);
-    //}
 
-    this.bullets.children.each(
-      function(b){
+    //this.bullets.children.each(
+      //function(b){
         //var bounceCount = 0;
-        b.setScale(2);
-        this.physics.add.collider(b, this.walls, this.bulletBounce, null, this);
-        this.physics.add.collider(b, this.platforms, this.bulletBounce, null, this);
+        //b.setScale(2);
+        //this.matter.add.collider(b, this.walls, this.bulletBounce, null, this);
+        //this.matter.add.collider(b, this.platforms, this.bulletBounce, null, this);
 
-        b.body.bounce.setTo(1,1);
+        //b.body.bounce.setTo(1,1);
 
-        if(b.active) {
-          if(this.bounceCount >= 4){
-            this.bulletPresent = false
-            b.setActive(false);
-            b.disableBody(true, true);
-            this.bounceCount = 0;
-          }
-        }
-      }.bind(this)
-    );
-    this.bullets.children.each(
-      function(b){
-        if(b.active) {
-          this.physics.add.overlap(b, this.player, this.shootPlayer, null, this);
-          this.physics.add.overlap(b, this.cannon, this.shootPlayer, null, this);
-          this.physics.add.overlap(b, this.squirrels, this.shootSquirrel, null, this);
-          if(b.y < 0 || b.y > 600 || b.x < 0 || b.x > 800){
-            b.setActive(false);
-          }
-        }
-      }.bind(this)
-    );
+        //if(b.active) {
+          //if(this.bounceCount >= 4){
+            //this.bulletPresent = false
+            //b.setActive(false);
+            //b.disableBody(true, true);
+            //this.bounceCount = 0;
+          //}
+        //}
+      //}.bind(this)
+    //);
+    //this.bullets.children.each(
+      //function(b){
+        //if(b.active) {
+          //this.matter.add.overlap(b, this.shields, this.bulletAbsorb, null, this);
+
+          //this.matter.add.overlap(b, this.player, this.shootPlayer, null, this);
+          //this.matter.add.overlap(b, this.cannon, this.shootPlayer, null, this);
+          //this.matter.add.overlap(b, this.squirrels, this.shootSquirrel, null, this);
+          //if(b.y < 0 || b.y > 600 || b.x < 0 || b.x > 800){
+            //b.setActive(false);
+          //}
+        //}
+      //}.bind(this)
+    //);
   }
 
   shoot(pointer){
     var betweenPoints = Phaser.Math.Angle.BetweenPoints;
     var angle = betweenPoints(this.player, pointer);
-    var velocityFromRotation = this.physics.velocityFromRotation;
-    var velocity = new Phaser.Math.Vector2();
-    velocityFromRotation(angle, this.bulletspeed, velocity);
-    var bullet = this.bullets.get();
-    bullet.body.allowGravity = false;
-    bullet.setAngle(Phaser.Math.RAD_TO_DEG * angle);
-    bullet
-      .enableBody(true, this.player.x + (Math.cos(angle) * 45), this.player.y + (Math.sin(angle) * 45), true, true)
-      .setVelocity(velocity.x, velocity.y);
-    this.shotCount += 1;
-    this.sound.play('shot');
-    this.bulletPresent = true
+    console.log(angle);
+    if(this.bulletPresent == false){
+      this.bullet = this.matter.add.sprite(this.player.x + (Math.cos(angle)*45),
+      this.player.y+ (Math.sin(angle)*45),
+      'bullet',null,{
+          shape: 'circle',
+          ignoreGravity: true,
+          collisionFilter: {group: 1},
+          isStatic: false,
+          restitution: 1,
+          frictionAir: 0
+      }).setScale(2);
+      this.bullet.setVelocity(Math.cos(angle)*10, Math.sin(angle)*10);
+      this.shotCount += 1;
+      this.sound.play('shot');
+      this.bulletPresent = true
+    }
   }
   shootSquirrel(bullet, squirrel){
-    squirrel.disableBody(true, true);
-    this.squirrels.remove(squirrel);
+    squirrel.destroy();
     this.sound.play('squirreldeath');
   }
-  shootPlayer(bullet, player){
-    this.player.disableBody(true, true);
-    this.cannon.disableBody(true, true);
-    this.scene.start('Section1End', {
-      currentLevel: this.currentLevel,
-      shotCount: 100,
-      threeStar: this.threeStar,
-      twoStar: this.twoStar,
-      oneStar: this.oneStar,
-      backgroundX: this.background.tilePositionX,
-      mountainsX: this.mountains.tilePositionX,
-      treesX: this.trees.tilePositionX,
-      tankerX: this.player.x
-      });
-  }
+  //shootPlayer(bullet, player){
+    //this.player.disableBody(true, true);
+    //this.cannon.disableBody(true, true);
+    //this.scene.start('Section1End', {
+      //currentLevel: this.currentLevel,
+      //shotCount: 100,
+      //threeStar: this.threeStar,
+      //twoStar: this.twoStar,
+      //oneStar: this.oneStar,
+      //backgroundX: this.background.tilePositionX,
+      //mountainsX: this.mountains.tilePositionX,
+      //treesX: this.trees.tilePositionX,
+      //tankerX: this.player.x
+      //});
+  //}
+  //bulletAbsorb(bullet, object){
+    //bullet.disableBody(true, true)
+    //this.sound.play('bounce');
+  //}
   bulletBounce(){
     this.bounceCount += 1;
     this.sound.play('bounce');

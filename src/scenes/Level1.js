@@ -70,16 +70,16 @@ export default class Level1 extends Phaser.Scene {
 
 
     var environmentCategory = this.matter.world.nextCategory();
-    var plat1 = this.matter.add.image(400, 520, "woodPlatform", null, { isStatic: true }).setScale(1.5).setCollisionCategory(environmentCategory);
-    var plat2 = this.matter.add.image(400, 200, "woodPlatform", null, { isStatic: true }).setScale(1.5).setCollisionCategory(environmentCategory);
+    var plat1 = this.matter.add.image(200, 520, "woodPlatform", null, { isStatic: true }).setScale(1.5).setCollisionCategory(environmentCategory);
+    var plat2 = this.matter.add.image(600, 200, "woodPlatform", null, { isStatic: true }).setScale(1.5).setCollisionCategory(environmentCategory);
     var plat3 = this.matter.add.image(400, 365, "woodPlatform", null, { isStatic: true }).setScale(1.5).setCollisionCategory(environmentCategory);
 
     this.player.setCollidesWith([borderCategory, environmentCategory]);
     this.cannon.setCollidesWith([borderCategory, environmentCategory]);
 
     var enemyCategory = this.matter.world.nextCategory();
-    var squirrel = this.matter.add.image(411, 463, "squirrel", null, { isStatic: true }).setScale(.8).setCollisionCategory(enemyCategory).setSensor(true);
-    var speedy = this.matter.add.image(411, 135, "speedy", null, { isStatic: true }).setScale(5).setCollisionCategory(enemyCategory).setSensor(true);
+    var squirrel = this.matter.add.image(211, 463, "squirrel", null, { isStatic: true }).setScale(.8).setCollisionCategory(enemyCategory).setSensor(true);
+    var speedy = this.matter.add.image(611, 135, "speedy", null, { isStatic: true }).setScale(5).setCollisionCategory(enemyCategory).setSensor(true);
     var tanky = this.matter.add.image(411, 300, "tanky", null, { isStatic: true }).setScale(5).setCollisionCategory(enemyCategory).setSensor(true);
 
     //this.squirrelCount = 3;
