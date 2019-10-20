@@ -68,9 +68,9 @@ export default class Level1 extends Phaser.Scene {
 
 
     var environmentCategory = this.matter.world.nextCategory();
-    this.matter.add.image(400, 520, "woodPlatform", null, { isStatic: true }).setScale(1.5).setCollisionCategory(environmentCategory);
-    this.matter.add.image(400, 200, "woodPlatform", null, { isStatic: true }).setScale(1.5).setCollisionCategory(environmentCategory);
-    this.matter.add.image(400, 365, "woodPlatform", null, { isStatic: true }).setScale(1.5).setCollisionCategory(environmentCategory);
+    var plat1 = this.matter.add.image(400, 520, "woodPlatform", null, { isStatic: true }).setScale(1.5).setCollisionCategory(environmentCategory);
+    var plat2 = this.matter.add.image(400, 200, "woodPlatform", null, { isStatic: true }).setScale(1.5).setCollisionCategory(environmentCategory);
+    var plat3 = this.matter.add.image(400, 365, "woodPlatform", null, { isStatic: true }).setScale(1.5).setCollisionCategory(environmentCategory);
 
     this.player.setCollidesWith([borderCategory, environmentCategory]);
     this.cannon.setCollidesWith([borderCategory, environmentCategory]);
@@ -137,6 +137,15 @@ export default class Level1 extends Phaser.Scene {
         this.bounceCount += 1;
       }
       if(event.pairs[0].bodyA.gameObject == ground && event.pairs[0].bodyB.gameObject == this.bullet){
+        this.bounceCount += 1;
+      }
+      if(event.pairs[0].bodyA.gameObject == plat1 && event.pairs[0].bodyB.gameObject == this.bullet){
+        this.bounceCount += 1;
+      }
+      if(event.pairs[0].bodyA.gameObject == plat2 && event.pairs[0].bodyB.gameObject == this.bullet){
+        this.bounceCount += 1;
+      }
+      if(event.pairs[0].bodyA.gameObject == plat3 && event.pairs[0].bodyB.gameObject == this.bullet){
         this.bounceCount += 1;
       }
       if (this.bounceCount > 3){
