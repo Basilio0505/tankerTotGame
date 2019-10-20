@@ -258,8 +258,7 @@ export default class Level1 extends Phaser.Scene {
     }
   }
   shootSquirrel(bullet, squirrel){
-    squirrel.destroy();//disableBody(true, true);
-    //this.squirrels.remove(squirrel);
+    squirrel.destroy();
     this.sound.play('squirreldeath');
   }
   //shootPlayer(bullet, player){
