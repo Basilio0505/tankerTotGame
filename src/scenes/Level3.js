@@ -120,7 +120,6 @@ export default class Level3 extends Phaser.Scene {
         this.sound.play('squirreldeath');
       }
       else if(event.pairs[0].bodyA.gameObject == this.player && event.pairs[0].bodyB.gameObject == this.bullet){
-        console.log("Hit Player");
         this.scene.start('Section1End', {
           currentLevel: this.currentLevel,
           shotCount: 100,
@@ -137,6 +136,7 @@ export default class Level3 extends Phaser.Scene {
       else if((event.pairs[0].bodyA.gameObject == plat1 ||
           event.pairs[0].bodyA.gameObject == plat2 ||
           event.pairs[0].bodyA.gameObject == plat3 ||
+          event.pairs[0].bodyA.gameObject == plat4 ||
           event.pairs[0].bodyA.gameObject == ground ||
           event.pairs[0].bodyA.gameObject == hwall ||
           event.pairs[0].bodyA.gameObject == vwall1 ||
@@ -207,7 +207,6 @@ export default class Level3 extends Phaser.Scene {
   shoot(pointer){
     var betweenPoints = Phaser.Math.Angle.BetweenPoints;
     var angle = betweenPoints(this.player, pointer);
-    console.log(angle);
     if(this.bulletPresent == false){
       this.bullet = this.matter.add.sprite(this.player.x + (Math.cos(angle)*45),
       this.player.y+ (Math.sin(angle)*45),
