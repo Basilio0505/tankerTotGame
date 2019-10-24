@@ -1,7 +1,7 @@
 /*global Phaser*/
-export default class Level4 extends Phaser.Scene {
+export default class Level5 extends Phaser.Scene {
   constructor () {
-    super('Level4');
+    super('Level5');
   }
 
   init (data) {
@@ -10,7 +10,7 @@ export default class Level4 extends Phaser.Scene {
     this.twoStar = 3;
     this.oneStar = 5;
 
-    this.currentLevel = 4;
+    this.currentLevel = 5;
 
     this.squirrelCount = 3;
   }
