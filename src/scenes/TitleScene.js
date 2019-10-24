@@ -14,6 +14,10 @@ export default class TitleScene extends Phaser.Scene {
       frameHeight: 20,
       frameWidth: 50
     });
+    this.load.spritesheet('select', './assets/StartMenu/Select_Button.png', {
+      frameHeight: 20,
+      frameWidth: 50
+    });
     this.load.image('title', './assets/StartMenu/TileText.png');
     this.load.image('image', './assets/StartMenu/Starting_TankerTot.png');
 
@@ -47,7 +51,7 @@ export default class TitleScene extends Phaser.Scene {
     start1.on("pointerout", function(){this.setFrame(0);});
     start1.on("pointerup", function(){this.scene.start("Level1")}, this);
 
-    var startLS = this.add.sprite(this.centerX + 150 ,this.centerY+180,'start',0).setInteractive().setScale(5);
+    var startLS = this.add.sprite(this.centerX + 150 ,this.centerY+180,'select',0).setInteractive().setScale(5);
     startLS.on("pointerover", function(){this.setFrame(1);});
     startLS.on("pointerout", function(){this.setFrame(0);});
     startLS.on("pointerup", function(){this.scene.start("LevelSelect")}, this);
