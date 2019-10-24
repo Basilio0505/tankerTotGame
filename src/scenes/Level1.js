@@ -208,7 +208,7 @@ export default class Level1 extends Phaser.Scene {
       //this.scene.start("Level"+this.currentLevel); does not fix error
       console.log('Player out of bounds!');
     };
-    
+
     //Check if bullet is out of bounds, destroys and resets bullet vars
     if (this.bulletPresent){
       if ((this.bullet.x < 0) || (this.bullet.x > 800) || (this.bullet.y < 0) || (this.bullet.y > 600)){
@@ -241,35 +241,4 @@ export default class Level1 extends Phaser.Scene {
       this.bulletPresent = true
     }
   }
-  /*
-  shootSquirrel(bullet, squirrel){
-    squirrel.destroy();
-    this.sound.play('squirreldeath');
-  }
-
-  shootPlayer(bullet, player){
-    //this.player.disableBody(true, true);
-    //this.cannon.disableBody(true, true);
-    this.scene.start('Section1End', {
-      currentLevel: this.currentLevel,
-      shotCount: 100,
-      threeStar: this.threeStar,
-      twoStar: this.twoStar,
-      oneStar: this.oneStar,
-      backgroundX: this.background.tilePositionX,
-      mountainsX: this.mountains.tilePositionX,
-      treesX: this.trees.tilePositionX,
-      tankerX: this.player.x
-      });
-  }*/
-
-  //bulletAbsorb(bullet, object){
-    //bullet.disableBody(true, true)
-    //this.sound.play('bounce');
-  //}
-
-  //bulletBounce(){
-  //  this.bounceCount += 1;
-    //this.sound.play('bounce');
-  //}
 }

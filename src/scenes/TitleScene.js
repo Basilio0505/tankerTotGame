@@ -30,32 +30,28 @@ export default class TitleScene extends Phaser.Scene {
 
   create (data) {
     //Create the scene
+    //Background Color
     this.cameras.main.setBackgroundColor(0xE83009);
 
-    this.music = this.sound.add('music',{
-      loop: true
-    });
+    //Add Music and loop
+    this.music = this.sound.add('music',{loop: true});
+    this.music.play();
 
-    //this.music.play();
+    //Add Logo and Title
+    var tankertot = this.add.image(this.centerX, this.centerY, 'image').setScale(0.1);
+    var title = this.add.image(this.centerX, this.centerY-50, 'title').setScale(0.2);
 
-    var tankertot = this.add.image(this.centerX, this.centerY, 'image');
-    tankertot.scaleX = 0.1;
-    tankertot.scaleY = 0.1;
-
-    var title = this.add.image(this.centerX, this.centerY-50, 'title');
-    title.scaleX = 0.2;
-    title.scaleY = 0.2;
-
+    //Start Button
     var start1 = this.add.sprite(this.centerX - 150 ,this.centerY+180,'start',0).setInteractive().setScale(5);
     start1.on("pointerover", function(){this.setFrame(1);});
     start1.on("pointerout", function(){this.setFrame(0);});
     start1.on("pointerup", function(){this.scene.start("Level1")}, this);
 
+    //Level Select Button
     var startLS = this.add.sprite(this.centerX + 150 ,this.centerY+180,'select',0).setInteractive().setScale(5);
     startLS.on("pointerover", function(){this.setFrame(1);});
     startLS.on("pointerout", function(){this.setFrame(0);});
     startLS.on("pointerup", function(){this.scene.start("LevelSelect")}, this);
-
   }
 
   update (time, delta) {
