@@ -200,6 +200,27 @@ export default class Level1 extends Phaser.Scene {
       this.player.setVelocityX(0);
       this.cannon.setVelocityX(0);
     }
+
+    //Check if player is outside of bounds and move them back to starting position
+    if ((this.player.x < 0) || (this.player.x > 800) || (this.player.y < 0) || (this.player.y > 600)){
+      //this.player.setPosition(68,530); does not fix error
+      //this.cannon.setPosition(65,530);
+      //this.scene.start("Level"+this.currentLevel); does not fix error
+      console.log('Player out of bounds!');
+    };
+
+    if (this.bulletPresent){
+      if ((this.bullet.x < 0) || (this.bullet.x > 800) || (this.bullet.y < 0) || (this.bullet.y > 600)){
+        //this.player.setPosition(68,530); does not fix error
+        //this.cannon.setPosition(65,530);
+        //this.scene.start("Level"+this.currentLevel); does not fix error
+        console.log('Bullet out of bounds!');
+        this.bullet.destroy();
+        this.bulletPresent = false;
+        this.bounceCount = 0;
+      };
+    };
+
   }
 
   shoot(pointer){
