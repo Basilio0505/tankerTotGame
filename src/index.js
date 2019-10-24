@@ -6,6 +6,7 @@ import TestScene0 from './scenes/TestScene0.js';
 import Level1 from './scenes/Level1.js';
 import Level2 from './scenes/Level2.js';
 import Level3 from './scenes/Level3.js';
+import Level4 from './scenes/Level4.js';
 import Section1End from './scenes/Section1End.js';
 import Section2End from './scenes/Section2End.js';
 
@@ -17,10 +18,11 @@ class Game extends Phaser.Game {
     this.scene.add('Level1', Level1);
     this.scene.add('Level2', Level2);
     this.scene.add('Level3', Level3);
+    this.scene.add('Level4', Level4);
     this.scene.add('Section1End', Section1End);
     this.scene.add('Section2End', Section2End);
     this.scene.add('TestScene0', TestScene0);
-    this.scene.start('Title');
+    this.scene.start('Level4');
   }
 }
 
