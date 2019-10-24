@@ -42,20 +42,15 @@ export default class TitleScene extends Phaser.Scene {
     title.scaleX = 0.2;
     title.scaleY = 0.2;
 
-    var start1 = this.add.sprite(this.centerX,this.centerY+180,'start',0)
-    start1.setInteractive();
-    start1.scaleX = 5;
-    start1.scaleY = 5;
+    var start1 = this.add.sprite(this.centerX - 150 ,this.centerY+180,'start',0).setInteractive().setScale(5);
+    start1.on("pointerover", function(){this.setFrame(1);});
+    start1.on("pointerout", function(){this.setFrame(0);});
+    start1.on("pointerup", function(){this.scene.start("Level1")}, this);
 
-    start1.on("pointerover", function(){
-      this.setFrame(1);
-    });
-    start1.on("pointerout", function(){
-      this.setFrame(0);
-    });
-    start1.on("pointerup", function(){
-      this.scene.start("Level1")
-    }, this);
+    var startLS = this.add.sprite(this.centerX + 150 ,this.centerY+180,'start',0).setInteractive().setScale(5);
+    startLS.on("pointerover", function(){this.setFrame(1);});
+    startLS.on("pointerout", function(){this.setFrame(0);});
+    startLS.on("pointerup", function(){this.scene.start("LevelSelect")}, this);
 
   }
 

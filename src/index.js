@@ -1,6 +1,7 @@
 /*global Phaser, window*/
 import Config from './config/config.js';
 import TitleScene from './scenes/TitleScene.js';
+import LevelSelect from './scenes/LevelSelect.js';
 import TestScene0 from './scenes/TestScene0.js';
 import Level1 from './scenes/Level1.js';
 import Level2 from './scenes/Level2.js';
@@ -12,6 +13,7 @@ class Game extends Phaser.Game {
   constructor () {
     super(Config);
     this.scene.add('Title', TitleScene);
+    this.scene.add('LevelSelect', LevelSelect);
     this.scene.add('Level1', Level1);
     this.scene.add('Level2', Level2);
     this.scene.add('Level3', Level3);
