@@ -59,8 +59,8 @@ export default class Level3 extends Phaser.Scene {
     this.trees = this.add.tileSprite(this.centerX,this.centerY+150,0,0, 'trees');
 
     var playerCategory = this.matter.world.nextCategory();
-    this.player = this.matter.add.image(68, 530, 'tankertot', null, {friction:0}).setCollisionCategory(playerCategory);
-    this.cannon = this.matter.add.image(65, 530, 'cannon', null, {friction:0, shape: 'circle'}).setCollisionCategory(playerCategory);
+    this.player = this.matter.add.image(138, 530, 'tankertot', null, {friction:0}).setCollisionCategory(playerCategory);
+    this.cannon = this.matter.add.image(135, 530, 'cannon', null, {friction:0, shape: 'circle'}).setCollisionCategory(playerCategory);
 
     var borderCategory = this.matter.world.nextCategory();
     var vwall1 = this.matter.add.image(16,16, 'vwall', null, { isStatic: true, friction: 0 }).setCollisionCategory(borderCategory);
@@ -73,6 +73,7 @@ export default class Level3 extends Phaser.Scene {
     var plat2 = this.matter.add.image(250, 200, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(1.5).setCollisionCategory(environmentCategory);
     var plat3 = this.matter.add.image(100, 125, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(1.5).setCollisionCategory(environmentCategory).setAngle(-45);
     var plat4 = this.matter.add.image(700, 125, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(1.5).setCollisionCategory(environmentCategory).setAngle(45);
+    var plat5 = this.matter.add.image(this.centerX, 480, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(3).setCollisionCategory(environmentCategory);
 
     this.bulletCategory = this.matter.world.nextCategory();
 
@@ -142,6 +143,7 @@ export default class Level3 extends Phaser.Scene {
           event.pairs[0].bodyA.gameObject == plat2 ||
           event.pairs[0].bodyA.gameObject == plat3 ||
           event.pairs[0].bodyA.gameObject == plat4 ||
+          event.pairs[0].bodyA.gameObject == plat5 ||
           event.pairs[0].bodyA.gameObject == ground ||
           event.pairs[0].bodyA.gameObject == hwall ||
           event.pairs[0].bodyA.gameObject == vwall1 ||
