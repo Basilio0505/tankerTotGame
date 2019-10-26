@@ -16,6 +16,10 @@ export default class Level2 extends Phaser.Scene {
   }
 
   preload () {// Preload assets
+    //Tutorial Text
+    this.load.image('scoreText', './assets/TutorialText/TextBox_Score.png');
+    this.load.image('bulletText', './assets/TutorialText/TextBox_Bullet.png');
+
     //Player Assets
     this.load.image('tankertot', './assets/TankerTot/tankerTot.png');
     this.load.image('cannon', './assets/TankerTot/cannon.png');
@@ -82,7 +86,10 @@ export default class Level2 extends Phaser.Scene {
     var speedy = this.matter.add.image(500, 300, "speedy", null, { isStatic: true }).setScale(5).setCollisionCategory(enemyCategory).setSensor(true);
     var tanky = this.matter.add.image(111, 300, "tanky", null, { isStatic: true }).setScale(5).setCollisionCategory(enemyCategory).setSensor(true);
 
-    //this.squirrelCount = 3;
+    //bool used to stop all other actions while tutorialText is active
+    this.tutorialActive = true;
+    this.tutorialScore = this.add.image(this.centerX, this.centerY, "scoreText").setScale(1.5);
+    this.tutorialBullet = this.add.image(this.centerX, this.centerY, "bulletText").setScale(1.5);
 
     this.bulletPresent = false;
     this.gameOver = false;
@@ -98,7 +105,7 @@ export default class Level2 extends Phaser.Scene {
       }, this
     );
 
-    this.input.on("pointerdown", this.shoot, this);
+    this.input.on("pointerdown", this.tutorial, this);
     this.shotCount = 0;
 
     //Decects collision of two objects
@@ -223,6 +230,21 @@ export default class Level2 extends Phaser.Scene {
       this.shotCount += 1;
       this.sound.play('shot');
       this.bulletPresent = true
+    }
+  }
+
+  tutorial(pointer){
+    //Only way I could figure out for it to move on.
+    if(this.tutorialActive == true){
+      if(this.tutorialBullet.x == this.centerX){
+        this.tutorialBullet.destroy();
+        this.tutorialBullet.x = this.centerX-30;
+      } else {
+        this.tutorialScore.destroy();
+        this.tutorialActive = false;
+      }
+    } else{
+      this.shoot(pointer);
     }
   }
   /*
