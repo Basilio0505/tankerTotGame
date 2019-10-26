@@ -16,6 +16,9 @@ export default class Level3 extends Phaser.Scene {
   }
 
   preload () {// Preload assets
+    //Tutorial Text
+    this.load.image('suicideText', './assets/TutorialText/TextBox_Suicide.png');
+
     //Player Assets
     this.load.image('tankertot', './assets/TankerTot/tankerTot.png');
     this.load.image('cannon', './assets/TankerTot/cannon.png');
@@ -56,8 +59,8 @@ export default class Level3 extends Phaser.Scene {
     this.trees = this.add.tileSprite(this.centerX,this.centerY+150,0,0, 'trees');
 
     var playerCategory = this.matter.world.nextCategory();
-    this.player = this.matter.add.image(68, 530, 'tankertot', null, {friction:0}).setCollisionCategory(playerCategory);
-    this.cannon = this.matter.add.image(65, 530, 'cannon', null, {friction:0, shape: 'circle'}).setCollisionCategory(playerCategory);
+    this.player = this.matter.add.image(138, 530, 'tankertot', null, {friction:0}).setCollisionCategory(playerCategory);
+    this.cannon = this.matter.add.image(135, 530, 'cannon', null, {friction:0, shape: 'circle'}).setCollisionCategory(playerCategory);
 
     var borderCategory = this.matter.world.nextCategory();
     var vwall1 = this.matter.add.image(16,16, 'vwall', null, { isStatic: true, friction: 0 }).setCollisionCategory(borderCategory);
@@ -70,6 +73,7 @@ export default class Level3 extends Phaser.Scene {
     var plat2 = this.matter.add.image(250, 200, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(1.5).setCollisionCategory(environmentCategory);
     var plat3 = this.matter.add.image(100, 125, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(1.5).setCollisionCategory(environmentCategory).setAngle(-45);
     var plat4 = this.matter.add.image(700, 125, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(1.5).setCollisionCategory(environmentCategory).setAngle(45);
+    var plat5 = this.matter.add.image(this.centerX, 480, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(3).setCollisionCategory(environmentCategory);
 
     this.bulletCategory = this.matter.world.nextCategory();
 
@@ -81,7 +85,9 @@ export default class Level3 extends Phaser.Scene {
     var speedy = this.matter.add.image(261, 135, "speedy", null, { isStatic: true }).setScale(5).setCollisionCategory(enemyCategory).setSensor(true);
     var tanky = this.matter.add.image(700, 528, "tanky", null, { isStatic: true }).setScale(5).setCollisionCategory(enemyCategory).setSensor(true);
 
-    //this.squirrelCount = 3;
+    //bool used to stop all other actions while tutorialText is active
+    this.tutorialActive = true;
+    this.tutorialSuicide = this.add.image(this.centerX, this.centerY, "suicideText").setScale(1.5);
 
     this.bulletPresent = false;
     this.gameOver = false;
@@ -97,7 +103,7 @@ export default class Level3 extends Phaser.Scene {
       }, this
     );
 
-    this.input.on("pointerdown", this.shoot, this);
+    this.input.on("pointerdown", this.tutorial, this);
     this.shotCount = 0;
 
     //Decects collision of two objects
@@ -137,6 +143,7 @@ export default class Level3 extends Phaser.Scene {
           event.pairs[0].bodyA.gameObject == plat2 ||
           event.pairs[0].bodyA.gameObject == plat3 ||
           event.pairs[0].bodyA.gameObject == plat4 ||
+          event.pairs[0].bodyA.gameObject == plat5 ||
           event.pairs[0].bodyA.gameObject == ground ||
           event.pairs[0].bodyA.gameObject == hwall ||
           event.pairs[0].bodyA.gameObject == vwall1 ||
@@ -222,6 +229,16 @@ export default class Level3 extends Phaser.Scene {
       this.shotCount += 1;
       this.sound.play('shot');
       this.bulletPresent = true
+    }
+  }
+
+  tutorial(pointer){
+    //Only way I could figure out for it to move on.
+    if(this.tutorialActive == true){
+        this.tutorialSuicide.destroy();
+        this.tutorialActive = false;
+    } else{
+      this.shoot(pointer);
     }
   }
   /*

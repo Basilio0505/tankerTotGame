@@ -57,8 +57,8 @@ export default class Section1End extends Phaser.Scene {
     this.background.tilePositionX = this.backgroundX;
     this.mountains.tilePositionX = this.mountainsX;
     this.trees.tilePositionX = this.treesX;
-    this.player = this.add.sprite(this.tankerX, 540, 'tankertot');
-    this.cannon = this.add.sprite(this.tankerX, 540, 'cannon');
+    this.player = this.add.sprite(this.tankerX, 530, 'tankertot');
+    this.cannon = this.add.sprite(this.tankerX, 530, 'cannon');
     this.add.image(16,16, 'vwall', null);
     this.add.image(784,16, 'vwall', null);
     this.add.image(16,16, 'hwall', null);

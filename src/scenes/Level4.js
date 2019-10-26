@@ -1,7 +1,7 @@
 /*global Phaser*/
-export default class Level1 extends Phaser.Scene {
+export default class Level4 extends Phaser.Scene {
   constructor () {
-    super('Level1');
+    super('Level4');
   }
 
   init (data) {
@@ -10,16 +10,12 @@ export default class Level1 extends Phaser.Scene {
     this.twoStar = 3;
     this.oneStar = 5;
 
-    this.currentLevel = 1;
+    this.currentLevel = 4;
 
     this.squirrelCount = 3;
   }
 
   preload () {// Preload assets
-    //Tutorial Text
-    this.load.image('movementText', './assets/TutorialText/TextBox_Movement.png');
-    this.load.image('shootText', './assets/TutorialText/TextBox_ShootBasics.png');
-
     //Player Assets
     this.load.image('tankertot', './assets/TankerTot/tankerTot.png');
     this.load.image('cannon', './assets/TankerTot/cannon.png');
@@ -29,8 +25,10 @@ export default class Level1 extends Phaser.Scene {
     //Environment
     this.load.image('ground', './assets/Environment/groundGrass.png');
     this.load.image('background','./assets/Environment/background.png');
-    this.load.image('mountains','./assets/Environment/mountains.png');
-    this.load.image('trees','./assets/Environment/trees.png');
+    this.load.image('dunes1','./assets/Environment/dunes1.png');
+    this.load.image('dunes2','./assets/Environment/dunes2.png');
+    this.load.image('dunes3','./assets/Environment/dunes3.png');
+    this.load.image('dunes4','./assets/Environment/dunes4.png');
     this.load.image('woodPlatform', './assets/smallWoodPlat.png');
 
     //All to be replaced
@@ -56,8 +54,10 @@ export default class Level1 extends Phaser.Scene {
   create (data) {
     //Create the scene
     this.background = this.add.tileSprite(this.centerX,this.centerY,0,0, 'background');
-    this.mountains = this.add.tileSprite(this.centerX,this.centerY+100,0,0, 'mountains');
-    this.trees = this.add.tileSprite(this.centerX,this.centerY+150,0,0, 'trees');
+    this.dunes1 = this.add.tileSprite(this.centerX,this.centerY+20,0,0, 'dunes1');
+    this.dunes2 = this.add.tileSprite(this.centerX,this.centerY+30,0,0, 'dunes2');
+    this.dunes3 = this.add.tileSprite(this.centerX,this.centerY+40,0,0, 'dunes3');
+    this.dunes4 = this.add.tileSprite(this.centerX,this.centerY+50,0,0, 'dunes4');
 
     var playerCategory = this.matter.world.nextCategory();
     this.player = this.matter.add.image(68, 530, 'tankertot', null, {friction:0}).setCollisionCategory(playerCategory);
@@ -84,10 +84,7 @@ export default class Level1 extends Phaser.Scene {
     var speedy = this.matter.add.image(611, 135, "speedy", null, { isStatic: true }).setScale(5).setCollisionCategory(enemyCategory).setSensor(true);
     var tanky = this.matter.add.image(411, 300, "tanky", null, { isStatic: true }).setScale(5).setCollisionCategory(enemyCategory).setSensor(true);
 
-    //bool used to stop all other actions while tutorialText is active
-    this.tutorialActive = true;
-    this.tutorialShoot = this.add.image(this.centerX, this.centerY, "shootText").setScale(1.5);
-    this.tutorialMove = this.add.image(this.centerX, this.centerY, "movementText").setScale(1.5);
+    //this.squirrelCount = 3;
 
     this.bulletPresent = false;
     this.gameOver = false;
@@ -103,8 +100,7 @@ export default class Level1 extends Phaser.Scene {
       }, this
     );
 
-    this.input.on("pointerdown", this.tutorial, this);
-
+    this.input.on("pointerdown", this.shoot, this);
     this.shotCount = 0;
 
     //Decects collision of two objects
@@ -127,16 +123,18 @@ export default class Level1 extends Phaser.Scene {
         this.sound.play('squirreldeath');
       }
       else if(event.pairs[0].bodyA.gameObject == this.player && event.pairs[0].bodyB.gameObject == this.bullet){
-        this.scene.start('Section1End', {
-          currentLevel: this.currentLevel,
-          shotCount: 100,
-          threeStar: this.threeStar,
-          twoStar: this.twoStar,
-          oneStar: this.oneStar,
-          backgroundX: this.background.tilePositionX,
-          mountainsX: this.mountains.tilePositionX,
-          treesX: this.trees.tilePositionX,
-          tankerX: this.player.x
+        this.scene.start('Section2End', {
+            currentLevel: this.currentLevel,
+            shotCount: this.shotCount,
+            threeStar: this.threeStar,
+            twoStar: this.twoStar,
+            oneStar: this.oneStar,
+            backgroundX: this.background.tilePositionX,
+            dunes1X: this.dunes1.tilePositionX,
+            dunes2X: this.dunes1.tilePositionX,
+            dunes3X: this.dunes1.tilePositionX,
+            dunes4X: this.dunes1.tilePositionX,
+            tankerX: this.player.x
           });
       }
       //Checks if the two objects colliding are the walls or platforms and bullet
@@ -167,15 +165,17 @@ export default class Level1 extends Phaser.Scene {
       //Makes sure there is no active bullet present
       if (this.bulletPresent == false){
         //Loads score Scene and passes info for display over
-        this.scene.start('Section1End', {
+        this.scene.start('Section2End', {
             currentLevel: this.currentLevel,
             shotCount: this.shotCount,
             threeStar: this.threeStar,
             twoStar: this.twoStar,
             oneStar: this.oneStar,
             backgroundX: this.background.tilePositionX,
-            mountainsX: this.mountains.tilePositionX,
-            treesX: this.trees.tilePositionX,
+            dunes1X: this.dunes1.tilePositionX,
+            dunes2X: this.dunes1.tilePositionX,
+            dunes3X: this.dunes1.tilePositionX,
+            dunes4X: this.dunes1.tilePositionX,
             tankerX: this.player.x
           });
         }
@@ -193,16 +193,20 @@ export default class Level1 extends Phaser.Scene {
       this.cannon.setVelocityX(-2);
       if(this.player.x > 100){
         this.background.tilePositionX -= 0.1;
-        this.mountains.tilePositionX -= 0.2;
-        this.trees.tilePositionX -= 0.3;
+        this.dunes1.tilePositionX -= 0.15;
+        this.dunes2.tilePositionX -= 0.2;
+        this.dunes3.tilePositionX -= 0.25;
+        this.dunes4.tilePositionX -= 0.3;
       };
     } else if(movement.d.isDown){
       this.player.setVelocityX(2);
       this.cannon.setVelocityX(2);
       if(this.player.x < 700){
         this.background.tilePositionX += 0.1;
-        this.mountains.tilePositionX += 0.2;
-        this.trees.tilePositionX += 0.3;
+        this.dunes1.tilePositionX += 0.15;
+        this.dunes2.tilePositionX += 0.2;
+        this.dunes3.tilePositionX += 0.25;
+        this.dunes4.tilePositionX += 0.3;
       };
     } else{
       this.player.setVelocityX(0);
@@ -247,21 +251,6 @@ export default class Level1 extends Phaser.Scene {
       this.shotCount += 1;
       this.sound.play('shot');
       this.bulletPresent = true
-    }
-  }
-
-  tutorial(pointer){
-    //Only way I could figure out for it to move on.
-    if(this.tutorialActive == true){
-      if(this.tutorialMove.x == this.centerX){
-        this.tutorialMove.destroy();
-        this.tutorialMove.x = this.centerX-30;
-      } else {
-        this.tutorialShoot.destroy();
-        this.tutorialActive = false;
-      }
-    } else{
-      this.shoot(pointer);
     }
   }
 }
