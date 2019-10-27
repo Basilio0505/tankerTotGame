@@ -76,6 +76,7 @@ export default class Section2End extends Phaser.Scene {
     //this.platforms.create(400, 350, "woodPlatform").setScale(1.5).refreshBody();
 
     if(this.shotCount == this.threeStar){
+      this.add.image(this.centerX - 9, this.centerY - 83, 'winDog').setScale(1.7)
       var star1 = this.add.image(this.centerX - 125, this.centerY, 'fullstar');
       star1.setScale(0.6);
       var star2 = this.add.image(this.centerX, this.centerY, 'fullstar');
@@ -85,6 +86,7 @@ export default class Section2End extends Phaser.Scene {
       this.advance = true;
 
     } else if(this.shotCount <= this.twoStar){
+      this.add.image(this.centerX - 9, this.centerY - 83, 'winDog').setScale(1.7)
       var star1 = this.add.image(this.centerX - 125, this.centerY, 'fullstar');
       star1.setScale(0.6);
       var star2 = this.add.image(this.centerX, this.centerY, 'fullstar');
@@ -94,6 +96,7 @@ export default class Section2End extends Phaser.Scene {
       this.advance = true;
 
     } else if(this.shotCount <= this.oneStar){
+      this.add.image(this.centerX - 9, this.centerY - 83, 'winDog').setScale(1.7)
       var star1 = this.add.image(this.centerX - 125, this.centerY, 'fullstar');
       star1.setScale(0.6);
       var star2 = this.add.image(this.centerX, this.centerY, 'emptystar');
@@ -103,6 +106,7 @@ export default class Section2End extends Phaser.Scene {
       this.advance = true;
 
     } else {
+      this.add.image(this.centerX - 9, this.centerY - 140, 'loseDog').setScale(1.7)
       var star1 = this.add.image(this.centerX - 125, this.centerY, 'emptystar');
       star1.setScale(0.6);
       var star2 = this.add.image(this.centerX, this.centerY, 'emptystar');
