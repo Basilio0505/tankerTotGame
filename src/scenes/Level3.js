@@ -61,8 +61,7 @@ export default class Level3 extends Phaser.Scene {
 
     var playerCategory = this.matter.world.nextCategory();
     this.player = this.matter.add.image(138, 530, 'tankertot', null, {friction:0}).setCollisionCategory(playerCategory);
-    this.cannon = this.matter.add.image(135, 530, 'cannon', null, {friction:0, shape: 'circle'}).setCollisionCategory(playerCategory);
-
+    this.cannon = this.matter.add.image(138, 530, 'cannon', null, {friction:0, shape: 'circle'}).setCollisionCategory(playerCategory).setScale(.84);
     var borderCategory = this.matter.world.nextCategory();
     var vwall1 = this.matter.add.image(16,16, 'vwall', null, { isStatic: true, friction: 0 }).setCollisionCategory(borderCategory);
     var vwall2 = this.matter.add.image(784,16, 'vwall', null, { isStatic: true, friction: 0 }).setCollisionCategory(borderCategory);
