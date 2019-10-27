@@ -11,8 +11,9 @@ export default class Level3 extends Phaser.Scene {
     this.oneStar = 5;
 
     this.currentLevel = 3;
-
     this.squirrelCount = 3;
+
+    this.pointerLocation = {x:0, y:0};
   }
 
   preload () {// Preload assets
@@ -245,7 +246,7 @@ export default class Level3 extends Phaser.Scene {
       this.shoot(pointer);
     }
   }
-  
+
   updateCannon(pointerLocation){
     var betweenPoints = Phaser.Math.Angle.BetweenPoints;
     var angle = Phaser.Math.RAD_TO_DEG * betweenPoints(this.cannon, pointerLocation);

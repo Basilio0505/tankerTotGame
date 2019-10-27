@@ -11,8 +11,9 @@ export default class Level1 extends Phaser.Scene {
     this.oneStar = 5;
 
     this.currentLevel = 1;
-
     this.squirrelCount = 3;
+
+    this.pointerLocation = {x:0, y:0};
   }
 
   preload () {// Preload assets
@@ -97,7 +98,12 @@ export default class Level1 extends Phaser.Scene {
 
     this.input.on(
       "pointermove",
-      function(pointer){
+      function(pointer){/*
+        if(pointer == undefined){
+          console.log("BOOM")
+          this.pointerLocation = {x:0, y:0}
+        }
+        console.log(pointer);*/
         this.pointerLocation = pointer;
         //var betweenPoints = Phaser.Math.Angle.BetweenPoints;
         //var angle = Phaser.Math.RAD_TO_DEG * betweenPoints(this.cannon, pointer);

@@ -11,8 +11,9 @@ export default class Level6 extends Phaser.Scene {
     this.oneStar = 5;
 
     this.currentLevel = 6;
-
     this.squirrelCount = 3;
+
+    this.pointerLocation = {x:0, y:0};
   }
 
   preload () {// Preload assets
