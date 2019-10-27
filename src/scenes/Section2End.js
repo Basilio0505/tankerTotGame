@@ -128,7 +128,11 @@ export default class Section2End extends Phaser.Scene {
         this.setFrame(0);
       });
       nextButton.on("pointerup", function(){
-        this.scene.start("Level"+(this.currentLevel+1));
+        if (this.currentLevel < 6){
+          this.scene.start("Level"+(this.currentLevel+1));
+        }else{
+          this.scene.start('Title');
+        }
       }, this);
     }
 
@@ -142,7 +146,8 @@ export default class Section2End extends Phaser.Scene {
       this.setFrame(0);
     });
     restartButton.on("pointerup", function(){
-      this.scene.start("Level"+this.currentLevel);
+      console.log(this.currentLevel);
+        this.scene.start("Level"+this.currentLevel);
     }, this);
     //################################################################
   }

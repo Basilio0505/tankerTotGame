@@ -97,9 +97,10 @@ export default class Level1 extends Phaser.Scene {
     this.input.on(
       "pointermove",
       function(pointer){
-        var betweenPoints = Phaser.Math.Angle.BetweenPoints;
-        var angle = Phaser.Math.RAD_TO_DEG * betweenPoints(this.cannon, pointer);
-        this.cannon.setAngle(angle);
+        this.pointerLocation = pointer;
+        //var betweenPoints = Phaser.Math.Angle.BetweenPoints;
+        //var angle = Phaser.Math.RAD_TO_DEG * betweenPoints(this.cannon, pointer);
+        //this.cannon.setAngle(angle);
       }, this
     );
 
@@ -161,6 +162,8 @@ export default class Level1 extends Phaser.Scene {
 
   update (time, delta) {
     // Update the scene
+
+    this.updateCannon(this.pointerLocation);
 
     //Checks if Winning Condition is met
     if (this.squirrelCount == 0) {
@@ -263,5 +266,10 @@ export default class Level1 extends Phaser.Scene {
     } else{
       this.shoot(pointer);
     }
+  }
+  updateCannon(pointerLocation){
+    var betweenPoints = Phaser.Math.Angle.BetweenPoints;
+    var angle = Phaser.Math.RAD_TO_DEG * betweenPoints(this.cannon, pointerLocation);
+    this.cannon.setAngle(angle);
   }
 }
