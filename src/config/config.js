@@ -16,7 +16,7 @@ export default {
         //debug: true
     //},
     matter: {
-      debug: false,
+      debug: true,
       gravity: {y: 0.5}
     }
   },
