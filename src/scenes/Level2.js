@@ -52,6 +52,7 @@ export default class Level2 extends Phaser.Scene {
     this.centerY = this.cameras.main.height / 2;
   }
 
+//############CREATE#####################################################################CREATE
   create (data) {
     //Create the scene
     this.background = this.add.tileSprite(this.centerX,this.centerY,0,0, 'background');
@@ -98,9 +99,10 @@ export default class Level2 extends Phaser.Scene {
     this.input.on(
       "pointermove",
       function(pointer){
-        var betweenPoints = Phaser.Math.Angle.BetweenPoints;
-        var angle = Phaser.Math.RAD_TO_DEG * betweenPoints(this.cannon, pointer);
-        this.cannon.setAngle(angle);
+        this.pointerLocation = pointer;
+        //var betweenPoints = Phaser.Math.Angle.BetweenPoints;
+        //var angle = Phaser.Math.RAD_TO_DEG * betweenPoints(this.cannon, pointer);
+        //this.cannon.setAngle(angle);
       }, this
     );
 
@@ -160,8 +162,10 @@ export default class Level2 extends Phaser.Scene {
     }, this);
   }
 
+//############UPDATE######################################################################UPDATE
   update (time, delta) {
     // Update the scene
+    this.updateCannon(this.pointerLocation);
 
     //Checks if Winning Condition is met
     if (this.squirrelCount == 0) {
@@ -211,6 +215,8 @@ export default class Level2 extends Phaser.Scene {
     }
   }
 
+//#############FUNCTIONS########################################################FUNCTIONS
+
   shoot(pointer){
     var betweenPoints = Phaser.Math.Angle.BetweenPoints;
     var angle = betweenPoints(this.player, pointer);
@@ -246,32 +252,10 @@ export default class Level2 extends Phaser.Scene {
       this.shoot(pointer);
     }
   }
-  /*
-  shootSquirrel(bullet, squirrel){
-    squirrel.destroy();
-    this.sound.play('squirreldeath');
-  }*/
-  //shootPlayer(bullet, player){
-    //this.player.disableBody(true, true);
-    //this.cannon.disableBody(true, true);
-    //this.scene.start('Section1End', {
-      //currentLevel: this.currentLevel,
-      //shotCount: 100,
-      //threeStar: this.threeStar,
-      //twoStar: this.twoStar,
-      //oneStar: this.oneStar,
-      //backgroundX: this.background.tilePositionX,
-      //mountainsX: this.mountains.tilePositionX,
-      //treesX: this.trees.tilePositionX,
-      //tankerX: this.player.x
-      //});
-  //}
-  //bulletAbsorb(bullet, object){
-    //bullet.disableBody(true, true)
-    //this.sound.play('bounce');
-  //}
-  //bulletBounce(){
-    //this.bounceCount += 1;
-    //this.sound.play('bounce');
-  //}
+
+  updateCannon(pointerLocation){
+    var betweenPoints = Phaser.Math.Angle.BetweenPoints;
+    var angle = Phaser.Math.RAD_TO_DEG * betweenPoints(this.cannon, pointerLocation);
+    this.cannon.setAngle(angle);
+  }
 }

@@ -53,6 +53,7 @@ export default class Level1 extends Phaser.Scene {
     this.centerY = this.cameras.main.height / 2;
   }
 
+//############CREATE#####################################################################CREATE
   create (data) {
     //Create the scene
     this.background = this.add.tileSprite(this.centerX,this.centerY,0,0, 'background');
@@ -160,9 +161,10 @@ export default class Level1 extends Phaser.Scene {
     }, this);
   }
 
+
+//############UPDATE######################################################################UPDATE
   update (time, delta) {
     // Update the scene
-
     this.updateCannon(this.pointerLocation);
 
     //Checks if Winning Condition is met
@@ -232,6 +234,7 @@ export default class Level1 extends Phaser.Scene {
 
   }
 
+//#############FUNCTIONS########################################################FUNCTIONS
   shoot(pointer){
     var betweenPoints = Phaser.Math.Angle.BetweenPoints;
     var angle = betweenPoints(this.player, pointer);
@@ -267,6 +270,7 @@ export default class Level1 extends Phaser.Scene {
       this.shoot(pointer);
     }
   }
+
   updateCannon(pointerLocation){
     var betweenPoints = Phaser.Math.Angle.BetweenPoints;
     var angle = Phaser.Math.RAD_TO_DEG * betweenPoints(this.cannon, pointerLocation);
