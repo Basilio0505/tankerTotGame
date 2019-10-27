@@ -81,7 +81,7 @@ export default class Level3 extends Phaser.Scene {
     this.cannon.setCollidesWith([borderCategory, environmentCategory]);
 
     var enemyCategory = this.matter.world.nextCategory();
-    var squirrel = this.matter.add.image(511, 143, "squirrel", null, { isStatic: true }).setScale(.8).setCollisionCategory(enemyCategory).setSensor(true);
+    var squirrel = this.matter.add.image(505, 138, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(enemyCategory).setSensor(true);
     var speedy = this.matter.add.image(261, 135, "speedy", null, { isStatic: true }).setScale(5).setCollisionCategory(enemyCategory).setSensor(true);
     var tanky = this.matter.add.image(700, 528, "tanky", null, { isStatic: true }).setScale(5).setCollisionCategory(enemyCategory).setSensor(true);
 
