@@ -31,8 +31,8 @@ export default class Section2End extends Phaser.Scene {
     this.load.image('vwall', './assets/Environment/verticalWall.png');
     this.load.image('woodPlatform', './assets/smallWoodPlat.png');
     this.load.image('tankertot', './assets/TankerTot/tankerTot.png');
-    this.load.image('winDog','./assets/TankerTot/totGuitar.png');
-    this.load.image('loseDog', './assets/TankerTot/totSad.png');
+    this.load.image('winDog','./assets/UI/totGuitar.png');
+    this.load.image('loseDog', './assets/UI/totSad.png');
     this.load.image('cannon', './assets/TankerTot/cannon.png');
     this.load.image('emptystar','./assets/UI/emptystar.png');
     this.load.image('fullstar','./assets/UI/fullstar.png');
