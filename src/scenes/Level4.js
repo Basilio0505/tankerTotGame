@@ -19,7 +19,7 @@ export default class Level4 extends Phaser.Scene {
     //Player Assets
     this.load.image('tankertot', './assets/TankerTot/tankerTot.png');
     this.load.image('cannon', './assets/TankerTot/cannon.png');
-    this.load.image('bullet', './assets/bullet.png');
+    this.load.image('bullet', './assets/TankerTot/bullet.png');
     //this.load.image('rocket', './assets/rocket.png');
 
     //Environment
@@ -36,10 +36,9 @@ export default class Level4 extends Phaser.Scene {
     this.load.image('vwall', './assets/Environment/verticalWall.png');
 
     //Enemies
-    this.load.image('speedy','./assets/speedySquirrel.png');
-    this.load.image('tanky','./assets/tankSquirrel.png' );
-    this.load.image('squirrel','./assets/enemySquirrel.png');
-    this.load.image('shield', './assets/shield.png');
+    this.load.image('speedy','./assets/enemies/speedySquirrel.png');
+    this.load.image('tanky','./assets/enemies/tankSquirrel.png' );
+    this.load.image('squirrel','./assets/enemies/enemySquirrel.png');
 
     //Load Sound FX
     this.load.audio('shot','./assets/Sounds/FX/shot.wav');
