@@ -31,7 +31,7 @@ export default class TitleScene extends Phaser.Scene {
   create (data) {
     //Create the scene
     //Background Color
-    this.cameras.main.setBackgroundColor(0xE83009);
+    this.cameras.main.setBackgroundColor(0xb8b8b8);
 
     //Add Music and loop
     this.music = this.sound.add('music',{loop: true});
