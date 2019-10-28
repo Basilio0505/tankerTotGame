@@ -11,8 +11,9 @@ export default class Level3 extends Phaser.Scene {
     this.oneStar = 5;
 
     this.currentLevel = 3;
-
     this.squirrelCount = 3;
+
+    this.pointerLocation = {x:0, y:0};
   }
 
   preload () {// Preload assets
@@ -22,7 +23,7 @@ export default class Level3 extends Phaser.Scene {
     //Player Assets
     this.load.image('tankertot', './assets/TankerTot/tankerTot.png');
     this.load.image('cannon', './assets/TankerTot/cannon.png');
-    this.load.image('bullet', './assets/bullet.png');
+    this.load.image('bullet', './assets/TankerTot/bullet.png');
     //this.load.image('rocket', './assets/rocket.png');
 
     //Environment
@@ -37,10 +38,9 @@ export default class Level3 extends Phaser.Scene {
     this.load.image('vwall', './assets/Environment/verticalWall.png');
 
     //Enemies
-    this.load.image('speedy','./assets/speedySquirrel.png');
-    this.load.image('tanky','./assets/tankSquirrel.png' );
-    this.load.image('squirrel','./assets/enemySquirrel.png');
-    this.load.image('shield', './assets/shield.png');
+    this.load.image('speedy','./assets/enemies/speedySquirrel.png');
+    this.load.image('tanky','./assets/enemies/tankSquirrel.png' );
+    this.load.image('squirrel','./assets/enemies/enemySquirrel.png');
 
     //Load Sound FX
     this.load.audio('shot','./assets/Sounds/FX/shot.wav');
@@ -52,6 +52,7 @@ export default class Level3 extends Phaser.Scene {
     this.centerY = this.cameras.main.height / 2;
   }
 
+  //############CREATE#####################################################################CREATE
   create (data) {
     //Create the scene
     this.background = this.add.tileSprite(this.centerX,this.centerY,0,0, 'background');
@@ -60,8 +61,7 @@ export default class Level3 extends Phaser.Scene {
 
     var playerCategory = this.matter.world.nextCategory();
     this.player = this.matter.add.image(138, 530, 'tankertot', null, {friction:0}).setCollisionCategory(playerCategory);
-    this.cannon = this.matter.add.image(135, 530, 'cannon', null, {friction:0, shape: 'circle'}).setCollisionCategory(playerCategory);
-
+    this.cannon = this.matter.add.image(138, 530, 'cannon', null, {friction:0, shape: 'circle'}).setCollisionCategory(playerCategory).setScale(.84);
     var borderCategory = this.matter.world.nextCategory();
     var vwall1 = this.matter.add.image(16,16, 'vwall', null, { isStatic: true, friction: 0 }).setCollisionCategory(borderCategory);
     var vwall2 = this.matter.add.image(784,16, 'vwall', null, { isStatic: true, friction: 0 }).setCollisionCategory(borderCategory);
@@ -81,9 +81,9 @@ export default class Level3 extends Phaser.Scene {
     this.cannon.setCollidesWith([borderCategory, environmentCategory]);
 
     var enemyCategory = this.matter.world.nextCategory();
-    var squirrel = this.matter.add.image(511, 143, "squirrel", null, { isStatic: true }).setScale(.8).setCollisionCategory(enemyCategory).setSensor(true);
-    var speedy = this.matter.add.image(261, 135, "speedy", null, { isStatic: true }).setScale(5).setCollisionCategory(enemyCategory).setSensor(true);
-    var tanky = this.matter.add.image(700, 528, "tanky", null, { isStatic: true }).setScale(5).setCollisionCategory(enemyCategory).setSensor(true);
+    var squirrel = this.matter.add.image(505, 136, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(enemyCategory).setSensor(true);
+    var speedy = this.matter.add.image(261, 136, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(enemyCategory).setSensor(true);
+    var tanky = this.matter.add.image(700, 528, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(enemyCategory).setSensor(true);
 
     //bool used to stop all other actions while tutorialText is active
     this.tutorialActive = true;
@@ -97,9 +97,10 @@ export default class Level3 extends Phaser.Scene {
     this.input.on(
       "pointermove",
       function(pointer){
-        var betweenPoints = Phaser.Math.Angle.BetweenPoints;
-        var angle = Phaser.Math.RAD_TO_DEG * betweenPoints(this.cannon, pointer);
-        this.cannon.setAngle(angle);
+        this.pointerLocation = pointer;
+        //var betweenPoints = Phaser.Math.Angle.BetweenPoints;
+        //var angle = Phaser.Math.RAD_TO_DEG * betweenPoints(this.cannon, pointer);
+        //this.cannon.setAngle(angle);
       }, this
     );
 
@@ -160,8 +161,10 @@ export default class Level3 extends Phaser.Scene {
     }, this);
   }
 
+  //############UPDATE######################################################################UPDATE
   update (time, delta) {
     // Update the scene
+    this.updateCannon(this.pointerLocation);
 
     //Checks if Winning Condition is met
     if (this.squirrelCount == 0) {
@@ -211,6 +214,7 @@ export default class Level3 extends Phaser.Scene {
     }
   }
 
+  //#############FUNCTIONS########################################################FUNCTIONS
   shoot(pointer){
     var betweenPoints = Phaser.Math.Angle.BetweenPoints;
     var angle = betweenPoints(this.player, pointer);
@@ -241,33 +245,10 @@ export default class Level3 extends Phaser.Scene {
       this.shoot(pointer);
     }
   }
-  /*
-  shootSquirrel(bullet, squirrel){
-    squirrel.destroy();
-    this.sound.play('squirreldeath');
-  }*/
-  //shootPlayer(bullet, player){
-    //this.player.disableBody(true, true);
-    //this.cannon.disableBody(true, true);
-    //this.scene.start('Section1End', {
-      //currentLevel: this.currentLevel,
-      //shotCount: 100,
-      //threeStar: this.threeStar,
-      //twoStar: this.twoStar,
-      //oneStar: this.oneStar,
-      //backgroundX: this.background.tilePositionX,
-      //mountainsX: this.mountains.tilePositionX,
-      //treesX: this.trees.tilePositionX,
-      //tankerX: this.player.x
-      //});
-  //}
-  //bulletAbsorb(bullet, object){
-    //bullet.disableBody(true, true)
-    //this.sound.play('bounce');
-  //}
 
-  //bulletBounce(){
-    //this.bounceCount += 1;
-    //this.sound.play('bounce');
-  //}
+  updateCannon(pointerLocation){
+    var betweenPoints = Phaser.Math.Angle.BetweenPoints;
+    var angle = Phaser.Math.RAD_TO_DEG * betweenPoints(this.cannon, pointerLocation);
+    this.cannon.setAngle(angle);
+  }
 }

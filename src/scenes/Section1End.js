@@ -28,9 +28,9 @@ export default class Section1End extends Phaser.Scene {
     this.load.image('woodPlatform', './assets/smallWoodPlat.png');
     this.load.image('tankertot', './assets/TankerTot/tankerTot.png');
     this.load.image('cannon', './assets/TankerTot/cannon.png');
-    this.load.image('totSad', './assets/totSad.png');
-    this.load.image('totGuitar', './assets/totGuitar.png');
     this.load.image('emptystar','./assets/UI/emptystar.png');
+    this.load.image('winDog','./assets/UI/totGuitar.png');
+    this.load.image('loseDog', './assets/UI/totSad.png');
     this.load.image('fullstar','./assets/UI/fullstar.png');
     this.load.spritesheet('restart','./assets/UI/restartlevelbutton.png', {
       frameHeight: 100,
@@ -69,6 +69,7 @@ export default class Section1End extends Phaser.Scene {
     //this.platforms.create(400, 350, "woodPlatform").setScale(1.5).refreshBody();
 
     if(this.shotCount == this.threeStar){
+      this.add.image(this.centerX - 9, this.centerY - 83, 'winDog').setScale(1.7)
       var star1 = this.add.image(this.centerX - 125, this.centerY, 'fullstar');
       star1.setScale(0.6);
       var star2 = this.add.image(this.centerX, this.centerY, 'fullstar');
@@ -78,6 +79,7 @@ export default class Section1End extends Phaser.Scene {
       this.advance = true;
 
     } else if(this.shotCount <= this.twoStar){
+      this.add.image(this.centerX - 9, this.centerY - 83, 'winDog').setScale(1.7)
       var star1 = this.add.image(this.centerX - 125, this.centerY, 'fullstar');
       star1.setScale(0.6);
       var star2 = this.add.image(this.centerX, this.centerY, 'fullstar');
@@ -87,6 +89,7 @@ export default class Section1End extends Phaser.Scene {
       this.advance = true;
 
     } else if(this.shotCount <= this.oneStar){
+      this.add.image(this.centerX - 9, this.centerY - 83, 'winDog').setScale(1.7)
       var star1 = this.add.image(this.centerX - 125, this.centerY, 'fullstar');
       star1.setScale(0.6);
       var star2 = this.add.image(this.centerX, this.centerY, 'emptystar');
@@ -96,6 +99,7 @@ export default class Section1End extends Phaser.Scene {
       this.advance = true;
 
     } else {
+      this.add.image(this.centerX - 9, this.centerY - 140, 'loseDog').setScale(1.7)
       var star1 = this.add.image(this.centerX - 125, this.centerY, 'emptystar');
       star1.setScale(0.6);
       var star2 = this.add.image(this.centerX, this.centerY, 'emptystar');
