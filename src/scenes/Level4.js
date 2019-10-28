@@ -71,7 +71,7 @@ export default class Level4 extends Phaser.Scene {
     var ground = this.matter.add.image(16,584, 'ground', null, { isStatic: true, friction: 0 }).setCollisionCategory(borderCategory);
 
     var environmentCategory = this.matter.world.nextCategory();
-    var plat1 = this.matter.add.image(200, 520, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(1.5).setCollisionCategory(environmentCategory);
+    var plat1 = this.matter.add.image(650, 490, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(1.5).setCollisionCategory(environmentCategory);
     var plat2 = this.matter.add.image(600, 200, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(1.5).setCollisionCategory(environmentCategory);
     var plat3 = this.matter.add.image(400, 365, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(1.5).setCollisionCategory(environmentCategory);
 
@@ -81,7 +81,7 @@ export default class Level4 extends Phaser.Scene {
     this.cannon.setCollidesWith([borderCategory, environmentCategory]);
 
     var enemyCategory = this.matter.world.nextCategory();
-    var squirrel = this.matter.add.image(211, 456, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(enemyCategory).setSensor(true);
+    var squirrel = this.matter.add.image(661, 426, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(enemyCategory).setSensor(true);
     var speedy = this.matter.add.image(611, 136, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(enemyCategory).setSensor(true);
     var tanky = this.matter.add.image(411, 301, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(enemyCategory).setSensor(true);
 

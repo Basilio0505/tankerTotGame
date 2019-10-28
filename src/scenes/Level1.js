@@ -20,6 +20,14 @@ export default class Level1 extends Phaser.Scene {
     //Tutorial Text
     this.load.image('movementText', './assets/TutorialText/TextBox_Movement.png');
     this.load.image('shootText', './assets/TutorialText/TextBox_ShootBasics.png');
+    this.load.image('startText', './assets/TutorialText/TextBox_PugIncoming.png');
+    this.load.image('dutyText', './assets/TutorialText/TextBox_PugDuty.png');
+    this.load.image('timeText', './assets/TutorialText/TextBox_PugAboutTime.png');
+    this.load.image('speedText', './assets/TutorialText/TextBox_PugSpeed.png');
+
+    //Tutorial General
+    this.load.image('blackGeneral', './assets/blackGeneralPug.png');
+    this.load.image('generalPug', './assets/generalPug.png');
 
     //Player Assets
     this.load.image('tankertot', './assets/TankerTot/tankerTot.png');
@@ -90,6 +98,14 @@ export default class Level1 extends Phaser.Scene {
     this.tutorialActive = true;
     this.tutorialShoot = this.add.image(this.centerX, this.centerY, "shootText").setScale(1.5);
     this.tutorialMove = this.add.image(this.centerX, this.centerY, "movementText").setScale(1.5);
+    this.tutorialSpeed = this.add.image(this.centerX, this.centerY, "speedText").setScale(1.5);
+    this.tutorialDuty = this.add.image(this.centerX, this.centerY, "dutyText").setScale(1.5);
+    this.tutorialTime = this.add.image(this.centerX, this.centerY, "timeText").setScale(1.5);
+    this.tutorialStart = this.add.image(this.centerX, this.centerY, "startText").setScale(1.5);
+
+    this.pug = this.add.image(this.centerX - 140, this.centerY - 100, "generalPug").setScale(1.5);
+    this.blackPug = this.add.image(this.centerX - 140, this.centerY - 100, "blackGeneral").setScale(1.5);
+
 
     this.bulletPresent = false;
     this.gameOver = false;
@@ -265,7 +281,21 @@ export default class Level1 extends Phaser.Scene {
   tutorial(pointer){
     //Only way I could figure out for it to move on.
     if(this.tutorialActive == true){
-      if(this.tutorialMove.x == this.centerX){
+      if(this.tutorialStart.x == this.centerX){
+        this.tutorialStart.destroy();
+        this.blackPug.destroy()
+        this.tutorialStart.x = this.centerX-30;
+      } else if(this.tutorialTime.x == this.centerX){
+        this.tutorialTime.destroy();
+        this.tutorialTime.x = this.centerX-30;
+      } else if(this.tutorialDuty.x == this.centerX){
+        this.tutorialDuty.destroy();
+        this.tutorialDuty.x = this.centerX-30;
+      } else if(this.tutorialSpeed.x == this.centerX){
+        this.tutorialSpeed.destroy();
+        this.pug.destroy()
+        this.tutorialSpeed.x = this.centerX-30;
+      } else if(this.tutorialMove.x == this.centerX){
         this.tutorialMove.destroy();
         this.tutorialMove.x = this.centerX-30;
       } else {
