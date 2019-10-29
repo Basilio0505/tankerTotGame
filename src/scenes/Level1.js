@@ -68,28 +68,35 @@ export default class Level1 extends Phaser.Scene {
     this.background = this.add.tileSprite(this.centerX,this.centerY,0,0, 'background');
     this.mountains = this.add.tileSprite(this.centerX,this.centerY+100,0,0, 'mountains');
     this.trees = this.add.tileSprite(this.centerX,this.centerY+150,0,0, 'trees');
+    if(this.playerCategory == undefined){
+       this.playerCategory = this.matter.world.nextCategory();
+    }
+    this.player = this.matter.add.image(68, 536, 'tankertot', null, {friction:0}).setCollisionCategory(this.playerCategory);
+    this.cannon = this.matter.add.image(68, 536, 'cannon', null, {friction:0, shape: 'circle'}).setCollisionCategory(this.playerCategory).setScale(.84);
 
-    var playerCategory = this.matter.world.nextCategory();
-    this.player = this.matter.add.image(68, 530, 'tankertot', null, {friction:0}).setCollisionCategory(playerCategory);
-    this.cannon = this.matter.add.image(68, 530, 'cannon', null, {friction:0, shape: 'circle'}).setCollisionCategory(playerCategory).setScale(.84);
+    if(this.borderCategory == undefined){
+      this.borderCategory = this.matter.world.nextCategory();
+    }
+    var vwall1 = this.matter.add.image(16,16, 'vwall', null, { isStatic: true, friction: 0 }).setCollisionCategory(this.borderCategory);
+    var vwall2 = this.matter.add.image(784,16, 'vwall', null, { isStatic: true, friction: 0 }).setCollisionCategory(this.borderCategory);
+    var hwall = this.matter.add.image(16,16, 'hwall', null, { isStatic: true, friction: 0 }).setCollisionCategory(this.borderCategory);
+    var ground = this.matter.add.image(16,584, 'ground', null, { isStatic: true, friction: 0 }).setCollisionCategory(this.borderCategory);
 
-    var borderCategory = this.matter.world.nextCategory();
-    var vwall1 = this.matter.add.image(16,16, 'vwall', null, { isStatic: true, friction: 0 }).setCollisionCategory(borderCategory);
-    var vwall2 = this.matter.add.image(784,16, 'vwall', null, { isStatic: true, friction: 0 }).setCollisionCategory(borderCategory);
-    var hwall = this.matter.add.image(16,16, 'hwall', null, { isStatic: true, friction: 0 }).setCollisionCategory(borderCategory);
-    var ground = this.matter.add.image(16,584, 'ground', null, { isStatic: true, friction: 0 }).setCollisionCategory(borderCategory);
-
-    var environmentCategory = this.matter.world.nextCategory();
-    var plat1 = this.matter.add.image(200, 520, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(1.5).setCollisionCategory(environmentCategory);
-    var plat2 = this.matter.add.image(600, 200, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(1.5).setCollisionCategory(environmentCategory);
-    var plat3 = this.matter.add.image(400, 365, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(1.5).setCollisionCategory(environmentCategory);
-
-    this.bulletCategory = this.matter.world.nextCategory();
-
-    this.player.setCollidesWith([borderCategory, environmentCategory, this.bulletCategory]);
-    this.cannon.setCollidesWith([borderCategory, environmentCategory]);
-
-    var enemyCategory = this.matter.world.nextCategory();
+    if(this.environmentCategory == undefined){
+      this.environmentCategory = this.matter.world.nextCategory();
+    }
+    var plat1 = this.matter.add.image(200, 520, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(1.5).setCollisionCategory(this.environmentCategory);
+    var plat2 = this.matter.add.image(600, 200, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(1.5).setCollisionCategory(this.environmentCategory);
+    var plat3 = this.matter.add.image(400, 365, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(1.5).setCollisionCategory(this.environmentCategory);
+    console.log(this.bulletCategory)
+    if(this.bulletCategory == undefined){
+      this.bulletCategory = this.matter.world.nextCategory();
+    }
+    this.player.setCollidesWith([this.borderCategory, this.environmentCategory, this.bulletCategory]);
+    this.cannon.setCollidesWith([this.borderCategory, this.environmentCategory]);
+    if(enemyCategory == undefined){
+      var enemyCategory = this.matter.world.nextCategory();
+    }
     var squirrel = this.matter.add.image(205, 456, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(enemyCategory).setSensor(true);
     var speedy = this.matter.add.image(611, 136, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(enemyCategory).setSensor(true);
     var tanky = this.matter.add.image(411, 301, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(enemyCategory).setSensor(true);
@@ -187,7 +194,8 @@ export default class Level1 extends Phaser.Scene {
 //############UPDATE######################################################################UPDATE
   update (time, delta) {
     // Update the scene
-    this.updateCannon(this.pointerLocation);
+    this.player.y = 536
+    this.cannon.y = 536
 
     //Checks if Winning Condition is met
     if (this.squirrelCount == 0) {
