@@ -73,7 +73,7 @@ export default class Level3 extends Phaser.Scene {
     var plat2 = this.matter.add.image(250, 200, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(1.5).setCollisionCategory(environmentCategory);
     var plat3 = this.matter.add.image(100, 125, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(1.5).setCollisionCategory(environmentCategory).setAngle(-45);
     var plat4 = this.matter.add.image(700, 125, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(1.5).setCollisionCategory(environmentCategory).setAngle(45);
-    var plat5 = this.matter.add.image(this.centerX, 480, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(3).setCollisionCategory(environmentCategory);
+    var plat5 = this.matter.add.image(this.centerX, 470, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(3).setCollisionCategory(environmentCategory);
 
     this.bulletCategory = this.matter.world.nextCategory();
 
