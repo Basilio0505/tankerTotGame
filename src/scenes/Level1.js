@@ -77,6 +77,7 @@ export default class Level1 extends Phaser.Scene {
     if(this.borderCategory == undefined){
       this.borderCategory = this.matter.world.nextCategory();
     }
+    console.log(typeof this.borderCategory)
     var vwall1 = this.matter.add.image(16,16, 'vwall', null, { isStatic: true, friction: 0 }).setCollisionCategory(this.borderCategory);
     var vwall2 = this.matter.add.image(784,16, 'vwall', null, { isStatic: true, friction: 0 }).setCollisionCategory(this.borderCategory);
     var hwall = this.matter.add.image(16,16, 'hwall', null, { isStatic: true, friction: 0 }).setCollisionCategory(this.borderCategory);
@@ -94,12 +95,12 @@ export default class Level1 extends Phaser.Scene {
     }
     this.player.setCollidesWith([this.borderCategory, this.environmentCategory, this.bulletCategory]);
     this.cannon.setCollidesWith([this.borderCategory, this.environmentCategory]);
-    if(enemyCategory == undefined){
-      var enemyCategory = this.matter.world.nextCategory();
+    if(this.enemyCategory == undefined){
+      this.enemyCategory = this.matter.world.nextCategory();
     }
-    var squirrel = this.matter.add.image(205, 456, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(enemyCategory).setSensor(true);
-    var speedy = this.matter.add.image(611, 136, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(enemyCategory).setSensor(true);
-    var tanky = this.matter.add.image(411, 301, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(enemyCategory).setSensor(true);
+    var squirrel = this.matter.add.image(205, 456, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(this.enemyCategory).setSensor(true);
+    var speedy = this.matter.add.image(611, 136, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(this.enemyCategory).setSensor(true);
+    var tanky = this.matter.add.image(411, 301, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(this.enemyCategory).setSensor(true);
 
     //bool used to stop all other actions while tutorialText is active
     this.tutorialActive = true;
@@ -194,13 +195,13 @@ export default class Level1 extends Phaser.Scene {
 //############UPDATE######################################################################UPDATE
   update (time, delta) {
     // Update the scene
-    this.player.y = 536
-    this.cannon.y = 536
+    this.updateCannon(this.pointerLocation);
 
     //Checks if Winning Condition is met
     if (this.squirrelCount == 0) {
       //Makes sure there is no active bullet present
       if (this.bulletPresent == false){
+        console.log(this.enemyCategory)
         //Loads score Scene and passes info for display over
         this.scene.start('Section1End', {
             currentLevel: this.currentLevel,
@@ -211,7 +212,12 @@ export default class Level1 extends Phaser.Scene {
             backgroundX: this.background.tilePositionX,
             mountainsX: this.mountains.tilePositionX,
             treesX: this.trees.tilePositionX,
-            tankerX: this.player.x
+            tankerX: this.player.x,
+            playerCategory: this.playerCategory,
+            enemyCategory: this.enemyCategory,
+            borderCategory: this.borderCategory,
+            bulletCategory: this.bulletCategory,
+            environmentCategory: this.environmentCategory
           });
         }
     }

@@ -15,6 +15,11 @@ export default class Section1End extends Phaser.Scene {
     this.mountainsX = data.mountainsX;
     this.treesX = data.treesX;
     this.tankerX = data.tankerX;
+    this.playerCategory = data.playerCategory;
+    this.enemyCategory = data.enemyCategory;
+    this.borderCategory = data.borderCategory;
+    this.bulletCategory = data.bulletCategory
+    this.environmentCategory = this.environmentCategory;
   }
 
   preload () {
@@ -121,7 +126,12 @@ export default class Section1End extends Phaser.Scene {
         this.setFrame(0);
       });
       nextButton.on("pointerup", function(){
-        this.scene.start("Level"+(this.currentLevel+1));
+        this.scene.start("Level"+(this.currentLevel+1), {
+        playerCategory: this.playerCategory,
+        enemyCategory: this.enemyCategory,
+        borderCategory: this.borderCategory,
+        bulletCategory: this.bulletCategory,
+        environmentCategory: this.environmentCategory});
       }, this);
     }
 
