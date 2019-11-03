@@ -66,29 +66,24 @@ export default class Level6 extends Phaser.Scene {
     this.dunes3 = this.add.tileSprite(this.centerX,this.centerY+40,0,0, 'dunes3');
     this.dunes4 = this.add.tileSprite(this.centerX,this.centerY+50,0,0, 'dunes4');
 
-    var playerCategory = this.matter.world.nextCategory();
-    this.player = this.matter.add.image(68, 530, 'tankertot', null, {friction:0}).setCollisionCategory(playerCategory);
-    this.cannon = this.matter.add.image(68, 530, 'cannon', null, {friction:0, shape: 'circle'}).setCollisionCategory(playerCategory).setScale(.84);
-    var borderCategory = this.matter.world.nextCategory();
-    var vwall1 = this.matter.add.image(16,16, 'vwall', null, { isStatic: true, friction: 0 }).setCollisionCategory(borderCategory);
-    var vwall2 = this.matter.add.image(784,16, 'vwall', null, { isStatic: true, friction: 0 }).setCollisionCategory(borderCategory);
-    var hwall = this.matter.add.image(16,16, 'hwall', null, { isStatic: true, friction: 0 }).setCollisionCategory(borderCategory);
-    var ground = this.matter.add.image(16,584, 'ground', null, { isStatic: true, friction: 0 }).setCollisionCategory(borderCategory);
+    this.player = this.matter.add.image(68, 530, 'tankertot', null, {friction:0}).setCollisionCategory(this.playerCategory);
+    this.cannon = this.matter.add.image(68, 530, 'cannon', null, {friction:0, shape: 'circle'}).setCollisionCategory(this.playerCategory).setScale(.84);
+    var vwall1 = this.matter.add.image(16,16, 'vwall', null, { isStatic: true, friction: 0 }).setCollisionCategory(this.borderCategory);
+    var vwall2 = this.matter.add.image(784,16, 'vwall', null, { isStatic: true, friction: 0 }).setCollisionCategory(this.borderCategory);
+    var hwall = this.matter.add.image(16,16, 'hwall', null, { isStatic: true, friction: 0 }).setCollisionCategory(this.borderCategory);
+    var ground = this.matter.add.image(16,584, 'ground', null, { isStatic: true, friction: 0 }).setCollisionCategory(this.borderCategory);
 
-    var environmentCategory = this.matter.world.nextCategory();
-    var plat1 = this.matter.add.image(100, 200, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(1.5).setCollisionCategory(environmentCategory);
-    var plat2 = this.matter.add.image(700, 200, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(1.5).setCollisionCategory(environmentCategory);
-    var plat3 = this.matter.add.image(400, 200, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(1.5).setCollisionCategory(environmentCategory);
+    var plat1 = this.matter.add.image(100, 200, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(1.5).setCollisionCategory(this.environmentCategory);
+    var plat2 = this.matter.add.image(700, 200, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(1.5).setCollisionCategory(this.environmentCategory);
+    var plat3 = this.matter.add.image(400, 200, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(1.5).setCollisionCategory(this.environmentCategory);
 
-    this.bulletCategory = this.matter.world.nextCategory();
 
-    this.player.setCollidesWith([borderCategory, environmentCategory, this.bulletCategory]);
-    this.cannon.setCollidesWith([borderCategory, environmentCategory]);
+    this.player.setCollidesWith([this.borderCategory, this.environmentCategory, this.bulletCategory]);
+    this.cannon.setCollidesWith([this.borderCategory, this.environmentCategory]);
 
-    var enemyCategory = this.matter.world.nextCategory();
-    var squirrel = this.matter.add.image(111, 136, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(enemyCategory).setSensor(true);
-    var speedy = this.matter.add.image(711, 136, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(enemyCategory).setSensor(true);
-    var tanky = this.matter.add.image(411, 136, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(enemyCategory).setSensor(true);
+    var squirrel = this.matter.add.image(111, 136, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(this.enemyCategory).setSensor(true);
+    var speedy = this.matter.add.image(711, 136, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(this.enemyCategory).setSensor(true);
+    var tanky = this.matter.add.image(411, 136, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(this.enemyCategory).setSensor(true);
 
     //this.squirrelCount = 3;
 
