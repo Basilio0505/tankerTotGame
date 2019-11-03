@@ -59,6 +59,8 @@ export default class Level4 extends Phaser.Scene {
 
   //############CREATE#####################################################################CREATE
   create (data) {
+    console.log('cut')
+    console.log(this.environmentCategory)
     //Create the scene
     this.background = this.add.tileSprite(this.centerX,this.centerY,0,0, 'background');
     this.dunes1 = this.add.tileSprite(this.centerX,this.centerY+20,0,0, 'dunes1');

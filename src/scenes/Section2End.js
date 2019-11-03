@@ -129,7 +129,14 @@ export default class Section2End extends Phaser.Scene {
       });
       nextButton.on("pointerup", function(){
         if (this.currentLevel < 6){
-          this.scene.start("Level"+(this.currentLevel+1));
+          this.scene.start("Level"+(this.currentLevel+1)), {
+
+            playerCategory: this.playerCategory,
+            enemyCategory: this.enemyCategory,
+            borderCategory: this.borderCategory,
+            bulletCategory: this.bulletCategory,
+            environmentCategory: this.environmentCategory
+          };
         }else{
           this.scene.start('Title');
         }
@@ -147,7 +154,14 @@ export default class Section2End extends Phaser.Scene {
     });
     restartButton.on("pointerup", function(){
       console.log(this.currentLevel);
-        this.scene.start("Level"+this.currentLevel);
+        this.scene.start("Level"+this.currentLevel), {
+        playerCategory: this.playerCategory,
+        enemyCategory: this.enemyCategory,
+        borderCategory: this.borderCategory,
+        bulletCategory: this.bulletCategory,
+        environmentCategory: this.environmentCategory
+
+        };
     }, this);
     //################################################################
   }
