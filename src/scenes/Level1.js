@@ -77,7 +77,6 @@ export default class Level1 extends Phaser.Scene {
     if(this.borderCategory == undefined){
       this.borderCategory = this.matter.world.nextCategory();
     }
-    console.log(typeof this.borderCategory)
     var vwall1 = this.matter.add.image(16,16, 'vwall', null, { isStatic: true, friction: 0 }).setCollisionCategory(this.borderCategory);
     var vwall2 = this.matter.add.image(784,16, 'vwall', null, { isStatic: true, friction: 0 }).setCollisionCategory(this.borderCategory);
     var hwall = this.matter.add.image(16,16, 'hwall', null, { isStatic: true, friction: 0 }).setCollisionCategory(this.borderCategory);
@@ -168,7 +167,12 @@ export default class Level1 extends Phaser.Scene {
           backgroundX: this.background.tilePositionX,
           mountainsX: this.mountains.tilePositionX,
           treesX: this.trees.tilePositionX,
-          tankerX: this.player.x
+          tankerX: this.player.x,
+          playerCategory: this.playerCategory,
+          enemyCategory: this.enemyCategory,
+          borderCategory: this.borderCategory,
+          bulletCategory: this.bulletCategory,
+          environmentCategory: this.environmentCategory
           });
       }
       //Checks if the two objects colliding are the walls or platforms and bullet

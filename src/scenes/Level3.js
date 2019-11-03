@@ -14,6 +14,12 @@ export default class Level3 extends Phaser.Scene {
     this.squirrelCount = 3;
 
     this.pointerLocation = {x:0, y:0};
+
+    this.playerCategory = data.playerCategory;
+    this.enemyCategory = data.enemyCategory;
+    this.borderCategory = data.borderCategory;
+    this.bulletCategory = data.bulletCategory
+    this.environmentCategory = data.environmentCategory;
   }
 
   preload () {// Preload assets
@@ -59,31 +65,26 @@ export default class Level3 extends Phaser.Scene {
     this.mountains = this.add.tileSprite(this.centerX,this.centerY+100,0,0, 'mountains');
     this.trees = this.add.tileSprite(this.centerX,this.centerY+150,0,0, 'trees');
 
-    var playerCategory = this.matter.world.nextCategory();
-    this.player = this.matter.add.image(138, 530, 'tankertot', null, {friction:0}).setCollisionCategory(playerCategory);
-    this.cannon = this.matter.add.image(138, 530, 'cannon', null, {friction:0, shape: 'circle'}).setCollisionCategory(playerCategory).setScale(.84);
-    var borderCategory = this.matter.world.nextCategory();
-    var vwall1 = this.matter.add.image(16,16, 'vwall', null, { isStatic: true, friction: 0 }).setCollisionCategory(borderCategory);
-    var vwall2 = this.matter.add.image(784,16, 'vwall', null, { isStatic: true, friction: 0 }).setCollisionCategory(borderCategory);
-    var hwall = this.matter.add.image(16,16, 'hwall', null, { isStatic: true, friction: 0 }).setCollisionCategory(borderCategory);
-    var ground = this.matter.add.image(16,584, 'ground', null, { isStatic: true, friction: 0 }).setCollisionCategory(borderCategory);
+    this.player = this.matter.add.image(138, 530, 'tankertot', null, {friction:0}).setCollisionCategory(this.playerCategory);
+    this.cannon = this.matter.add.image(138, 530, 'cannon', null, {friction:0, shape: 'circle'}).setCollisionCategory(this.playerCategory).setScale(.84);
+    var vwall1 = this.matter.add.image(16,16, 'vwall', null, { isStatic: true, friction: 0 }).setCollisionCategory(this.borderCategory);
+    var vwall2 = this.matter.add.image(784,16, 'vwall', null, { isStatic: true, friction: 0 }).setCollisionCategory(this.borderCategory);
+    var hwall = this.matter.add.image(16,16, 'hwall', null, { isStatic: true, friction: 0 }).setCollisionCategory(this.borderCategory);
+    var ground = this.matter.add.image(16,584, 'ground', null, { isStatic: true, friction: 0 }).setCollisionCategory(this.borderCategory);
 
-    var environmentCategory = this.matter.world.nextCategory();
-    var plat1 = this.matter.add.image(500, 200, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(1.5).setCollisionCategory(environmentCategory);
-    var plat2 = this.matter.add.image(250, 200, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(1.5).setCollisionCategory(environmentCategory);
-    var plat3 = this.matter.add.image(100, 125, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(1.5).setCollisionCategory(environmentCategory).setAngle(-45);
-    var plat4 = this.matter.add.image(700, 125, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(1.5).setCollisionCategory(environmentCategory).setAngle(45);
-    var plat5 = this.matter.add.image(this.centerX, 470, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(3).setCollisionCategory(environmentCategory);
+    var plat1 = this.matter.add.image(500, 200, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(1.5).setCollisionCategory(this.environmentCategory);
+    var plat2 = this.matter.add.image(250, 200, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(1.5).setCollisionCategory(this.environmentCategory);
+    var plat3 = this.matter.add.image(100, 125, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(1.5).setCollisionCategory(this.environmentCategory).setAngle(-45);
+    var plat4 = this.matter.add.image(700, 125, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(1.5).setCollisionCategory(this.environmentCategory).setAngle(45);
+    var plat5 = this.matter.add.image(this.centerX, 470, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(3).setCollisionCategory(this.environmentCategory);
 
-    this.bulletCategory = this.matter.world.nextCategory();
 
-    this.player.setCollidesWith([borderCategory, environmentCategory, this.bulletCategory]);
-    this.cannon.setCollidesWith([borderCategory, environmentCategory]);
+    this.player.setCollidesWith([this.borderCategory, this.environmentCategory, this.bulletCategory]);
+    this.cannon.setCollidesWith([this.borderCategory, this.environmentCategory]);
 
-    var enemyCategory = this.matter.world.nextCategory();
-    var squirrel = this.matter.add.image(505, 136, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(enemyCategory).setSensor(true);
-    var speedy = this.matter.add.image(261, 136, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(enemyCategory).setSensor(true);
-    var tanky = this.matter.add.image(700, 528, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(enemyCategory).setSensor(true);
+    var squirrel = this.matter.add.image(505, 136, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(this.enemyCategory).setSensor(true);
+    var speedy = this.matter.add.image(261, 136, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(this.enemyCategory).setSensor(true);
+    var tanky = this.matter.add.image(700, 528, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(this.enemyCategory).setSensor(true);
 
     //bool used to stop all other actions while tutorialText is active
     this.tutorialActive = true;
@@ -136,7 +137,12 @@ export default class Level3 extends Phaser.Scene {
           backgroundX: this.background.tilePositionX,
           mountainsX: this.mountains.tilePositionX,
           treesX: this.trees.tilePositionX,
-          tankerX: this.player.x
+          tankerX: this.player.x,
+          playerCategory: this.playerCategory,
+          enemyCategory: this.enemyCategory,
+          borderCategory: this.borderCategory,
+          bulletCategory: this.bulletCategory,
+          environmentCategory: this.environmentCategory
           });
       }
       //Checks if the two objects colliding are the walls or platforms and bullet

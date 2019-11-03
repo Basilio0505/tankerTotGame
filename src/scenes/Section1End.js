@@ -19,7 +19,7 @@ export default class Section1End extends Phaser.Scene {
     this.enemyCategory = data.enemyCategory;
     this.borderCategory = data.borderCategory;
     this.bulletCategory = data.bulletCategory
-    this.environmentCategory = this.environmentCategory;
+    this.environmentCategory = data.environmentCategory;
   }
 
   preload () {
@@ -145,7 +145,13 @@ export default class Section1End extends Phaser.Scene {
       this.setFrame(0);
     });
     restartButton.on("pointerup", function(){
-      this.scene.start("Level"+this.currentLevel);
+      this.scene.start("Level"+this.currentLevel), {
+      playerCategory: this.playerCategory,
+      enemyCategory: this.enemyCategory,
+      borderCategory: this.borderCategory,
+      bulletCategory: this.bulletCategory,
+      environmentCategory: this.environmentCategory
+      };
     }, this);
     //################################################################
   }
