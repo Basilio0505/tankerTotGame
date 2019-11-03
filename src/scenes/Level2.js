@@ -62,6 +62,7 @@ export default class Level2 extends Phaser.Scene {
 //############CREATE#####################################################################CREATE
   create (data) {
     //Create the scene
+    console.log(this.environmentCategory)
     this.background = this.add.tileSprite(this.centerX,this.centerY,0,0, 'background');
     this.mountains = this.add.tileSprite(this.centerX,this.centerY+100,0,0, 'mountains');
     this.trees = this.add.tileSprite(this.centerX,this.centerY+150,0,0, 'trees');
@@ -73,14 +74,13 @@ export default class Level2 extends Phaser.Scene {
     var vwall2 = this.matter.add.image(784,16, 'vwall', null, { isStatic: true, friction: 0 }).setCollisionCategory(this.borderCategory);
     var hwall = this.matter.add.image(16,16, 'hwall', null, { isStatic: true, friction: 0 }).setCollisionCategory(this.borderCategory);
     var ground = this.matter.add.image(16,584, 'ground', null, { isStatic: true, friction: 0 }).setCollisionCategory(this.borderCategory);
-    console.log('hub')
-    console.log(this.environmentCategory)
+
     //this.environmentCategory = this.matter.world.nextCategory();
 
-    var plat1 = this.matter.add.image(700, 560, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(1.5).setCollisionCategory(this.environmentCategory).setAngle(135);
+    var plat1 = this.matter.add.image(700, 545, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(1.5).setCollisionCategory(this.environmentCategory).setAngle(135);
     var plat2 = this.matter.add.image(500, 365, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(1.5).setCollisionCategory(this.environmentCategory);
     var plat3 = this.matter.add.image(100, 365, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(1.5).setCollisionCategory(this.environmentCategory);
-    var plat4 = this.matter.add.image(700, 300, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(1.5).setCollisionCategory(this.environmentCategory).setAngle(45);
+    var plat4 = this.matter.add.image(700, 280, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(1.5).setCollisionCategory(this.environmentCategory).setAngle(45);
 
 
     //this.bulletCategory = this.matter.world.nextCategory();
@@ -192,7 +192,12 @@ export default class Level2 extends Phaser.Scene {
             backgroundX: this.background.tilePositionX,
             mountainsX: this.mountains.tilePositionX,
             treesX: this.trees.tilePositionX,
-            tankerX: this.player.x
+            tankerX: this.player.x,
+            playerCategory: this.playerCategory,
+            enemyCategory: this.enemyCategory,
+            borderCategory: this.borderCategory,
+            bulletCategory: this.bulletCategory,
+            environmentCategory: this.environmentCategory
           });
         }
     }
@@ -245,8 +250,6 @@ export default class Level2 extends Phaser.Scene {
       this.bullet.setVelocity(Math.cos(angle)*10, Math.sin(angle)*10);
       this.shotCount += 1;
       this.sound.play('shot');
-      console.log(this.car)
-      console.log(this.environmentCategory)
       this.bulletPresent = true
     }
   }

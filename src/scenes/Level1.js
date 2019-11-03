@@ -64,6 +64,7 @@ export default class Level1 extends Phaser.Scene {
 
 //############CREATE#####################################################################CREATE
   create (data) {
+    console.log(this.environmentCategory)
     //Create the scene
     this.background = this.add.tileSprite(this.centerX,this.centerY,0,0, 'background');
     this.mountains = this.add.tileSprite(this.centerX,this.centerY+100,0,0, 'mountains');
@@ -85,9 +86,9 @@ export default class Level1 extends Phaser.Scene {
     if(this.environmentCategory == undefined){
       this.environmentCategory = this.matter.world.nextCategory();
     }
-    var plat1 = this.matter.add.image(200, 520, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(1.5).setCollisionCategory(this.environmentCategory);
-    var plat2 = this.matter.add.image(600, 200, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(1.5).setCollisionCategory(this.environmentCategory);
-    var plat3 = this.matter.add.image(400, 365, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(1.5).setCollisionCategory(this.environmentCategory);
+    var plat1 = this.matter.add.image(240, 520, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(1.5).setCollisionCategory(this.environmentCategory);
+    var plat2 = this.matter.add.image(640, 200, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(1.5).setCollisionCategory(this.environmentCategory);
+    var plat3 = this.matter.add.image(440, 365, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(1.5).setCollisionCategory(this.environmentCategory);
 
     if(this.bulletCategory == undefined){
       this.bulletCategory = this.matter.world.nextCategory();
@@ -123,7 +124,6 @@ export default class Level1 extends Phaser.Scene {
       "pointermove",
       function(pointer){/*
         if(pointer == undefined){
-          console.log("BOOM")
           this.pointerLocation = {x:0, y:0}
         }
         console.log(pointer);*/
@@ -205,7 +205,6 @@ export default class Level1 extends Phaser.Scene {
     if (this.squirrelCount == 0) {
       //Makes sure there is no active bullet present
       if (this.bulletPresent == false){
-        console.log(this.enemyCategory)
         //Loads score Scene and passes info for display over
         this.scene.start('Section1End', {
             currentLevel: this.currentLevel,
@@ -259,13 +258,11 @@ export default class Level1 extends Phaser.Scene {
       //this.player.setPosition(68,530); does not fix error
       //this.cannon.setPosition(65,530);
       //this.scene.start("Level"+this.currentLevel); does not fix error
-      console.log('Player out of bounds!');
     };
 
     //Check if bullet is out of bounds, destroys and resets bullet vars
     if (this.bulletPresent){
       if ((this.bullet.x < 0) || (this.bullet.x > 800) || (this.bullet.y < 0) || (this.bullet.y > 600)){
-        console.log('Bullet out of bounds!');
         this.bullet.destroy();
         this.bulletPresent = false;
         this.bounceCount = 0;

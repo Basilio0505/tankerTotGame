@@ -61,6 +61,7 @@ export default class Level3 extends Phaser.Scene {
   //############CREATE#####################################################################CREATE
   create (data) {
     //Create the scene
+    console.log(this.environmentCategory)
     this.background = this.add.tileSprite(this.centerX,this.centerY,0,0, 'background');
     this.mountains = this.add.tileSprite(this.centerX,this.centerY+100,0,0, 'mountains');
     this.trees = this.add.tileSprite(this.centerX,this.centerY+150,0,0, 'trees');
@@ -186,7 +187,12 @@ export default class Level3 extends Phaser.Scene {
             backgroundX: this.background.tilePositionX,
             mountainsX: this.mountains.tilePositionX,
             treesX: this.trees.tilePositionX,
-            tankerX: this.player.x
+            tankerX: this.player.x,
+            playerCategory: this.playerCategory,
+            enemyCategory: this.enemyCategory,
+            borderCategory: this.borderCategory,
+            bulletCategory: this.bulletCategory,
+            environmentCategory: this.environmentCategory
           });
         }
     }
