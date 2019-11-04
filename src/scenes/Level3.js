@@ -24,7 +24,7 @@ export default class Level3 extends Phaser.Scene {
 
   preload () {// Preload assets
     //Tutorial Text
-    this.load.image('suicideText', './assets/TutorialText/TextBox_Suicide.png');
+    this.load.image('suicideText', './assets/Tutorial/TextBox_Suicide.png');
 
     //Player Assets
     this.load.image('tankertot', './assets/TankerTot/tankerTot.png');
@@ -38,6 +38,8 @@ export default class Level3 extends Phaser.Scene {
     this.load.image('mountains','./assets/Environment/mountains.png');
     this.load.image('trees','./assets/Environment/trees.png');
     this.load.image('woodPlatform', './assets/smallWoodPlat.png');
+    this.load.image('brickPlatform', './assets/Environment/smallBrickPlat.png')
+
 
     //All to be replaced
     this.load.image('hwall', './assets/Environment/horizontalWall.png');
@@ -75,8 +77,8 @@ export default class Level3 extends Phaser.Scene {
 
     var plat1 = this.matter.add.image(500, 200, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(1.5).setCollisionCategory(this.environmentCategory);
     var plat2 = this.matter.add.image(250, 200, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(1.5).setCollisionCategory(this.environmentCategory);
-    var plat3 = this.matter.add.image(100, 125, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(1.5).setCollisionCategory(this.environmentCategory).setAngle(-45);
-    var plat4 = this.matter.add.image(700, 125, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(1.5).setCollisionCategory(this.environmentCategory).setAngle(45);
+    var plat3 = this.matter.add.image(100, 125, "brickPlatform", null, { isStatic: true, friction: 0 }).setScale(1.5).setCollisionCategory(this.environmentCategory).setAngle(-45);
+    var plat4 = this.matter.add.image(700, 125, "brickPlatform", null, { isStatic: true, friction: 0 }).setScale(1.5).setCollisionCategory(this.environmentCategory).setAngle(45);
     var plat5 = this.matter.add.image(this.centerX, 470, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(3).setCollisionCategory(this.environmentCategory);
 
 

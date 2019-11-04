@@ -24,8 +24,8 @@ export default class Level2 extends Phaser.Scene {
 
   preload () {// Preload assets
     //Tutorial Text
-    this.load.image('scoreText', './assets/TutorialText/TextBox_Score.png');
-    this.load.image('bulletText', './assets/TutorialText/TextBox_Bullet.png');
+    this.load.image('scoreText', './assets/Tutorial/TextBox_Score.png');
+    this.load.image('bulletText', './assets/Tutorial/TextBox_Bullet.png');
 
     //Player Assets
     this.load.image('tankertot', './assets/TankerTot/tankerTot.png');
@@ -38,7 +38,8 @@ export default class Level2 extends Phaser.Scene {
     this.load.image('background','./assets/Environment/background.png');
     this.load.image('mountains','./assets/Environment/mountains.png');
     this.load.image('trees','./assets/Environment/trees.png');
-    this.load.image('woodPlatform', './assets/smallWoodPlat.png');
+    this.load.image('woodPlatform', './assets/Environment/smallWoodPlat.png');
+    this.load.image('brickPlatform', './assets/Environment/smallBrickPlat.png')
 
     //All to be replaced
     this.load.image('hwall', './assets/Environment/horizontalWall.png');
@@ -77,10 +78,10 @@ export default class Level2 extends Phaser.Scene {
 
     //this.environmentCategory = this.matter.world.nextCategory();
 
-    var plat1 = this.matter.add.image(700, 545, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(1.5).setCollisionCategory(this.environmentCategory).setAngle(135);
+    var plat1 = this.matter.add.image(700, 545, "brickPlatform", null, { isStatic: true, friction: 0 }).setScale(1.5).setCollisionCategory(this.environmentCategory).setAngle(135);
     var plat2 = this.matter.add.image(500, 365, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(1.5).setCollisionCategory(this.environmentCategory);
     var plat3 = this.matter.add.image(100, 365, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(1.5).setCollisionCategory(this.environmentCategory);
-    var plat4 = this.matter.add.image(700, 280, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(1.5).setCollisionCategory(this.environmentCategory).setAngle(45);
+    var plat4 = this.matter.add.image(700, 280, "brickPlatform", null, { isStatic: true, friction: 0 }).setScale(1.5).setCollisionCategory(this.environmentCategory).setAngle(45);
 
 
     //this.bulletCategory = this.matter.world.nextCategory();
