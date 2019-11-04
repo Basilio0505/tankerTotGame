@@ -49,6 +49,10 @@ export default class Section2End extends Phaser.Scene {
       frameHeight: 100,
       frameWidth: 200
     });
+    this.load.spritesheet('levelselect','./assets/UI/levelselectbutton.png', {
+      frameHeight: 100,
+      frameWidth: 200
+    });
 
     // Declare variables for center of the scene
     this.centerX = this.cameras.main.width / 2;
@@ -146,7 +150,7 @@ export default class Section2End extends Phaser.Scene {
         }
       }, this);
     }
-    var menuButton = this.add.sprite(this.centerX , this.centerY + 220, 'next', 0);
+    var menuButton = this.add.sprite(this.centerX , this.centerY + 220, 'levelselect', 0);
     menuButton.setScale(0.75);
     if(this.advance){
       menuButton.setInteractive();
