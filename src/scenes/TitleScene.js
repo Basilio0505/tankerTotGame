@@ -51,7 +51,7 @@ export default class TitleScene extends Phaser.Scene {
     var startLS = this.add.sprite(this.centerX + 150 ,this.centerY+180,'select',0).setInteractive().setScale(5);
     startLS.on("pointerover", function(){this.setFrame(1);});
     startLS.on("pointerout", function(){this.setFrame(0);});
-    startLS.on("pointerup", function(){this.scene.start("LevelSelect")}, this);
+    startLS.on("pointerup", function(){this.scene.start("LevelSelect", {level: 1})}, this);
   }
 
   update (time, delta) {
