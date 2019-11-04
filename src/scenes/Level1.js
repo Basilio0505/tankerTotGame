@@ -185,6 +185,7 @@ export default class Level1 extends Phaser.Scene {
       else if((event.pairs[0].bodyA.gameObject == plat1 ||
           event.pairs[0].bodyA.gameObject == plat2 ||
           event.pairs[0].bodyA.gameObject == plat3 ||
+          event.pairs[0].bodyA.gameObject == break1 ||
           event.pairs[0].bodyA.gameObject == ground ||
           event.pairs[0].bodyA.gameObject == hwall ||
           event.pairs[0].bodyA.gameObject == vwall1 ||

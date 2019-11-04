@@ -155,6 +155,7 @@ export default class Level5 extends Phaser.Scene {
       //Checks if the two objects colliding are the walls or platforms and bullet
       else if((event.pairs[0].bodyA.gameObject == plat1 ||
           event.pairs[0].bodyA.gameObject == plat2 ||
+          event.pairs[0].bodyA.gameObject == break1 ||
           event.pairs[0].bodyA.gameObject == ground ||
           event.pairs[0].bodyA.gameObject == hwall ||
           event.pairs[0].bodyA.gameObject == vwall1 ||
