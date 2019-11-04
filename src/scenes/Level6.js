@@ -232,13 +232,11 @@ export default class Level6 extends Phaser.Scene {
       //this.player.setPosition(68,530); does not fix error
       //this.cannon.setPosition(65,530);
       //this.scene.start("Level"+this.currentLevel); does not fix error
-      console.log('Player out of bounds!');
     };
 
     //Check if bullet is out of bounds, destroys and resets bullet vars
     if (this.bulletPresent){
       if ((this.bullet.x < 0) || (this.bullet.x > 800) || (this.bullet.y < 0) || (this.bullet.y > 600)){
-        console.log('Bullet out of bounds!');
         this.bullet.destroy();
         this.bulletPresent = false;
         this.bounceCount = 0;
