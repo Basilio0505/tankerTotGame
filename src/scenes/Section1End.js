@@ -117,8 +117,6 @@ export default class Section1End extends Phaser.Scene {
     //################################################################
     var nextButton = this.add.sprite(this.centerX + 150, this.centerY + 150, 'next', 0);
     nextButton.setScale(0.75);
-    var menuButton = this.add.sprite(this.centerX , this.centerY + 220, 'next', 0);
-    menuButton.setScale(0.75);
     if(this.advance){
       nextButton.setInteractive();
       nextButton.on("pointerover", function(){
@@ -136,6 +134,8 @@ export default class Section1End extends Phaser.Scene {
         environmentCategory: this.environmentCategory});
       }, this);
     }
+    var menuButton = this.add.sprite(this.centerX , this.centerY + 220, 'next', 0);
+    menuButton.setScale(0.75);
     if(this.advance){
       menuButton.setInteractive();
       menuButton.on("pointerover", function(){
