@@ -18,8 +18,10 @@ export default class Level5 extends Phaser.Scene {
     this.playerCategory = data.playerCategory;
     this.enemyCategory = data.enemyCategory;
     this.borderCategory = data.borderCategory;
-    this.bulletCategory = data.bulletCategory
+    this.bulletCategory = data.bulletCategory;
+    console.log(data.environmentCategory)
     this.environmentCategory = data.environmentCategory;
+
   }
 
   preload () {// Preload assets
