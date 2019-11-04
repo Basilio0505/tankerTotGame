@@ -6,6 +6,12 @@ export default class LevelSelect extends Phaser.Scene {
 
   init (data) {
     // Initialization code goes here
+    this.playerCategory = data.playerCategory;
+    this.enemyCategory = data.enemyCategory;
+    this.borderCategory = data.borderCategory;
+    this.bulletCategory = data.bulletCategory
+    this.environmentCategory = data.environmentCategory;
+    this.currentLevel = data.level;
   }
 
   preload () {
@@ -27,6 +33,7 @@ export default class LevelSelect extends Phaser.Scene {
   }
 
   create (data) {
+    console.log(this.currentLevel)
     //Create the scene
     this.cameras.main.setBackgroundColor(0xE83009);
 
@@ -38,28 +45,38 @@ export default class LevelSelect extends Phaser.Scene {
     var start2 = this.add.sprite(this.centerX+150,this.centerY-180,'level2',0).setInteractive().setScale(5);
     start2.on("pointerover", function(){this.setFrame(1);});
     start2.on("pointerout", function(){this.setFrame(0);});
-    start2.on("pointerup", function(){this.scene.start("Level2")}, this);
+    if(this.currentLevel == 2){
+      start2.on("pointerup", function(){this.scene.start("Level2")}, this);
+    }
 
     var start3 = this.add.sprite(this.centerX-150,this.centerY-90,'level3',0).setInteractive().setScale(5);
     start3.on("pointerover", function(){this.setFrame(1);});
     start3.on("pointerout", function(){this.setFrame(0);});
-    start3.on("pointerup", function(){this.scene.start("Level3")}, this);
+    if(this.currentLevel == 3){
+      start3.on("pointerup", function(){this.scene.start("Level3")}, this);
+    }
 
     var start4 = this.add.sprite(this.centerX+150,this.centerY-90,'level4',0).setInteractive().setScale(5);
     start4.on("pointerover", function(){this.setFrame(1);});
     start4.on("pointerout", function(){this.setFrame(0);});
-    start4.on("pointerup", function(){this.scene.start("Level4")}, this);
+    if(this.currentLevel == 4){
+      start4.on("pointerup", function(){this.scene.start("Level4")}, this);
+    }
 
     var start5 = this.add.sprite(this.centerX-150,this.centerY,'level5',0).setInteractive().setScale(5);
     start5.on("pointerover", function(){this.setFrame(1);});
     start5.on("pointerout", function(){this.setFrame(0);});
-    start5.on("pointerup", function(){this.scene.start("Level5")}, this);
+    if(this.currentLevel == 5){
+      start5.on("pointerup", function(){this.scene.start("Level5")}, this);
+    }
 
     var start6 = this.add.sprite(this.centerX+150,this.centerY,'level6',0).setInteractive().setScale(5);
     start6.on("pointerover", function(){this.setFrame(1);});
     start6.on("pointerout", function(){this.setFrame(0);});
-    start6.on("pointerup", function(){this.scene.start("Level6")}, this);
-
+    if(this.currentLevel == 6){
+      start6.on("pointerup", function(){this.scene.start("Level6")}, this);
+    }
+    
     var back = this.add.sprite(this.centerX,this.centerY+180,'back',0).setInteractive().setScale(5);
     back.on("pointerover", function(){this.setFrame(1);});
     back.on("pointerout", function(){this.setFrame(0);});
