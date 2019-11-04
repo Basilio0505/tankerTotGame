@@ -42,6 +42,11 @@ export default class Level1 extends Phaser.Scene {
     this.load.image('trees','./assets/Environment/trees.png');
     this.load.image('woodPlatform', './assets/smallWoodPlat.png');
 
+    this.load.spritesheet('break', './assets/smallWoodPlat_Breakable.png',{
+      frameWidth: 64,
+      frameHeight: 32
+    });
+
     //All to be replaced
     this.load.image('hwall', './assets/Environment/horizontalWall.png');
     this.load.image('vwall', './assets/Environment/verticalWall.png');
@@ -50,7 +55,6 @@ export default class Level1 extends Phaser.Scene {
     this.load.image('speedy','./assets/enemies/speedySquirrel.png');
     this.load.image('tanky','./assets/enemies/tankSquirrel.png' );
     this.load.image('squirrel','./assets/enemies/enemySquirrel.png');
-
 
     //Load Sound FX
     this.load.audio('shot','./assets/Sounds/FX/shot.wav');
@@ -90,6 +94,9 @@ export default class Level1 extends Phaser.Scene {
     var plat2 = this.matter.add.image(640, 200, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(1.5).setCollisionCategory(this.environmentCategory);
     var plat3 = this.matter.add.image(440, 365, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(1.5).setCollisionCategory(this.environmentCategory);
 
+    var break1frame = 0;
+    var break1 = this.matter.add.sprite(100, 100, 'break', null, { isStatic: true, friction: 0 }, break1frame).setScale(2).setCollisionCategory(this.environmentCategory);
+
     if(this.bulletCategory == undefined){
       this.bulletCategory = this.matter.world.nextCategory();
     }
@@ -113,7 +120,6 @@ export default class Level1 extends Phaser.Scene {
 
     this.pug = this.add.image(this.centerX - 140, this.centerY - 100, "generalPug").setScale(1.5);
     this.blackPug = this.add.image(this.centerX - 140, this.centerY - 100, "blackGeneral").setScale(1.5);
-
 
     this.bulletPresent = false;
     this.gameOver = false;
@@ -186,6 +192,17 @@ export default class Level1 extends Phaser.Scene {
         this.bounceCount += 1;
         this.sound.play('bounce');
       }
+      else if(event.pairs[0].bodyA.gameObject == break1 && event.pairs[0].bodyB.gameObject == this.bullet){
+        this.bounceCount += 1;
+        break1frame +=1;
+        if(break1frame > 2){
+          break1.destroy();
+        }
+        else{
+          break1.setFrame(break1frame);
+        }
+        this.sound.play('bounce');
+      }
 
       if (this.bounceCount > 3){
         this.bullet.destroy();
@@ -194,7 +211,6 @@ export default class Level1 extends Phaser.Scene {
       };
     }, this);
   }
-
 
 //############UPDATE######################################################################UPDATE
   update (time, delta) {
