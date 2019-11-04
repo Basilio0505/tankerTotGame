@@ -18,16 +18,16 @@ export default class Level1 extends Phaser.Scene {
 
   preload () {// Preload assets
     //Tutorial Text
-    this.load.image('movementText', './assets/TutorialText/TextBox_Movement.png');
-    this.load.image('shootText', './assets/TutorialText/TextBox_ShootBasics.png');
-    this.load.image('startText', './assets/TutorialText/TextBox_PugIncoming.png');
-    this.load.image('dutyText', './assets/TutorialText/TextBox_PugDuty.png');
-    this.load.image('timeText', './assets/TutorialText/TextBox_PugAboutTime.png');
-    this.load.image('speedText', './assets/TutorialText/TextBox_PugSpeed.png');
+    this.load.image('movementText', './assets/Tutorial/TextBox_Movement.png');
+    this.load.image('shootText', './assets/Tutorial/TextBox_ShootBasics.png');
+    this.load.image('startText', './assets/Tutorial/TextBox_PugIncoming.png');
+    this.load.image('dutyText', './assets/Tutorial/TextBox_PugDuty.png');
+    this.load.image('timeText', './assets/Tutorial/TextBox_PugAboutTime.png');
+    this.load.image('speedText', './assets/Tutorial/TextBox_PugSpeed.png');
 
     //Tutorial General
-    this.load.image('blackGeneral', './assets/blackGeneralPug.png');
-    this.load.image('generalPug', './assets/generalPug.png');
+    this.load.image('blackGeneral', './assets/Tutorial/blackGeneralPug.png');
+    this.load.image('generalPug', './assets/Tutorial/generalPug.png');
 
     //Player Assets
     this.load.image('tankertot', './assets/TankerTot/tankerTot.png');
@@ -40,9 +40,8 @@ export default class Level1 extends Phaser.Scene {
     this.load.image('background','./assets/Environment/background.png');
     this.load.image('mountains','./assets/Environment/mountains.png');
     this.load.image('trees','./assets/Environment/trees.png');
-    this.load.image('woodPlatform', './assets/smallWoodPlat.png');
-
-    this.load.spritesheet('break', './assets/smallWoodPlat_Breakable.png',{
+    this.load.image('woodPlatform', './assets/Environment/smallWoodPlat.png');
+    this.load.spritesheet('break', './assets/Environment/smallWoodPlat_Breakable.png',{
       frameWidth: 64,
       frameHeight: 32
     });
