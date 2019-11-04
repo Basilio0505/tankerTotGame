@@ -21,7 +21,6 @@ export default class Level5 extends Phaser.Scene {
     this.bulletCategory = data.bulletCategory;
     console.log(data.environmentCategory)
     this.environmentCategory = data.environmentCategory;
-
   }
 
   preload () {// Preload assets
@@ -39,6 +38,10 @@ export default class Level5 extends Phaser.Scene {
     this.load.image('dunes3','./assets/Environment/dunes3.png');
     this.load.image('dunes4','./assets/Environment/dunes4.png');
     this.load.image('woodPlatform', './assets/smallWoodPlat.png');
+    this.load.spritesheet('break', './assets/smallWoodPlat_Breakable.png',{
+      frameWidth: 64,
+      frameHeight: 32
+    });
 
     //All to be replaced
     this.load.image('hwall', './assets/Environment/horizontalWall.png');
@@ -78,8 +81,10 @@ export default class Level5 extends Phaser.Scene {
 
     var plat1 = this.matter.add.image(340, 480, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(2).setCollisionCategory(this.environmentCategory).setAngle(90);
     var plat2 = this.matter.add.image(525, 200, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(1.5).setCollisionCategory(this.environmentCategory);
-    var plat3 = this.matter.add.image(500, 365, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(1.5).setCollisionCategory(this.environmentCategory);
+    //var plat3 = this.matter.add.image(500, 365, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(1.5).setCollisionCategory(this.environmentCategory);
 
+    var break1frame = 0;
+    var break1 = this.matter.add.sprite(500, 365, 'break', null, { isStatic: true, friction: 0 }, break1frame).setScale(2).setCollisionCategory(this.environmentCategory);
 
     this.player.setCollidesWith([this.borderCategory, this.environmentCategory, this.bulletCategory]);
     this.cannon.setCollidesWith([this.borderCategory, this.environmentCategory]);
@@ -150,12 +155,22 @@ export default class Level5 extends Phaser.Scene {
       //Checks if the two objects colliding are the walls or platforms and bullet
       else if((event.pairs[0].bodyA.gameObject == plat1 ||
           event.pairs[0].bodyA.gameObject == plat2 ||
-          event.pairs[0].bodyA.gameObject == plat3 ||
           event.pairs[0].bodyA.gameObject == ground ||
           event.pairs[0].bodyA.gameObject == hwall ||
           event.pairs[0].bodyA.gameObject == vwall1 ||
           event.pairs[0].bodyA.gameObject == vwall2) && event.pairs[0].bodyB.gameObject == this.bullet){
         this.bounceCount += 1;
+        this.sound.play('bounce');
+      }
+      else if(event.pairs[0].bodyA.gameObject == break1 && event.pairs[0].bodyB.gameObject == this.bullet){
+        this.bounceCount += 1;
+        break1frame +=1;
+        if(break1frame > 2){
+          break1.destroy();
+        }
+        else{
+          break1.setFrame(break1frame);
+        }
         this.sound.play('bounce');
       }
 
