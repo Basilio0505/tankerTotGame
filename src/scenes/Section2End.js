@@ -6,7 +6,7 @@ export default class Section2End extends Phaser.Scene {
 
   init (data) {
     // Initialization code goes here
-    this.currentLevel = data.currentLevel;
+    this.currentLevel = this.registry.get('level')
     this.shotCount = data.shotCount;
     this.threeStar = data.threeStar;
     this.twoStar = data.twoStar;
@@ -17,11 +17,6 @@ export default class Section2End extends Phaser.Scene {
     this.dunes3X = data.dunes3X,
     this.dunes4X = data.dunes4X,
     this.tankerX = data.tankerX;
-    this.playerCategory = data.playerCategory;
-    this.enemyCategory = data.enemyCategory;
-    this.borderCategory = data.borderCategory;
-    this.bulletCategory = data.bulletCategory
-    this.environmentCategory = data.environmentCategory;
   }
 
   preload () {
@@ -139,13 +134,7 @@ export default class Section2End extends Phaser.Scene {
       });
       nextButton.on("pointerup", function(){
         if (this.currentLevel < 6){
-          this.scene.start("Level"+(this.currentLevel+1), {
-            playerCategory: this.playerCategory,
-            enemyCategory: this.enemyCategory,
-            borderCategory: this.borderCategory,
-            bulletCategory: this.bulletCategory,
-            environmentCategory: this.environmentCategory
-          });
+          this.scene.start("Level"+(this.currentLevel+1));
         }else{
           this.scene.start('Title');
         }
@@ -162,13 +151,7 @@ export default class Section2End extends Phaser.Scene {
         this.setFrame(0);
       });
       menuButton.on("pointerup", function(){
-        this.scene.start("LevelSelect", {
-        level: this.currentLevel+1,
-        playerCategory: this.playerCategory,
-        enemyCategory: this.enemyCategory,
-        borderCategory: this.borderCategory,
-        bulletCategory: this.bulletCategory,
-        environmentCategory: this.environmentCategory});
+        this.scene.start("LevelSelect");
       }, this);
     //}
 
@@ -182,14 +165,7 @@ export default class Section2End extends Phaser.Scene {
       this.setFrame(0);
     });
     restartButton.on("pointerup", function(){
-        this.scene.start("Level"+this.currentLevel), {
-        playerCategory: this.playerCategory,
-        enemyCategory: this.enemyCategory,
-        borderCategory: this.borderCategory,
-        bulletCategory: this.bulletCategory,
-        environmentCategory: this.environmentCategory
-
-        };
+        this.scene.start("Level"+this.currentLevel)
     }, this);
     //################################################################
   }

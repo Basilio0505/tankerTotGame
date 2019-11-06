@@ -6,7 +6,7 @@ export default class LevelSelect extends Phaser.Scene {
 
   init (data) {
     // Initialization code goes here
-    this.currentLevel = data.currentLevel
+    this.currentLevel = this.registry.get('level')
   }
 
 

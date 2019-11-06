@@ -36,7 +36,7 @@ export default class TitleScene extends Phaser.Scene {
     //Add Music and loop
     this.music = this.sound.add('music',{loop: true});
     if (this.registry.get('music')){
-      
+
     }else{
       this.music.play();
       this.registry.set('music', true);
@@ -56,7 +56,7 @@ export default class TitleScene extends Phaser.Scene {
     var startLS = this.add.sprite(this.centerX + 150 ,this.centerY+180,'select',0).setInteractive().setScale(5);
     startLS.on("pointerover", function(){this.setFrame(1);});
     startLS.on("pointerout", function(){this.setFrame(0);});
-    startLS.on("pointerup", function(){this.scene.start("LevelSelect", {level: 1})}, this);
+    startLS.on("pointerup", function(){this.scene.start("LevelSelect")}, this);
   }
 
   update (time, delta) {
