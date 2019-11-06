@@ -15,11 +15,11 @@ export default class Level6 extends Phaser.Scene {
 
     this.pointerLocation = {x:0, y:0};
 
-    this.playerCategory = data.playerCategory;
-    this.enemyCategory = data.enemyCategory;
-    this.borderCategory = data.borderCategory;
-    this.bulletCategory = data.bulletCategory
-    this.environmentCategory = data.environmentCategory;
+    this.playerCategory = this.registry.get('playerCategory')
+    this.enemyCategory = this.registry.get('enemyCategory')
+    this.borderCategory = this.registry.get('borderCategory')
+    this.bulletCategory = this.registry.get('bulletCategory')
+    this.environmentCategory = this.registry.get('environmentCategory')
   }
 
   preload () {// Preload assets
@@ -136,12 +136,7 @@ export default class Level6 extends Phaser.Scene {
             dunes2X: this.dunes1.tilePositionX,
             dunes3X: this.dunes1.tilePositionX,
             dunes4X: this.dunes1.tilePositionX,
-            tankerX: this.player.x,
-            playerCategory: this.playerCategory,
-            enemyCategory: this.enemyCategory,
-            borderCategory: this.borderCategory,
-            bulletCategory: this.bulletCategory,
-            environmentCategory: this.environmentCategory
+            tankerX: this.player.x
           });
       }
       //Checks if the two objects colliding are the walls or platforms and bullet
@@ -185,12 +180,7 @@ export default class Level6 extends Phaser.Scene {
             dunes2X: this.dunes1.tilePositionX,
             dunes3X: this.dunes1.tilePositionX,
             dunes4X: this.dunes1.tilePositionX,
-            tankerX: this.player.x,
-            playerCategory: this.playerCategory,
-            enemyCategory: this.enemyCategory,
-            borderCategory: this.borderCategory,
-            bulletCategory: this.bulletCategory,
-            environmentCategory: this.environmentCategory
+            tankerX: this.player.x
           });
         }
     }
