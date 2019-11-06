@@ -62,6 +62,10 @@ export default class Level3 extends Phaser.Scene {
 
   //############CREATE#####################################################################CREATE
   create (data) {
+    var level = this.registry.get('level')
+    if (this.currentLevel > level){
+      this.registry.set('level', this.currentLevel)
+    }
     //Create the scene
     this.background = this.add.tileSprite(this.centerX,this.centerY,0,0, 'background');
     this.mountains = this.add.tileSprite(this.centerX,this.centerY+100,0,0, 'mountains');
@@ -131,7 +135,6 @@ export default class Level3 extends Phaser.Scene {
       }
       else if(event.pairs[0].bodyA.gameObject == this.player && event.pairs[0].bodyB.gameObject == this.bullet){
         this.scene.start('Section1End', {
-          currentLevel: this.currentLevel,
           shotCount: 100,
           threeStar: this.threeStar,
           twoStar: this.twoStar,
@@ -175,7 +178,6 @@ export default class Level3 extends Phaser.Scene {
       if (this.bulletPresent == false){
         //Loads score Scene and passes info for display over
         this.scene.start('Section1End', {
-            currentLevel: this.currentLevel,
             shotCount: this.shotCount,
             threeStar: this.threeStar,
             twoStar: this.twoStar,

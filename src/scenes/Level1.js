@@ -9,8 +9,7 @@ export default class Level1 extends Phaser.Scene {
     this.threeStar = 1;
     this.twoStar = 3;
     this.oneStar = 5;
-
-    this.currentLevel = 1;
+    this.currentLevel = 1
     this.squirrelCount = 3;
 
     this.pointerLocation = {x:0, y:0};
@@ -68,6 +67,16 @@ export default class Level1 extends Phaser.Scene {
 //############CREATE#####################################################################CREATE
   create (data) {
     //Create the scene
+    var level = this.registry.get('level')
+    if(level == undefined){
+      this.registry.set('level', 1)
+    }
+
+    if (this.currentLevel > level){
+      this.registry.set('level', this.currentLevel)
+      console.log('nice')
+    }
+
     this.background = this.add.tileSprite(this.centerX,this.centerY,0,0, 'background');
     this.mountains = this.add.tileSprite(this.centerX,this.centerY+100,0,0, 'mountains');
     this.trees = this.add.tileSprite(this.centerX,this.centerY+150,0,0, 'trees');
@@ -174,7 +183,6 @@ export default class Level1 extends Phaser.Scene {
       }
       else if(event.pairs[0].bodyA.gameObject == this.player && event.pairs[0].bodyB.gameObject == this.bullet){
         this.scene.start('Section1End', {
-          currentLevel: this.currentLevel,
           shotCount: 100,
           threeStar: this.threeStar,
           twoStar: this.twoStar,
@@ -228,7 +236,6 @@ export default class Level1 extends Phaser.Scene {
       if (this.bulletPresent == false){
         //Loads score Scene and passes info for display over
         this.scene.start('Section1End', {
-            currentLevel: this.currentLevel,
             shotCount: this.shotCount,
             threeStar: this.threeStar,
             twoStar: this.twoStar,

@@ -6,7 +6,7 @@ export default class Section1End extends Phaser.Scene {
 
   init (data) {
     // Initialization code goes here
-    this.currentLevel = data.currentLevel;
+    this.currentLevel = this.registry.get('level')
     this.shotCount = data.shotCount;
     this.threeStar = data.threeStar;
     this.twoStar = data.twoStar;
@@ -139,8 +139,7 @@ export default class Section1End extends Phaser.Scene {
         this.setFrame(0);
       });
       menuButton.on("pointerup", function(){
-        this.scene.start("LevelSelect", {
-        currentLevel: this.currentLevel+1});
+        this.scene.start("LevelSelect");
       }, this);
     }
     var restartButton = this.add.sprite(this.centerX - 150, this.centerY + 150, 'restart',0);

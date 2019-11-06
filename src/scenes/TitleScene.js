@@ -36,7 +36,6 @@ export default class TitleScene extends Phaser.Scene {
     //Add Music and loop
     this.music = this.sound.add('music',{loop: true});
     this.music.play();
-
     //Add Logo and Title
     var tankertot = this.add.image(this.centerX, this.centerY, 'image').setScale(0.1);
     var title = this.add.image(this.centerX, this.centerY-50, 'title').setScale(0.2);
@@ -51,7 +50,7 @@ export default class TitleScene extends Phaser.Scene {
     var startLS = this.add.sprite(this.centerX + 150 ,this.centerY+180,'select',0).setInteractive().setScale(5);
     startLS.on("pointerover", function(){this.setFrame(1);});
     startLS.on("pointerout", function(){this.setFrame(0);});
-    startLS.on("pointerup", function(){this.scene.start("LevelSelect", {level: 1})}, this);
+    startLS.on("pointerup", function(){this.scene.start("LevelSelect")}, this);
   }
 
   update (time, delta) {
