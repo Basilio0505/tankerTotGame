@@ -63,7 +63,6 @@ export default class Level2 extends Phaser.Scene {
 //############CREATE#####################################################################CREATE
   create (data) {
     //Create the scene
-    console.log(this.environmentCategory)
     this.background = this.add.tileSprite(this.centerX,this.centerY,0,0, 'background');
     this.mountains = this.add.tileSprite(this.centerX,this.centerY+100,0,0, 'mountains');
     this.trees = this.add.tileSprite(this.centerX,this.centerY+150,0,0, 'trees');

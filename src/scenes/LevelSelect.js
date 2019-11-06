@@ -35,7 +35,6 @@ export default class LevelSelect extends Phaser.Scene {
   }
 
   create (data) {
-    console.log(this.currentLevel)
     //Create the scene
     this.cameras.main.setBackgroundColor(0xb8b8b8);
 

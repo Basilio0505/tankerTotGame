@@ -8,9 +8,9 @@ export default class Section2End extends Phaser.Scene {
     // Initialization code goes here
     this.currentLevel = data.currentLevel;
     this.shotCount = data.shotCount;
-    this.threeStar = 1;
+    this.threeStar = data.threeStar;
     this.twoStar = data.twoStar;
-    this.oneStar = data. oneStar;
+    this.oneStar = data.oneStar;
     this.backgroundX = data.backgroundX;
     this.dunes1X = data.dunes1X,
     this.dunes2X = data.dunes2X,
@@ -82,8 +82,7 @@ export default class Section2End extends Phaser.Scene {
     //this.platforms = this.physics.add.staticGroup();
     //this.platforms.create(400, 500, "woodPlatform").setScale(1.5).refreshBody();
     //this.platforms.create(400, 200, "woodPlatform").setScale(1.5).refreshBody();
-    //this.platforms.create(400, 350, "woodPlatform").setScale(1.5).refreshBody();
-
+    //this.platforms.create(400, 350, "woodPlatform").setScale(1.5).refreshBody
     if(this.shotCount == this.threeStar){
       this.add.image(this.centerX - 9, this.centerY - 83, 'winDog').setScale(1.7)
       var star1 = this.add.image(this.centerX - 125, this.centerY, 'fullstar');

@@ -19,7 +19,6 @@ export default class Level5 extends Phaser.Scene {
     this.enemyCategory = data.enemyCategory;
     this.borderCategory = data.borderCategory;
     this.bulletCategory = data.bulletCategory;
-    console.log(data.environmentCategory)
     this.environmentCategory = data.environmentCategory;
   }
 
@@ -64,7 +63,6 @@ export default class Level5 extends Phaser.Scene {
 
   //############CREATE#####################################################################CREATE
   create (data) {
-    console.log(this.environmentCategory)
     //Create the scene
     this.background = this.add.tileSprite(this.centerX,this.centerY,0,0, 'background');
     this.dunes1 = this.add.tileSprite(this.centerX,this.centerY+20,0,0, 'dunes1');
@@ -135,7 +133,7 @@ export default class Level5 extends Phaser.Scene {
       else if(event.pairs[0].bodyA.gameObject == this.player && event.pairs[0].bodyB.gameObject == this.bullet){
         this.scene.start('Section2End', {
             currentLevel: this.currentLevel,
-            shotCount: this.shotCount,
+            shotCount: 100,
             threeStar: this.threeStar,
             twoStar: this.twoStar,
             oneStar: this.oneStar,
@@ -251,13 +249,11 @@ export default class Level5 extends Phaser.Scene {
       //this.player.setPosition(68,530); does not fix error
       //this.cannon.setPosition(65,530);
       //this.scene.start("Level"+this.currentLevel); does not fix error
-      console.log('Player out of bounds!');
     };
 
     //Check if bullet is out of bounds, destroys and resets bullet vars
     if (this.bulletPresent){
       if ((this.bullet.x < 0) || (this.bullet.x > 800) || (this.bullet.y < 0) || (this.bullet.y > 600)){
-        console.log('Bullet out of bounds!');
         this.bullet.destroy();
         this.bulletPresent = false;
         this.bounceCount = 0;
