@@ -68,6 +68,7 @@ export default class Level2 extends Phaser.Scene {
     this.trees = this.add.tileSprite(this.centerX,this.centerY+150,0,0, 'trees');
     //this.playerCategory = this.matter.world.nextCategory();
     this.player = this.matter.add.image(68, 530, 'tankertot', null, {friction:0}).setCollisionCategory(this.playerCategory);
+    this.player.setFixedRotation(true);
     this.cannon = this.matter.add.image(68, 530, 'cannon', null, {friction:0, shape: 'circle'}).setCollisionCategory(this.playerCategory).setScale(.84);
     //this.borderCategory = this.matter.world.nextCategory();
     var vwall1 = this.matter.add.image(16,16, 'vwall', null, { isStatic: true, friction: 0 }).setCollisionCategory(this.borderCategory);
@@ -177,6 +178,8 @@ export default class Level2 extends Phaser.Scene {
   update (time, delta) {
     // Update the scene
     this.updateCannon(this.pointerLocation);
+    console.log(this.player.x, this.player.y);
+    this.cannon.setPosition(this.player.x, this.player.y+3);
 
     //Checks if Winning Condition is met
     if (this.squirrelCount == 0) {

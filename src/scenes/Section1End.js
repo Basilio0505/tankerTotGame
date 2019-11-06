@@ -119,9 +119,11 @@ export default class Section1End extends Phaser.Scene {
     }
 
     //################################################################
-    var nextButton = this.add.sprite(this.centerX + 150, this.centerY + 150, 'next', 0);
-    nextButton.setScale(0.75);
+    //var nextButton = this.add.sprite(this.centerX + 150, this.centerY + 150, 'next', 0);
+    //nextButton.setScale(0.75);
     if(this.advance){
+      var nextButton = this.add.sprite(this.centerX + 150, this.centerY + 150, 'next', 0);
+      nextButton.setScale(0.75);
       nextButton.setInteractive();
       nextButton.on("pointerover", function(){
         this.setFrame(1);
@@ -140,7 +142,7 @@ export default class Section1End extends Phaser.Scene {
     }
     var menuButton = this.add.sprite(this.centerX , this.centerY + 220, 'levelselect', 0);
     menuButton.setScale(0.75);
-    if(this.advance){
+    //if(this.advance){
       menuButton.setInteractive();
       menuButton.on("pointerover", function(){
         this.setFrame(1);
@@ -157,7 +159,7 @@ export default class Section1End extends Phaser.Scene {
         bulletCategory: this.bulletCategory,
         environmentCategory: this.environmentCategory});
       }, this);
-    }
+    //}
     var restartButton = this.add.sprite(this.centerX - 150, this.centerY + 150, 'restart',0);
     restartButton.setInteractive();
     restartButton.setScale(0.75);
