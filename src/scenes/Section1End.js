@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 /*global Phaser*/
 export default class Section1End extends Phaser.Scene {
   constructor () {
@@ -17,11 +15,6 @@ export default class Section1End extends Phaser.Scene {
     this.mountainsX = data.mountainsX;
     this.treesX = data.treesX;
     this.tankerX = data.tankerX;
-    this.playerCategory = data.playerCategory;
-    this.enemyCategory = data.enemyCategory;
-    this.borderCategory = data.borderCategory;
-    this.bulletCategory = data.bulletCategory
-    this.environmentCategory = data.environmentCategory;
   }
 
   preload () {
@@ -132,12 +125,7 @@ export default class Section1End extends Phaser.Scene {
         this.setFrame(0);
       });
       nextButton.on("pointerup", function(){
-        this.scene.start("Level"+(this.currentLevel+1), {
-        playerCategory: this.playerCategory,
-        enemyCategory: this.enemyCategory,
-        borderCategory: this.borderCategory,
-        bulletCategory: this.bulletCategory,
-        environmentCategory: this.environmentCategory});
+        this.scene.start("Level"+(this.currentLevel+1));
       }, this);
     }
     var menuButton = this.add.sprite(this.centerX , this.centerY + 220, 'levelselect', 0);
@@ -152,12 +140,7 @@ export default class Section1End extends Phaser.Scene {
       });
       menuButton.on("pointerup", function(){
         this.scene.start("LevelSelect", {
-        level: this.currentLevel+1,
-        playerCategory: this.playerCategory,
-        enemyCategory: this.enemyCategory,
-        borderCategory: this.borderCategory,
-        bulletCategory: this.bulletCategory,
-        environmentCategory: this.environmentCategory});
+        currentLevel: this.currentLevel+1});
       }, this);
     }
     var restartButton = this.add.sprite(this.centerX - 150, this.centerY + 150, 'restart',0);
@@ -170,13 +153,7 @@ export default class Section1End extends Phaser.Scene {
       this.setFrame(0);
     });
     restartButton.on("pointerup", function(){
-      this.scene.start("Level"+this.currentLevel), {
-      playerCategory: this.playerCategory,
-      enemyCategory: this.enemyCategory,
-      borderCategory: this.borderCategory,
-      bulletCategory: this.bulletCategory,
-      environmentCategory: this.environmentCategory
-      };
+      this.scene.start("Level"+this.currentLevel)
     }, this);
     //################################################################
   }
@@ -187,4 +164,3 @@ export default class Section1End extends Phaser.Scene {
 
   }
 }
->>>>>>> development

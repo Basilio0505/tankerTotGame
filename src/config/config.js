@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 /*global Phaser*/
 
 export default {
@@ -24,4 +22,3 @@ export default {
   },
 pixelArt: true
 };
->>>>>>> development

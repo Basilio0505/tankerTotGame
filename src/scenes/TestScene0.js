@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 /*global Phaser*/
 export default class TestScene0 extends Phaser.Scene {
   constructor () {
@@ -267,4 +265,3 @@ export default class TestScene0 extends Phaser.Scene {
     this.sound.play('bounce');
   }
 }
->>>>>>> development

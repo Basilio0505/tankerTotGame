@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 /*global Phaser*/
 export default class Section2End extends Phaser.Scene {
   constructor () {
@@ -200,4 +198,3 @@ export default class Section2End extends Phaser.Scene {
 
   }
 }
->>>>>>> development

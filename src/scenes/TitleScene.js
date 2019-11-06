@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 /*global Phaser*/
 export default class TitleScene extends Phaser.Scene {
   constructor () {
@@ -61,4 +59,3 @@ export default class TitleScene extends Phaser.Scene {
 
   }
 }
->>>>>>> development
