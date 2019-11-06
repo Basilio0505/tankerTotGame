@@ -88,7 +88,7 @@ export default class Level2 extends Phaser.Scene {
     var plat2 = this.matter.add.image(500, 365, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(1.5).setCollisionCategory(this.environmentCategory);
     var plat3 = this.matter.add.image(100, 365, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(1.5).setCollisionCategory(this.environmentCategory);
     var plat4 = this.matter.add.image(700, 280, "brickPlatform", null, { isStatic: true, friction: 0 }).setScale(1.5).setCollisionCategory(this.environmentCategory).setAngle(45);
-
+    var plat5 = this.matter.add.image(500, 580, "brickPlatform", null, { isStatic: true, friction: 0 }).setScale(1.5).setCollisionCategory(this.environmentCategory);
 
     //this.bulletCategory = this.matter.world.nextCategory();
 
@@ -158,6 +158,7 @@ export default class Level2 extends Phaser.Scene {
           event.pairs[0].bodyA.gameObject == plat2 ||
           event.pairs[0].bodyA.gameObject == plat3 ||
           event.pairs[0].bodyA.gameObject == plat4 ||
+          event.pairs[0].bodyA.gameObject == plat5 ||
           event.pairs[0].bodyA.gameObject == ground ||
           event.pairs[0].bodyA.gameObject == hwall ||
           event.pairs[0].bodyA.gameObject == vwall1 ||
