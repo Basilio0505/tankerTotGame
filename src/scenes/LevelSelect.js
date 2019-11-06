@@ -6,13 +6,9 @@ export default class LevelSelect extends Phaser.Scene {
 
   init (data) {
     // Initialization code goes here
-    this.playerCategory = data.playerCategory;
-    this.enemyCategory = data.enemyCategory;
-    this.borderCategory = data.borderCategory;
-    this.bulletCategory = data.bulletCategory
-    this.environmentCategory = data.environmentCategory;
-    this.currentLevel = data.level;
+    this.currentLevel = data.currentLevel
   }
+
 
   preload () {
     // Preload assets
@@ -43,26 +39,14 @@ export default class LevelSelect extends Phaser.Scene {
 
     start1.on("pointerover", function(){this.setFrame(1);});
     start1.on("pointerout", function(){this.setFrame(0);});
-    start1.on("pointerup", function(){this.scene.start("Level1", {
-      playerCategory: this.playerCategory,
-      enemyCategory: this.enemyCategory,
-      borderCategory: this.borderCategory,
-      bulletCategory: this.bulletCategory,
-      environmentCategory: this.environmentCategory
-    })}, this);
+    start1.on("pointerup", function(){this.scene.start("Level1")}, this);
 
     var start2 = this.add.sprite(this.centerX+150,this.centerY-180,'level2',0).setInteractive().setScale(5);
     start2.on("pointerover", function(){this.setFrame(1);});
     start2.on("pointerout", function(){this.setFrame(0);});
     if(this.currentLevel >= 2){
       var check2 = this.add.image(this.centerX+280, this.centerY-185, 'unlocked').setScale(4)
-      start2.on("pointerup", function(){this.scene.start("Level2", {
-        playerCategory: this.playerCategory,
-        enemyCategory: this.enemyCategory,
-        borderCategory: this.borderCategory,
-        bulletCategory: this.bulletCategory,
-        environmentCategory: this.environmentCategory
-      })}, this);
+      start2.on("pointerup", function(){this.scene.start("Level2")}, this);
     }else{
       var check2 = this.add.image(this.centerX+280, this.centerY-185, 'locked').setScale(4)
     }
@@ -72,13 +56,7 @@ export default class LevelSelect extends Phaser.Scene {
     start3.on("pointerout", function(){this.setFrame(0);});
     if(this.currentLevel >= 3){
       var check2 = this.add.image(this.centerX-280, this.centerY-90, 'unlocked').setScale(4)
-      start3.on("pointerup", function(){this.scene.start("Level3", {
-        playerCategory: this.playerCategory,
-        enemyCategory: this.enemyCategory,
-        borderCategory: this.borderCategory,
-        bulletCategory: this.bulletCategory,
-        environmentCategory: this.environmentCategory
-      })}, this);
+      start3.on("pointerup", function(){this.scene.start("Level3")}, this);
     }else{
       var check2 = this.add.image(this.centerX-280, this.centerY-90, 'locked').setScale(4)
     }
@@ -88,13 +66,7 @@ export default class LevelSelect extends Phaser.Scene {
     start4.on("pointerout", function(){this.setFrame(0);});
     if(this.currentLevel >= 4){
       var check4 = this.add.image(this.centerX+280, this.centerY-90, 'unlocked').setScale(4)
-      start4.on("pointerup", function(){this.scene.start("Level4", {
-        playerCategory: this.playerCategory,
-        enemyCategory: this.enemyCategory,
-        borderCategory: this.borderCategory,
-        bulletCategory: this.bulletCategory,
-        environmentCategory: this.environmentCategory
-      })}, this);
+      start4.on("pointerup", function(){this.scene.start("Level4")}, this);
     }else{
       var check4 = this.add.image(this.centerX+280, this.centerY-90, 'locked').setScale(4)
     }
@@ -104,13 +76,7 @@ export default class LevelSelect extends Phaser.Scene {
     start5.on("pointerout", function(){this.setFrame(0);});
     if(this.currentLevel >= 5){
       var check5 = this.add.image(this.centerX-280, this.centerY, 'unlocked').setScale(4)
-      start5.on("pointerup", function(){this.scene.start("Level5", {
-        playerCategory: this.playerCategory,
-        enemyCategory: this.enemyCategory,
-        borderCategory: this.borderCategory,
-        bulletCategory: this.bulletCategory,
-        environmentCategory: this.environmentCategory
-      })}, this)
+      start5.on("pointerup", function(){this.scene.start("Level5")}, this)
     }else{
       var check5 = this.add.image(this.centerX-280, this.centerY, 'locked').setScale(4)
     }
@@ -120,13 +86,7 @@ export default class LevelSelect extends Phaser.Scene {
     start6.on("pointerout", function(){this.setFrame(0);});
     if(this.currentLevel >= 6){
       var check6 = this.add.image(this.centerX+280, this.centerY, 'unlocked').setScale(4)
-      start6.on("pointerup", function(){this.scene.start("Level6", {
-        playerCategory: this.playerCategory,
-        enemyCategory: this.enemyCategory,
-        borderCategory: this.borderCategory,
-        bulletCategory: this.bulletCategory,
-        environmentCategory: this.environmentCategory
-      })}, this);
+      start6.on("pointerup", function(){this.scene.start("Level6")}, this);
     }else{
       var check6 = this.add.image(this.centerX+280, this.centerY, 'locked').setScale(4)
     }

@@ -15,11 +15,11 @@ export default class Level2 extends Phaser.Scene {
 
     this.pointerLocation = {x:0, y:0};
 
-    this.playerCategory = data.playerCategory;
-    this.enemyCategory = data.enemyCategory;
-    this.borderCategory = data.borderCategory;
-    this.bulletCategory = data.bulletCategory
-    this.environmentCategory = data.environmentCategory;
+    this.playerCategory = this.registry.get('playerCategory')
+    this.enemyCategory = this.registry.get('enemyCategory')
+    this.borderCategory = this.registry.get('borderCategory')
+    this.bulletCategory = this.registry.get('bulletCategory')
+    this.environmentCategory = this.registry.get('environmentCategory')
   }
 
   preload () {// Preload assets
@@ -62,6 +62,7 @@ export default class Level2 extends Phaser.Scene {
 
 //############CREATE#####################################################################CREATE
   create (data) {
+    var x = this.registry.get('key')
     //Create the scene
     this.background = this.add.tileSprite(this.centerX,this.centerY,0,0, 'background');
     this.mountains = this.add.tileSprite(this.centerX,this.centerY+100,0,0, 'mountains');
@@ -145,12 +146,7 @@ export default class Level2 extends Phaser.Scene {
           backgroundX: this.background.tilePositionX,
           mountainsX: this.mountains.tilePositionX,
           treesX: this.trees.tilePositionX,
-          tankerX: this.player.x,
-          playerCategory: this.playerCategory,
-          enemyCategory: this.enemyCategory,
-          borderCategory: this.borderCategory,
-          bulletCategory: this.bulletCategory,
-          environmentCategory: this.environmentCategory
+          tankerX: this.player.x
           });
       }
       //Checks if the two objects colliding are the walls or platforms and bullet
@@ -194,12 +190,7 @@ export default class Level2 extends Phaser.Scene {
             backgroundX: this.background.tilePositionX,
             mountainsX: this.mountains.tilePositionX,
             treesX: this.trees.tilePositionX,
-            tankerX: this.player.x,
-            playerCategory: this.playerCategory,
-            enemyCategory: this.enemyCategory,
-            borderCategory: this.borderCategory,
-            bulletCategory: this.bulletCategory,
-            environmentCategory: this.environmentCategory
+            tankerX: this.player.x
           });
         }
     }
