@@ -1,9 +1,7 @@
-<<<<<<< HEAD
-=======
 /*global Phaser*/
-export default class Level1 extends Phaser.Scene {
+export default class Level4 extends Phaser.Scene {
   constructor () {
-    super('Level1');
+    super('Level4');
   }
 
   init (data) {
@@ -12,25 +10,19 @@ export default class Level1 extends Phaser.Scene {
     this.twoStar = 3;
     this.oneStar = 5;
 
-    this.currentLevel = 1;
+    this.currentLevel = 4;
     this.squirrelCount = 3;
 
     this.pointerLocation = {x:0, y:0};
+
+    this.playerCategory = data.playerCategory;
+    this.enemyCategory = data.enemyCategory;
+    this.borderCategory = data.borderCategory;
+    this.bulletCategory = data.bulletCategory
+    this.environmentCategory = data.environmentCategory;
   }
 
   preload () {// Preload assets
-    //Tutorial Text
-    this.load.image('movementText', './assets/Tutorial/TextBox_Movement.png');
-    this.load.image('shootText', './assets/Tutorial/TextBox_ShootBasics.png');
-    this.load.image('startText', './assets/Tutorial/TextBox_PugIncoming.png');
-    this.load.image('dutyText', './assets/Tutorial/TextBox_PugDuty.png');
-    this.load.image('timeText', './assets/Tutorial/TextBox_PugAboutTime.png');
-    this.load.image('speedText', './assets/Tutorial/TextBox_PugSpeed.png');
-
-    //Tutorial General
-    this.load.image('blackGeneral', './assets/Tutorial/blackGeneralPug.png');
-    this.load.image('generalPug', './assets/Tutorial/generalPug.png');
-
     //Player Assets
     this.load.image('tankertot', './assets/TankerTot/tankerTot.png');
     this.load.image('cannon', './assets/TankerTot/cannon.png');
@@ -40,13 +32,11 @@ export default class Level1 extends Phaser.Scene {
     //Environment
     this.load.image('ground', './assets/Environment/groundGrass.png');
     this.load.image('background','./assets/Environment/background.png');
-    this.load.image('mountains','./assets/Environment/mountains.png');
-    this.load.image('trees','./assets/Environment/trees.png');
-    this.load.image('woodPlatform', './assets/Environment/smallWoodPlat.png');
-    this.load.spritesheet('break', './assets/Environment/smallWoodPlat_Breakable.png',{
-      frameWidth: 64,
-      frameHeight: 32
-    });
+    this.load.image('dunes1','./assets/Environment/dunes1.png');
+    this.load.image('dunes2','./assets/Environment/dunes2.png');
+    this.load.image('dunes3','./assets/Environment/dunes3.png');
+    this.load.image('dunes4','./assets/Environment/dunes4.png');
+    this.load.image('woodPlatform', './assets/smallWoodPlat.png');
 
     //All to be replaced
     this.load.image('hwall', './assets/Environment/horizontalWall.png');
@@ -67,59 +57,36 @@ export default class Level1 extends Phaser.Scene {
     this.centerY = this.cameras.main.height / 2;
   }
 
-//############CREATE#####################################################################CREATE
+  //############CREATE#####################################################################CREATE
   create (data) {
     //Create the scene
     this.background = this.add.tileSprite(this.centerX,this.centerY,0,0, 'background');
-    this.mountains = this.add.tileSprite(this.centerX,this.centerY+100,0,0, 'mountains');
-    this.trees = this.add.tileSprite(this.centerX,this.centerY+150,0,0, 'trees');
-    if(this.playerCategory == undefined){
-       this.playerCategory = this.matter.world.nextCategory();
-    }
-    this.player = this.matter.add.image(68, 536, 'tankertot', null, {friction:0}).setCollisionCategory(this.playerCategory);
-    this.cannon = this.matter.add.image(68, 536, 'cannon', null, {friction:0, shape: 'circle'}).setCollisionCategory(this.playerCategory).setScale(.84);
+    this.dunes1 = this.add.tileSprite(this.centerX,this.centerY+20,0,0, 'dunes1');
+    this.dunes2 = this.add.tileSprite(this.centerX,this.centerY+30,0,0, 'dunes2');
+    this.dunes3 = this.add.tileSprite(this.centerX,this.centerY+40,0,0, 'dunes3');
+    this.dunes4 = this.add.tileSprite(this.centerX,this.centerY+50,0,0, 'dunes4');
 
-    if(this.borderCategory == undefined){
-      this.borderCategory = this.matter.world.nextCategory();
-    }
+    this.player = this.matter.add.image(68, 530, 'tankertot', null, {friction:0}).setCollisionCategory(this.playerCategory);
+    this.cannon = this.matter.add.image(68, 530, 'cannon', null, {friction:0, shape: 'circle'}).setCollisionCategory(this.playerCategory).setScale(.84);
+
     var vwall1 = this.matter.add.image(16,16, 'vwall', null, { isStatic: true, friction: 0 }).setCollisionCategory(this.borderCategory);
     var vwall2 = this.matter.add.image(784,16, 'vwall', null, { isStatic: true, friction: 0 }).setCollisionCategory(this.borderCategory);
     var hwall = this.matter.add.image(16,16, 'hwall', null, { isStatic: true, friction: 0 }).setCollisionCategory(this.borderCategory);
     var ground = this.matter.add.image(16,584, 'ground', null, { isStatic: true, friction: 0 }).setCollisionCategory(this.borderCategory);
 
-    if(this.environmentCategory == undefined){
-      this.environmentCategory = this.matter.world.nextCategory();
-    }
-    var plat1 = this.matter.add.image(240, 520, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(1.5).setCollisionCategory(this.environmentCategory);
-    var plat2 = this.matter.add.image(640, 200, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(1.5).setCollisionCategory(this.environmentCategory);
-    var plat3 = this.matter.add.image(440, 365, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(1.5).setCollisionCategory(this.environmentCategory);
+    var plat1 = this.matter.add.image(650, 490, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(1.5).setCollisionCategory(this.environmentCategory);
+    var plat2 = this.matter.add.image(600, 200, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(1.5).setCollisionCategory(this.environmentCategory);
+    var plat3 = this.matter.add.image(400, 365, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(1.5).setCollisionCategory(this.environmentCategory);
 
-    var break1frame = 0;
-    var break1 = this.matter.add.sprite(100, 100, 'break', null, { isStatic: true, friction: 0 }, break1frame).setScale(2).setCollisionCategory(this.environmentCategory);
 
-    if(this.bulletCategory == undefined){
-      this.bulletCategory = this.matter.world.nextCategory();
-    }
     this.player.setCollidesWith([this.borderCategory, this.environmentCategory, this.bulletCategory]);
     this.cannon.setCollidesWith([this.borderCategory, this.environmentCategory]);
-    if(this.enemyCategory == undefined){
-      this.enemyCategory = this.matter.world.nextCategory();
-    }
-    var squirrel = this.matter.add.image(205, 456, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(this.enemyCategory).setSensor(true);
+
+    var squirrel = this.matter.add.image(661, 426, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(this.enemyCategory).setSensor(true);
     var speedy = this.matter.add.image(611, 136, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(this.enemyCategory).setSensor(true);
     var tanky = this.matter.add.image(411, 301, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(this.enemyCategory).setSensor(true);
 
-    //bool used to stop all other actions while tutorialText is active
-    this.tutorialActive = true;
-    this.tutorialShoot = this.add.image(this.centerX, this.centerY, "shootText").setScale(1.5);
-    this.tutorialMove = this.add.image(this.centerX, this.centerY, "movementText").setScale(1.5);
-    this.tutorialSpeed = this.add.image(this.centerX, this.centerY, "speedText").setScale(1.5);
-    this.tutorialDuty = this.add.image(this.centerX, this.centerY, "dutyText").setScale(1.5);
-    this.tutorialTime = this.add.image(this.centerX, this.centerY, "timeText").setScale(1.5);
-    this.tutorialStart = this.add.image(this.centerX, this.centerY, "startText").setScale(1.5);
-
-    this.pug = this.add.image(this.centerX - 140, this.centerY - 100, "generalPug").setScale(1.5);
-    this.blackPug = this.add.image(this.centerX - 140, this.centerY - 100, "blackGeneral").setScale(1.5);
+    //this.squirrelCount = 3;
 
     this.bulletPresent = false;
     this.gameOver = false;
@@ -128,11 +95,7 @@ export default class Level1 extends Phaser.Scene {
 
     this.input.on(
       "pointermove",
-      function(pointer){/*
-        if(pointer == undefined){
-          this.pointerLocation = {x:0, y:0}
-        }
-        console.log(pointer);*/
+      function(pointer){
         this.pointerLocation = pointer;
         //var betweenPoints = Phaser.Math.Angle.BetweenPoints;
         //var angle = Phaser.Math.RAD_TO_DEG * betweenPoints(this.cannon, pointer);
@@ -140,8 +103,7 @@ export default class Level1 extends Phaser.Scene {
       }, this
     );
 
-    this.input.on("pointerdown", this.tutorial, this);
-
+    this.input.on("pointerdown", this.shoot, this);
     this.shotCount = 0;
 
     //Decects collision of two objects
@@ -164,44 +126,34 @@ export default class Level1 extends Phaser.Scene {
         this.sound.play('squirreldeath');
       }
       else if(event.pairs[0].bodyA.gameObject == this.player && event.pairs[0].bodyB.gameObject == this.bullet){
-        this.scene.start('Section1End', {
-          currentLevel: this.currentLevel,
-          shotCount: 100,
-          threeStar: this.threeStar,
-          twoStar: this.twoStar,
-          oneStar: this.oneStar,
-          backgroundX: this.background.tilePositionX,
-          mountainsX: this.mountains.tilePositionX,
-          treesX: this.trees.tilePositionX,
-          tankerX: this.player.x,
-          playerCategory: this.playerCategory,
-          enemyCategory: this.enemyCategory,
-          borderCategory: this.borderCategory,
-          bulletCategory: this.bulletCategory,
-          environmentCategory: this.environmentCategory
+        this.scene.start('Section2End', {
+            currentLevel: this.currentLevel,
+            shotCount: 100,
+            threeStar: this.threeStar,
+            twoStar: this.twoStar,
+            oneStar: this.oneStar,
+            backgroundX: this.background.tilePositionX,
+            dunes1X: this.dunes1.tilePositionX,
+            dunes2X: this.dunes1.tilePositionX,
+            dunes3X: this.dunes1.tilePositionX,
+            dunes4X: this.dunes1.tilePositionX,
+            tankerX: this.player.x,
+            playerCategory: this.playerCategory,
+            enemyCategory: this.enemyCategory,
+            borderCategory: this.borderCategory,
+            bulletCategory: this.bulletCategory,
+            environmentCategory: this.environmentCategory
           });
       }
       //Checks if the two objects colliding are the walls or platforms and bullet
       else if((event.pairs[0].bodyA.gameObject == plat1 ||
           event.pairs[0].bodyA.gameObject == plat2 ||
           event.pairs[0].bodyA.gameObject == plat3 ||
-          event.pairs[0].bodyA.gameObject == break1 ||
           event.pairs[0].bodyA.gameObject == ground ||
           event.pairs[0].bodyA.gameObject == hwall ||
           event.pairs[0].bodyA.gameObject == vwall1 ||
           event.pairs[0].bodyA.gameObject == vwall2) && event.pairs[0].bodyB.gameObject == this.bullet){
         this.bounceCount += 1;
-        this.sound.play('bounce');
-      }
-      else if(event.pairs[0].bodyA.gameObject == break1 && event.pairs[0].bodyB.gameObject == this.bullet){
-        this.bounceCount += 1;
-        break1frame +=1;
-        if(break1frame > 2){
-          break1.destroy();
-        }
-        else{
-          break1.setFrame(break1frame);
-        }
         this.sound.play('bounce');
       }
 
@@ -213,7 +165,7 @@ export default class Level1 extends Phaser.Scene {
     }, this);
   }
 
-//############UPDATE######################################################################UPDATE
+  //############UPDATE######################################################################UPDATE
   update (time, delta) {
     // Update the scene
     this.updateCannon(this.pointerLocation);
@@ -223,15 +175,17 @@ export default class Level1 extends Phaser.Scene {
       //Makes sure there is no active bullet present
       if (this.bulletPresent == false){
         //Loads score Scene and passes info for display over
-        this.scene.start('Section1End', {
+        this.scene.start('Section2End', {
             currentLevel: this.currentLevel,
             shotCount: this.shotCount,
             threeStar: this.threeStar,
             twoStar: this.twoStar,
             oneStar: this.oneStar,
             backgroundX: this.background.tilePositionX,
-            mountainsX: this.mountains.tilePositionX,
-            treesX: this.trees.tilePositionX,
+            dunes1X: this.dunes1.tilePositionX,
+            dunes2X: this.dunes1.tilePositionX,
+            dunes3X: this.dunes1.tilePositionX,
+            dunes4X: this.dunes1.tilePositionX,
             tankerX: this.player.x,
             playerCategory: this.playerCategory,
             enemyCategory: this.enemyCategory,
@@ -254,16 +208,20 @@ export default class Level1 extends Phaser.Scene {
       this.cannon.setVelocityX(-2);
       if(this.player.x > 100){
         this.background.tilePositionX -= 0.1;
-        this.mountains.tilePositionX -= 0.2;
-        this.trees.tilePositionX -= 0.3;
+        this.dunes1.tilePositionX -= 0.15;
+        this.dunes2.tilePositionX -= 0.2;
+        this.dunes3.tilePositionX -= 0.25;
+        this.dunes4.tilePositionX -= 0.3;
       };
     } else if(movement.d.isDown){
       this.player.setVelocityX(2);
       this.cannon.setVelocityX(2);
       if(this.player.x < 700){
         this.background.tilePositionX += 0.1;
-        this.mountains.tilePositionX += 0.2;
-        this.trees.tilePositionX += 0.3;
+        this.dunes1.tilePositionX += 0.15;
+        this.dunes2.tilePositionX += 0.2;
+        this.dunes3.tilePositionX += 0.25;
+        this.dunes4.tilePositionX += 0.3;
       };
     } else{
       this.player.setVelocityX(0);
@@ -310,39 +268,9 @@ export default class Level1 extends Phaser.Scene {
     }
   }
 
-  tutorial(pointer){
-    //Only way I could figure out for it to move on.
-    if(this.tutorialActive == true){
-      if(this.tutorialStart.x == this.centerX){
-        this.tutorialStart.destroy();
-        this.blackPug.destroy()
-        this.tutorialStart.x = this.centerX-30;
-      } else if(this.tutorialTime.x == this.centerX){
-        this.tutorialTime.destroy();
-        this.tutorialTime.x = this.centerX-30;
-      } else if(this.tutorialDuty.x == this.centerX){
-        this.tutorialDuty.destroy();
-        this.tutorialDuty.x = this.centerX-30;
-      } else if(this.tutorialSpeed.x == this.centerX){
-        this.tutorialSpeed.destroy();
-        this.pug.destroy()
-        this.tutorialSpeed.x = this.centerX-30;
-      } else if(this.tutorialMove.x == this.centerX){
-        this.tutorialMove.destroy();
-        this.tutorialMove.x = this.centerX-30;
-      } else {
-        this.tutorialShoot.destroy();
-        this.tutorialActive = false;
-      }
-    } else{
-      this.shoot(pointer);
-    }
-  }
-
   updateCannon(pointerLocation){
     var betweenPoints = Phaser.Math.Angle.BetweenPoints;
     var angle = Phaser.Math.RAD_TO_DEG * betweenPoints(this.cannon, pointerLocation);
     this.cannon.setAngle(angle);
   }
 }
->>>>>>> development
