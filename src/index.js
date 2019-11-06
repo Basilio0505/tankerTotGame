@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 /*global Phaser, window*/
 import Config from './config/config.js';
 import TitleScene from './scenes/TitleScene.js';
@@ -33,4 +31,3 @@ class Game extends Phaser.Game {
 }
 
 window.game = new Game();
->>>>>>> development

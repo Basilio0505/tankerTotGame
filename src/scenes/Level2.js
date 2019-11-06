@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 /*global Phaser*/
 export default class Level2 extends Phaser.Scene {
   constructor () {
@@ -277,4 +275,3 @@ export default class Level2 extends Phaser.Scene {
     this.cannon.setAngle(angle);
   }
 }
->>>>>>> development
