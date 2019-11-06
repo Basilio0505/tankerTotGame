@@ -35,7 +35,12 @@ export default class TitleScene extends Phaser.Scene {
 
     //Add Music and loop
     this.music = this.sound.add('music',{loop: true});
-    this.music.play();
+    if (this.registry.get('music')){
+      
+    }else{
+      this.music.play();
+      this.registry.set('music', true);
+    }
 
     //Add Logo and Title
     var tankertot = this.add.image(this.centerX, this.centerY, 'image').setScale(0.1);

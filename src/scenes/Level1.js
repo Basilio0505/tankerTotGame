@@ -75,6 +75,7 @@ export default class Level1 extends Phaser.Scene {
        this.playerCategory = this.matter.world.nextCategory();
     }
     this.player = this.matter.add.image(68, 536, 'tankertot', null, {friction:0}).setCollisionCategory(this.playerCategory);
+    this.player.setFixedRotation(true);
     this.cannon = this.matter.add.image(68, 536, 'cannon', null, {friction:0, shape: 'circle'}).setCollisionCategory(this.playerCategory).setScale(.84);
 
     if(this.borderCategory == undefined){
@@ -215,6 +216,7 @@ export default class Level1 extends Phaser.Scene {
   update (time, delta) {
     // Update the scene
     this.updateCannon(this.pointerLocation);
+    this.cannon.setPosition(this.player.x, this.player.y+3);
 
     //Checks if Winning Condition is met
     if (this.squirrelCount == 0) {

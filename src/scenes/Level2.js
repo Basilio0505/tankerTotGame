@@ -178,7 +178,6 @@ export default class Level2 extends Phaser.Scene {
   update (time, delta) {
     // Update the scene
     this.updateCannon(this.pointerLocation);
-    console.log(this.player.x, this.player.y);
     this.cannon.setPosition(this.player.x, this.player.y+3);
 
     //Checks if Winning Condition is met
