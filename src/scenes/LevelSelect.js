@@ -6,9 +6,10 @@ export default class LevelSelect extends Phaser.Scene {
 
   init (data) {
     // Initialization code goes here
-    this.currentLevel = this.registry.get('level')
+    //DEBUG MODE. Still go to level 1 first
+    this.registry.set('level', 6);
+    this.currentLevel = this.registry.get('level');
   }
-
 
   preload () {
     // Preload assets

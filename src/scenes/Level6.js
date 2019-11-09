@@ -86,11 +86,39 @@ export default class Level6 extends Phaser.Scene {
     this.player.setCollidesWith([this.borderCategory, this.environmentCategory, this.bulletCategory]);
     this.cannon.setCollidesWith([this.borderCategory, this.environmentCategory]);
 
-    var squirrel = this.matter.add.image(111, 136, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(this.enemyCategory).setSensor(true);
-    var speedy = this.matter.add.image(711, 136, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(this.enemyCategory).setSensor(true);
-    var tanky = this.matter.add.image(411, 136, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(this.enemyCategory).setSensor(true);
+    var squirrel = this.matter.add.image(165, 136, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(this.enemyCategory).setSensor(true);
+    var speedy = this.matter.add.image(765, 136, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(this.enemyCategory).setSensor(true);
+    var tanky = this.matter.add.image(465, 136, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(this.enemyCategory).setSensor(true);
 
-    //this.squirrelCount = 3;
+    var squirrelTween = this.tweens.add({
+      targets: squirrel,
+      x: 60,
+      ease: "Cubic",
+      duration: 1200,
+      yoyo: true,
+      repeat: -1,
+      repeatDelay: 500
+    });
+
+    var speedyTween = this.tweens.add({
+      targets: speedy,
+      x: 660,
+      ease: "Cubic",
+      duration: 1500,
+      yoyo: true,
+      repeat: -1,
+      repeatDelay: 500
+    });
+
+    var tankyTween = this.tweens.add({
+      targets: tanky,
+      x: 360,
+      ease: "Cubic",
+      duration: 1800,
+      yoyo: true,
+      repeat: -1,
+      repeatDelay: 500
+    });
 
     this.bulletPresent = false;
     this.gameOver = false;
@@ -114,17 +142,20 @@ export default class Level6 extends Phaser.Scene {
     this.matter.world.on('collisionstart', function(event){
       //Checks if the two objects colliding are the regular squirrel and bullet
       if(event.pairs[0].bodyA.gameObject == squirrel && event.pairs[0].bodyB.gameObject == this.bullet){
+        squirrelTween.remove();
         squirrel.destroy();
         this.squirrelCount -= 1;
         this.sound.play('squirreldeath');
       }//Checks if the two objects colliding are the tank squirrel and bullet
       else if(event.pairs[0].bodyA.gameObject == tanky && event.pairs[0].bodyB.gameObject == this.bullet){
+        tankyTween.remove();
         tanky.destroy();
         this.squirrelCount -= 1;
         this.sound.play('squirreldeath');
       }
       //Checks if the two objects colliding are the speedy squirrel and bullet
       else if(event.pairs[0].bodyA.gameObject == speedy && event.pairs[0].bodyB.gameObject == this.bullet){
+        speedyTween.remove();
         speedy.destroy();
         this.squirrelCount -= 1;
         this.sound.play('squirreldeath');

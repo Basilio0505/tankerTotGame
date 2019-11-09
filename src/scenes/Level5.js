@@ -93,10 +93,18 @@ export default class Level5 extends Phaser.Scene {
     this.cannon.setCollidesWith([this.borderCategory, this.environmentCategory]);
 
     var squirrel = this.matter.add.image(421, 530, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(this.enemyCategory).setSensor(true);
-    var speedy = this.matter.add.image(511, 136, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(this.enemyCategory).setSensor(true);
+    var speedy = this.matter.add.image(590, 136, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(this.enemyCategory).setSensor(true);
     var tanky = this.matter.add.image(511, 530, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(this.enemyCategory).setSensor(true);
 
-    //this.squirrelCount = 3;
+    var speedyTween = this.tweens.add({
+      targets: speedy,
+      x: 480,
+      ease: "Cubic",
+      duration: 1500,
+      yoyo: true,
+      repeat: -1,
+      repeatDelay: 500
+    });
 
     this.bulletPresent = false;
     this.gameOver = false;
@@ -131,6 +139,7 @@ export default class Level5 extends Phaser.Scene {
       }
       //Checks if the two objects colliding are the speedy squirrel and bullet
       else if(event.pairs[0].bodyA.gameObject == speedy && event.pairs[0].bodyB.gameObject == this.bullet){
+        speedyTween.remove();
         speedy.destroy();
         this.squirrelCount -= 1;
         this.sound.play('squirreldeath');
