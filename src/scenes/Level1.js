@@ -68,15 +68,6 @@ export default class Level1 extends Phaser.Scene {
 //############CREATE#####################################################################CREATE
   create (data) {
     //Create the scene
-    var level = this.registry.get('level')
-    if(level == undefined){
-      this.registry.set('level', 1)
-    }
-
-    if (this.currentLevel > level){
-      this.registry.set('level', this.currentLevel)
-      console.log('nice')
-    }
 
     this.background = this.add.tileSprite(this.centerX,this.centerY,0,0, 'background');
     this.mountains = this.add.tileSprite(this.centerX,this.centerY+100,0,0, 'mountains');
