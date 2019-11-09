@@ -13,6 +13,7 @@ export default class Level1 extends Phaser.Scene {
     this.squirrelCount = 3;
 
     this.pointerLocation = {x:0, y:0};
+
   }
 
   preload () {// Preload assets
