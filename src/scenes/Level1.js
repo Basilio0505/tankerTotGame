@@ -14,7 +14,6 @@ export default class Level1 extends Phaser.Scene {
 
     this.pointerLocation = {x:0, y:0};
 
-
   }
 
   preload () {// Preload assets
