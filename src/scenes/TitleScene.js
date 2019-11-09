@@ -6,6 +6,10 @@ export default class TitleScene extends Phaser.Scene {
 
   init (data) {
     // Initialization code goes here
+    if(this.registry.get('level') == undefined){
+      this.registry.set('level', 1)
+      console.log('nice')
+    }
   }
 
   preload () {

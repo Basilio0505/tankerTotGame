@@ -6,7 +6,8 @@ export default class Section1End extends Phaser.Scene {
 
   init (data) {
     // Initialization code goes here
-    this.currentLevel = this.registry.get('level')
+    this.currentLevel = this.registry.get('level');
+    this.currentLevel += 1
     this.shotCount = data.shotCount;
     this.threeStar = data.threeStar;
     this.twoStar = data.twoStar;
@@ -73,6 +74,7 @@ export default class Section1End extends Phaser.Scene {
     //this.platforms.create(400, 350, "woodPlatform").setScale(1.5).refreshBody();
 
     if(this.shotCount == this.threeStar){
+
       this.add.image(this.centerX - 9, this.centerY - 83, 'winDog').setScale(1.7)
       var star1 = this.add.image(this.centerX - 125, this.centerY, 'fullstar');
       star1.setScale(0.6);
