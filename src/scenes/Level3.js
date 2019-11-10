@@ -35,7 +35,7 @@ export default class Level3 extends Phaser.Scene {
     //Environment
     this.load.image('ground', './assets/Environment/groundGrass.png');
     this.load.image('background','./assets/Environment/background.png');
-    this.load.image('mountains','./assets/Environment/mountains.png');
+    this.load.image('mountains','./assets/Environment/mountains2.png');
     this.load.image('trees','./assets/Environment/trees.png');
     this.load.image('woodPlatform', './assets/smallWoodPlat.png');
     this.load.image('brickPlatform', './assets/Environment/smallBrickPlat.png')
@@ -68,7 +68,7 @@ export default class Level3 extends Phaser.Scene {
     }
     //Create the scene
     this.background = this.add.tileSprite(this.centerX,this.centerY,0,0, 'background');
-    this.mountains = this.add.tileSprite(this.centerX,this.centerY+100,0,0, 'mountains');
+    this.mountains = this.add.tileSprite(this.centerX,this.centerY-100,0,0, 'mountains');
     this.trees = this.add.tileSprite(this.centerX,this.centerY+150,0,0, 'trees');
 
     this.player = this.matter.add.image(138, 530, 'tankertot', null, {friction:0}).setCollisionCategory(this.playerCategory);
