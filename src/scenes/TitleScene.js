@@ -31,7 +31,7 @@ export default class TitleScene extends Phaser.Scene {
       frameHeight: 20,
       frameWidth: 50
     });
-    this.load.image('title', './assets/StartMenu/TileText.png');
+    this.load.image('title', './assets/StartMenu/TitleText.png');
     this.load.image('image', './assets/StartMenu/Starting_TankerTot.png');
 
     // Declare variables for center of the scene
@@ -57,7 +57,7 @@ export default class TitleScene extends Phaser.Scene {
 
     //Add Logo and Title
     var tankertot = this.add.image(this.centerX, this.centerY, 'image').setScale(0.1);
-    var title = this.add.image(this.centerX, this.centerY-50, 'title').setScale(0.2);
+    var title = this.add.image(this.centerX, this.centerY-150, 'title').setScale(1);
 
     //Start Button
     var start1 = this.add.sprite(this.centerX - 150 ,this.centerY+180,'start',0).setInteractive().setScale(5);

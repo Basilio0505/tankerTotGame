@@ -37,7 +37,7 @@ export default class LevelSelect extends Phaser.Scene {
     this.cameras.main.setBackgroundColor(0xb8b8b8);
 
     var start1 = this.add.sprite(this.centerX-150,this.centerY-180,'level1',0).setInteractive().setScale(5);
-    var check1 = this.add.image(this.centerX-280, this.centerY-185, 'unlocked').setScale(4)
+    //var check1 = this.add.image(this.centerX-280, this.centerY-185, 'unlocked').setScale(4)
 
     start1.on("pointerover", function(){this.setFrame(1);});
     start1.on("pointerout", function(){this.setFrame(0);});
@@ -47,7 +47,7 @@ export default class LevelSelect extends Phaser.Scene {
     start2.on("pointerover", function(){this.setFrame(1);});
     start2.on("pointerout", function(){this.setFrame(0);});
     if(this.currentLevel >= 2){
-      var check2 = this.add.image(this.centerX+280, this.centerY-185, 'unlocked').setScale(4)
+      //var check2 = this.add.image(this.centerX+280, this.centerY-185, 'unlocked').setScale(4)
       start2.on("pointerup", function(){this.scene.start("Level2")}, this);
     }else{
       var check2 = this.add.image(this.centerX+280, this.centerY-185, 'locked').setScale(4)
@@ -57,7 +57,7 @@ export default class LevelSelect extends Phaser.Scene {
     start3.on("pointerover", function(){this.setFrame(1);});
     start3.on("pointerout", function(){this.setFrame(0);});
     if(this.currentLevel >= 3){
-      var check2 = this.add.image(this.centerX-280, this.centerY-90, 'unlocked').setScale(4)
+      //var check2 = this.add.image(this.centerX-280, this.centerY-90, 'unlocked').setScale(4)
       start3.on("pointerup", function(){this.scene.start("Level3")}, this);
     }else{
       var check2 = this.add.image(this.centerX-280, this.centerY-90, 'locked').setScale(4)
@@ -67,7 +67,7 @@ export default class LevelSelect extends Phaser.Scene {
     start4.on("pointerover", function(){this.setFrame(1);});
     start4.on("pointerout", function(){this.setFrame(0);});
     if(this.currentLevel >= 4){
-      var check4 = this.add.image(this.centerX+280, this.centerY-90, 'unlocked').setScale(4)
+      //var check4 = this.add.image(this.centerX+280, this.centerY-90, 'unlocked').setScale(4)
       start4.on("pointerup", function(){this.scene.start("Level4")}, this);
     }else{
       var check4 = this.add.image(this.centerX+280, this.centerY-90, 'locked').setScale(4)
@@ -77,7 +77,7 @@ export default class LevelSelect extends Phaser.Scene {
     start5.on("pointerover", function(){this.setFrame(1);});
     start5.on("pointerout", function(){this.setFrame(0);});
     if(this.currentLevel >= 5){
-      var check5 = this.add.image(this.centerX-280, this.centerY, 'unlocked').setScale(4)
+      //var check5 = this.add.image(this.centerX-280, this.centerY, 'unlocked').setScale(4)
       start5.on("pointerup", function(){this.scene.start("Level5")}, this)
     }else{
       var check5 = this.add.image(this.centerX-280, this.centerY, 'locked').setScale(4)
@@ -87,7 +87,7 @@ export default class LevelSelect extends Phaser.Scene {
     start6.on("pointerover", function(){this.setFrame(1);});
     start6.on("pointerout", function(){this.setFrame(0);});
     if(this.currentLevel >= 6){
-      var check6 = this.add.image(this.centerX+280, this.centerY, 'unlocked').setScale(4)
+      //var check6 = this.add.image(this.centerX+280, this.centerY, 'unlocked').setScale(4)
       start6.on("pointerup", function(){this.scene.start("Level6")}, this);
     }else{
       var check6 = this.add.image(this.centerX+280, this.centerY, 'locked').setScale(4)
