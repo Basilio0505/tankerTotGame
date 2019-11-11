@@ -205,7 +205,7 @@ export default class Level1 extends Phaser.Scene {
         this.bounceCount += 1;
         this.sound.play('bounce');
       }
-      //checks if the two objects colliding are the walls or the bullet
+      //checks if the two objects colliding are the breakable walls or the bullet
       else if(event.pairs[0].bodyA.gameObject == break1 && event.pairs[0].bodyB.gameObject == this.bullet){
         this.bounceCount += 1;
         break1frame +=1;
@@ -258,7 +258,7 @@ export default class Level1 extends Phaser.Scene {
         this.background.tilePositionX -= 0.1;
         this.mountains.tilePositionX -= 0.2;
         this.trees.tilePositionX -= 0.3;
-      };
+      }
     } else if(this.movement.d.isDown){
       this.player.setVelocityX(2);
       this.cannon.setVelocityX(2);
@@ -266,7 +266,7 @@ export default class Level1 extends Phaser.Scene {
         this.background.tilePositionX += 0.1;
         this.mountains.tilePositionX += 0.2;
         this.trees.tilePositionX += 0.3;
-      };
+      }
     } else{
       this.player.setVelocityX(0);
       this.cannon.setVelocityX(0);

@@ -244,7 +244,7 @@ export default class Level4 extends Phaser.Scene {
         this.dunes2.tilePositionX -= 0.2;
         this.dunes3.tilePositionX -= 0.25;
         this.dunes4.tilePositionX -= 0.3;
-      };
+      }
     } else if(this.movement.d.isDown){
       this.player.setVelocityX(2);
       this.cannon.setVelocityX(2);
@@ -254,7 +254,7 @@ export default class Level4 extends Phaser.Scene {
         this.dunes2.tilePositionX += 0.2;
         this.dunes3.tilePositionX += 0.25;
         this.dunes4.tilePositionX += 0.3;
-      };
+      }
     } else{
       this.player.setVelocityX(0);
       this.cannon.setVelocityX(0);

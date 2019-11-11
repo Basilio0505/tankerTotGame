@@ -215,7 +215,7 @@ export default class Level2 extends Phaser.Scene {
         this.background.tilePositionX -= 0.1;
         this.mountains.tilePositionX -= 0.2;
         this.trees.tilePositionX -= 0.3;
-      };
+      }
     } else if(this.movement.d.isDown){
       this.player.setVelocityX(2);
       this.cannon.setVelocityX(2);
@@ -223,7 +223,7 @@ export default class Level2 extends Phaser.Scene {
         this.background.tilePositionX += 0.1;
         this.mountains.tilePositionX += 0.2;
         this.trees.tilePositionX += 0.3;
-      };
+      }
     } else{
       this.player.setVelocityX(0);
       this.cannon.setVelocityX(0);
