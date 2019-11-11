@@ -29,9 +29,9 @@ export default class Section1End extends Phaser.Scene {
     this.load.image('tankertot', './assets/TankerTot/tankerTot.png');
     this.load.image('cannon', './assets/TankerTot/cannon.png');
     this.load.image('emptystar','./assets/UI/emptystar.png');
+    this.load.image('fullstar','./assets/UI/fullstar.png');
     this.load.image('winDog','./assets/UI/totGuitar.png');
     this.load.image('loseDog', './assets/UI/totSad.png');
-    this.load.image('fullstar','./assets/UI/fullstar.png');
     this.load.spritesheet('restart','./assets/UI/restartlevelbutton.png', {
       frameHeight: 100,
       frameWidth: 200
@@ -92,7 +92,9 @@ export default class Section1End extends Phaser.Scene {
       var star3 = this.add.image(this.centerX + 125, this.centerY, 'emptystar');
       star3.setScale(0.6);
       this.advance = true;
-      this.registry.set('Level'+this.currentLevel+'Score', 2)
+      if(this.registry.get('Level'+this.currentLevel+'Score') < 2){
+        this.registry.set('Level'+this.currentLevel+'Score', 2)
+      }
 
     } else if(this.shotCount <= this.oneStar){
       this.add.image(this.centerX - 9, this.centerY - 83, 'winDog').setScale(1.7)
@@ -103,8 +105,9 @@ export default class Section1End extends Phaser.Scene {
       var star3 = this.add.image(this.centerX + 125, this.centerY, 'emptystar');
       star3.setScale(0.6);
       this.advance = true;
-      this.registry.set('Level'+this.currentLevel+'Score', 1)
-
+      if(this.registry.get('Level'+this.currentLevel+'Score') < 1){
+        this.registry.set('Level'+this.currentLevel+'Score', 1)
+      }
     } else {
       this.add.image(this.centerX - 9, this.centerY - 140, 'loseDog').setScale(1.7)
       var star1 = this.add.image(this.centerX - 125, this.centerY, 'emptystar');
@@ -114,9 +117,11 @@ export default class Section1End extends Phaser.Scene {
       var star3 = this.add.image(this.centerX + 125, this.centerY, 'emptystar');
       star3.setScale(0.6);
       this.advance = false;
-      this.registry.set('Level'+this.currentLevel+'Score', 0)
-    }
+      if(this.registry.get('Level'+this.currentLevel+'Score') < 0){
+        this.registry.set('Level'+this.currentLevel+'Score', 0)
+      }
 
+    }
     //################################################################
     //var nextButton = this.add.sprite(this.centerX + 150, this.centerY + 150, 'next', 0);
     //nextButton.setScale(0.75);

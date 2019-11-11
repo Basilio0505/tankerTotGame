@@ -9,7 +9,6 @@ export default class LevelSelect extends Phaser.Scene {
     //DEBUG MODE. Still go to level 1 first
     //this.registry.set('level', 6);
     this.currentLevel = this.registry.get('level');
-    console.log(this.currentLevel)
   }
 
   preload () {
@@ -26,15 +25,15 @@ export default class LevelSelect extends Phaser.Scene {
     this.load.image('image', './assets/StartMenu/Starting_TankerTot.png');
     this.load.image('unlocked', './assets/StartMenu/unlockedLevel.png');
     this.load.image('locked', './assets/StartMenu/lockedLevel.png');
-
+    this.load.image('emptystar','./assets/UI/emptystar.png');
+    this.load.image('fullstar','./assets/UI/fullstar.png');
     // Declare variables for center of the scene
     this.centerX = this.cameras.main.width / 2;
     this.centerY = this.cameras.main.height / 2;
   }
 
   create (data) {
-    var cars = ['av',3,2,'ra']
-    console.log(cars == 4)
+
     //Create the scene
     this.cameras.main.setBackgroundColor(0xb8b8b8);
 
@@ -100,7 +99,30 @@ export default class LevelSelect extends Phaser.Scene {
     back.on("pointerout", function(){this.setFrame(0);});
     back.on("pointerup", function(){this.scene.start("Title")}, this);
 
-
+    var levels = [this.registry.get('Level1Score'),this.registry.get('Level2Score'),
+    this.registry.get('Level3Score'),this.registry.get('Level4Score'),
+    this.registry.get('Level6Score'),this.registry.get('Level5Score')]
+    console.log(levels)
+    var right = 0;
+    var down = 0;
+    for(var i = 0; i < levels.length; i++){
+      if(levels[i] == -1){
+        continue;
+      }else{
+        for(var j = 0; j < levels[i]; j++){
+          var star = this.add.image(this.centerX - 180 + j * 30 + right, this.centerY - 150 + down, 'fullstar');
+          star.setScale(0.2);
+        }
+      }
+      if(right == 0){
+        right = 300
+      }else{
+        right = 0
+      }
+      if(i % 2 == 1){
+        down += 90
+      }
+    }
   }
 
   update (time, delta) {

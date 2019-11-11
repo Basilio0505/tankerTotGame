@@ -99,7 +99,9 @@ export default class Section2End extends Phaser.Scene {
       var star3 = this.add.image(this.centerX + 125, this.centerY, 'emptystar');
       star3.setScale(0.6);
       this.advance = true;
-      this.registry.set('Level'+this.currentLevel+'Score', 2)
+      if(this.registry.get('Level'+this.currentLevel+'Score') < 2){
+        this.registry.set('Level'+this.currentLevel+'Score', 2)
+      }
 
 
     } else if(this.shotCount <= this.oneStar){
@@ -111,7 +113,9 @@ export default class Section2End extends Phaser.Scene {
       var star3 = this.add.image(this.centerX + 125, this.centerY, 'emptystar');
       star3.setScale(0.6);
       this.advance = true;
-      this.registry.set('Level'+this.currentLevel+'Score', 1)
+      if(this.registry.get('Level'+this.currentLevel+'Score') < 2){
+        this.registry.set('Level'+this.currentLevel+'Score', 2)
+      }
 
 
     } else {
@@ -123,7 +127,9 @@ export default class Section2End extends Phaser.Scene {
       var star3 = this.add.image(this.centerX + 125, this.centerY, 'emptystar');
       star3.setScale(0.6);
       this.advance = false;
-      this.registry.set('Level'+this.currentLevel+'Score', 0)
+      if(this.registry.get('Level'+this.currentLevel+'Score') < 0){
+        this.registry.set('Level'+this.currentLevel+'Score', 0)
+      }
 
     }
 
