@@ -9,7 +9,7 @@ export default class Level6 extends Phaser.Scene {
     this.threeStar = 3;
     this.twoStar = 4;
     this.oneStar = 6;
-    this.registry.set('Level6Visited', true)
+
     this.registry.set('level', 6)
     this.squirrelCount = 3;
 
@@ -217,7 +217,7 @@ export default class Level6 extends Phaser.Scene {
       //Makes sure there is no active bullet present
       if (this.bulletPresent == false){
         //Loads score Scene and passes info for display over
-        if(this.shotCount == this.threeStar){
+        if(this.shotCount <= this.threeStar){
           this.registry.set('Level6Score', 3)
         }else if(this.shotCount <= this.twoStar){
           this.registry.set('Level6Score', 2)

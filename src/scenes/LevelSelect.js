@@ -21,6 +21,9 @@ export default class LevelSelect extends Phaser.Scene {
     this.load.spritesheet('level4', './assets/StartMenu/Level4.png', {frameHeight: 20,frameWidth: 50});
     this.load.spritesheet('level5', './assets/StartMenu/Level5.png', {frameHeight: 20,frameWidth: 50});
     this.load.spritesheet('level6', './assets/StartMenu/Level6.png', {frameHeight: 20,frameWidth: 50});
+    this.load.spritesheet('level7', './assets/StartMenu/Level7.png', {frameHeight: 20,frameWidth: 50});
+    this.load.spritesheet('level8', './assets/StartMenu/Level8.png', {frameHeight: 20,frameWidth: 50});
+    this.load.spritesheet('level9', './assets/StartMenu/Level9.png', {frameHeight: 20,frameWidth: 50});
     this.load.image('title', './assets/StartMenu/TileText.png');
     this.load.image('image', './assets/StartMenu/Starting_TankerTot.png');
     this.load.image('unlocked', './assets/StartMenu/unlockedLevel.png');
@@ -95,14 +98,46 @@ export default class LevelSelect extends Phaser.Scene {
       var check6 = this.add.image(this.centerX+280, this.centerY, 'locked').setScale(4)
     }
 
-    var back = this.add.sprite(this.centerX,this.centerY+180,'back',0).setInteractive().setScale(5);
+    var start7 = this.add.sprite(this.centerX-150,this.centerY+90,'level7',0).setInteractive().setScale(5);
+    start7.on("pointerover", function(){this.setFrame(1);});
+    start7.on("pointerout", function(){this.setFrame(0);});
+    if(this.registry.get('Level6HighScore') > 0){
+      //var check6 = this.add.image(this.centerX+280, this.centerY, 'unlocked').setScale(4)
+      start7.on("pointerup", function(){this.scene.start("Level7")}, this);
+    }else{
+      var check7 = this.add.image(this.centerX-280, this.centerY+90, 'locked').setScale(4)
+    }
+
+    var start8 = this.add.sprite(this.centerX+150,this.centerY+90,'level8',0).setInteractive().setScale(5);
+    start8.on("pointerover", function(){this.setFrame(1);});
+    start8.on("pointerout", function(){this.setFrame(0);});
+    if(this.registry.get('Level7HighScore') > 0){
+      //var check6 = this.add.image(this.centerX+280, this.centerY, 'unlocked').setScale(4)
+      start8.on("pointerup", function(){this.scene.start("Level8")}, this);
+    }else{
+      var check8 = this.add.image(this.centerX+280, this.centerY+90, 'locked').setScale(4)
+    }
+
+    var start9 = this.add.sprite(this.centerX-150,this.centerY+180,'level9',0).setInteractive().setScale(5);
+    start9.on("pointerover", function(){this.setFrame(1);});
+    start9.on("pointerout", function(){this.setFrame(0);});
+    if(this.registry.get('Level8HighScore') > 0){
+      //var check6 = this.add.image(this.centerX+280, this.centerY, 'unlocked').setScale(4)
+      start9.on("pointerup", function(){this.scene.start("Level9")}, this);
+    }else{
+      var check9 = this.add.image(this.centerX-280, this.centerY+180, 'locked').setScale(4)
+    }
+
+    var back = this.add.sprite(this.centerX,this.centerY+270,'back',0).setInteractive().setScale(5);
     back.on("pointerover", function(){this.setFrame(1);});
     back.on("pointerout", function(){this.setFrame(0);});
     back.on("pointerup", function(){this.scene.start("Title")}, this);
 
     var levels = [this.registry.get('Level1HighScore'),this.registry.get('Level2HighScore'),
     this.registry.get('Level3HighScore'),this.registry.get('Level4HighScore'),
-    this.registry.get('Level5HighScore'),this.registry.get('Level6HighScore')]
+    this.registry.get('Level5HighScore'),this.registry.get('Level6HighScore'),
+    this.registry.get('Level7HighScore'),this.registry.get('Level8HighScore'),
+    this.registry.get('Level9HighScore')]
     var right = 0;
     var down = 0;
     for(var i = 0; i < levels.length; i++){
