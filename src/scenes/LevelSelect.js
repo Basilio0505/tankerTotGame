@@ -103,7 +103,6 @@ export default class LevelSelect extends Phaser.Scene {
     var levels = [this.registry.get('Level1HighScore'),this.registry.get('Level2HighScore'),
     this.registry.get('Level3HighScore'),this.registry.get('Level4HighScore'),
     this.registry.get('Level5HighScore'),this.registry.get('Level6HighScore')]
-    console.log(levels)
     var right = 0;
     var down = 0;
     for(var i = 0; i < levels.length; i++){

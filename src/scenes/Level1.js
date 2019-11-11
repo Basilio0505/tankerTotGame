@@ -169,6 +169,7 @@ export default class Level1 extends Phaser.Scene {
         if(this.registry.get('Level1HighScore') < this.registry.get('Level1Score')){
           this.registry.set('Level1HighScore', this.registry.get('Level1Score'))
         }
+
         this.scene.start('Section1End', {
           backgroundX: this.background.tilePositionX,
           mountainsX: this.mountains.tilePositionX,

@@ -7,8 +7,6 @@ export default class Section1End extends Phaser.Scene {
   init (data) {
     // Initialization code goes here
     this.currentLevel = this.registry.get('level');
-    console.log(this.currentLevel)
-    console.log('sas')
     this.backgroundX = data.backgroundX;
     this.mountainsX = data.mountainsX;
     this.treesX = data.treesX;
@@ -105,7 +103,20 @@ export default class Section1End extends Phaser.Scene {
       if(this.registry.get('Level'+this.currentLevel+'Score') < 1){
         this.registry.set('Level'+this.currentLevel+'Score', 1)
       }
-    } else {
+    } else if(this.registry.get('Level'+this.currentLevel+'Score') == 0 &&
+    this.registry.get('Level'+this.currentLevel+'HighScore') > 0) {
+      this.add.image(this.centerX - 9, this.centerY - 140, 'loseDog').setScale(1.7)
+      var star1 = this.add.image(this.centerX - 125, this.centerY, 'emptystar');
+      star1.setScale(0.6);
+      var star2 = this.add.image(this.centerX, this.centerY, 'emptystar');
+      star2.setScale(0.6);
+      var star3 = this.add.image(this.centerX + 125, this.centerY, 'emptystar');
+      star3.setScale(0.6);
+      this.advance = true;
+      if(this.registry.get('Level'+this.currentLevel+'Score') < 0){
+        this.registry.set('Level'+this.currentLevel+'Score', 0)
+      }
+    }else if(this.registry.get('Level'+this.currentLevel+'Score') == 0) {
       this.add.image(this.centerX - 9, this.centerY - 140, 'loseDog').setScale(1.7)
       var star1 = this.add.image(this.centerX - 125, this.centerY, 'emptystar');
       star1.setScale(0.6);
@@ -117,13 +128,13 @@ export default class Section1End extends Phaser.Scene {
       if(this.registry.get('Level'+this.currentLevel+'Score') < 0){
         this.registry.set('Level'+this.currentLevel+'Score', 0)
       }
-
     }
     //################################################################
     //var nextButton = this.add.sprite(this.centerX + 150, this.centerY + 150, 'next', 0);
     //nextButton.setScale(0.75);
     if(this.advance){
       var nextButton = this.add.sprite(this.centerX + 150, this.centerY + 150, 'next', 0);
+
       nextButton.setScale(0.75);
       nextButton.setInteractive();
       nextButton.on("pointerover", function(){
