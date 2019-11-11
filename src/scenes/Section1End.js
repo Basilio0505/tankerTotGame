@@ -7,7 +7,6 @@ export default class Section1End extends Phaser.Scene {
   init (data) {
     // Initialization code goes here
     this.currentLevel = this.registry.get('level');
-    this.currentLevel += 1
     this.shotCount = data.shotCount;
     this.threeStar = data.threeStar;
     this.twoStar = data.twoStar;
@@ -54,7 +53,6 @@ export default class Section1End extends Phaser.Scene {
 
   create (data) {
     //Create the scene
-
     //Add background
     this.background = this.add.tileSprite(this.centerX,this.centerY,0,0, 'background');
     this.mountains = this.add.tileSprite(this.centerX,this.centerY-100,0,0, 'mountains');
@@ -83,6 +81,7 @@ export default class Section1End extends Phaser.Scene {
       var star3 = this.add.image(this.centerX + 125, this.centerY, 'fullstar');
       star3.setScale(0.6);
       this.advance = true;
+      this.registry.set('Level'+this.currentLevel+'Score', 3)
 
     } else if(this.shotCount <= this.twoStar){
       this.add.image(this.centerX - 9, this.centerY - 83, 'winDog').setScale(1.7)
@@ -93,6 +92,7 @@ export default class Section1End extends Phaser.Scene {
       var star3 = this.add.image(this.centerX + 125, this.centerY, 'emptystar');
       star3.setScale(0.6);
       this.advance = true;
+      this.registry.set('Level'+this.currentLevel+'Score', 2)
 
     } else if(this.shotCount <= this.oneStar){
       this.add.image(this.centerX - 9, this.centerY - 83, 'winDog').setScale(1.7)
@@ -103,6 +103,7 @@ export default class Section1End extends Phaser.Scene {
       var star3 = this.add.image(this.centerX + 125, this.centerY, 'emptystar');
       star3.setScale(0.6);
       this.advance = true;
+      this.registry.set('Level'+this.currentLevel+'Score', 1)
 
     } else {
       this.add.image(this.centerX - 9, this.centerY - 140, 'loseDog').setScale(1.7)
@@ -113,6 +114,7 @@ export default class Section1End extends Phaser.Scene {
       var star3 = this.add.image(this.centerX + 125, this.centerY, 'emptystar');
       star3.setScale(0.6);
       this.advance = false;
+      this.registry.set('Level'+this.currentLevel+'Score', 0)
     }
 
     //################################################################

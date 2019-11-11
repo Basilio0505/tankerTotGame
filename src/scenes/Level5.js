@@ -9,7 +9,7 @@ export default class Level5 extends Phaser.Scene {
     this.threeStar = 1;
     this.twoStar = 3;
     this.oneStar = 5;
-
+    this.registry.set('Level5Visited', true)
     this.currentLevel = 5;
     this.squirrelCount = 3;
 

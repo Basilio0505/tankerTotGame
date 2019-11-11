@@ -9,7 +9,6 @@ export default class TitleScene extends Phaser.Scene {
 
     if(this.registry.get('level') == undefined){
       this.registry.set('level', 1)
-      console.log('nice')
     }
 
     this.registry.set('Level1Score', -1)
@@ -70,6 +69,32 @@ export default class TitleScene extends Phaser.Scene {
     startLS.on("pointerover", function(){this.setFrame(1);});
     startLS.on("pointerout", function(){this.setFrame(0);});
     startLS.on("pointerup", function(){this.scene.start("LevelSelect")}, this);
+
+    //Create collision categories
+    if(this.registry.get('playerCategory') == undefined){
+      this.playerCategory = this.matter.world.nextCategory();
+      this.registry.set('playerCategory', this.playerCategory)
+    }
+
+    if(this.registry.get('borderCategory') == undefined){
+      this.borderCategory = this.matter.world.nextCategory();
+      this.registry.set('borderCategory', this.borderCategory)
+    }
+
+    if(this.registry.get('environmentCategory') == undefined){
+      this.environmentCategory = this.matter.world.nextCategory();
+      this.registry.set('environmentCategory', this.environmentCategory)
+    }
+
+    if(this.registry.get('bulletCategory') == undefined){
+      this.bulletCategory = this.matter.world.nextCategory();
+      this.registry.set('bulletCategory', this.bulletCategory)
+    }
+
+    if(this.registry.get('enemyCategory') == undefined){
+      this.enemyCategory = this.matter.world.nextCategory();
+      this.registry.set('enemyCategory', this.enemyCategory)
+    }
   }
 
   update (time, delta) {

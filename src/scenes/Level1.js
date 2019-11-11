@@ -9,10 +9,17 @@ export default class Level1 extends Phaser.Scene {
     this.threeStar = 1;
     this.twoStar = 3;
     this.oneStar = 5;
+    this.registry.set('Level1Visited', true)
     this.currentLevel = 1
     this.squirrelCount = 3;
-
+    
     this.pointerLocation = {x:0, y:0};
+
+    this.playerCategory = this.registry.get('playerCategory');
+    this.enemyCategory = this.registry.get('enemyCategory');
+    this.borderCategory = this.registry.get('borderCategory');
+    this.bulletCategory = this.registry.get('bulletCategory');
+    this.environmentCategory = this.registry.get('environmentCategory');
   }
 
   preload () {// Preload assets
@@ -77,31 +84,7 @@ export default class Level1 extends Phaser.Scene {
       a:Phaser.Input.Keyboard.KeyCodes.A,
       d:Phaser.Input.Keyboard.KeyCodes.D});
 
-    //Create collision categories
-    if(this.playerCategory == undefined){
-      this.playerCategory = this.matter.world.nextCategory();
-    }
-    this.registry.set('playerCategory', this.playerCategory);
 
-    if(this.borderCategory == undefined){
-      this.borderCategory = this.matter.world.nextCategory();
-    }
-    this.registry.set('borderCategory', this.borderCategory);
-
-    if(this.environmentCategory == undefined){
-      this.environmentCategory = this.matter.world.nextCategory();
-    }
-    this.registry.set('environmentCategory', this.environmentCategory);
-
-    if(this.bulletCategory == undefined){
-      this.bulletCategory = this.matter.world.nextCategory();
-    }
-    this.registry.set('bulletCategory', this.bulletCategory);
-
-    if(this.enemyCategory == undefined){
-      this.enemyCategory = this.matter.world.nextCategory();
-    }
-    this.registry.set('enemyCategory', this.enemyCategory);
 
     //Create the scene background
     this.background = this.add.tileSprite(this.centerX,this.centerY,0,0, 'background');
