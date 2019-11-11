@@ -174,8 +174,8 @@ export default class Level9 extends Phaser.Scene {
         }
         this.scene.start('Section3End', {
           backgroundX: this.background.tilePositionX,
-          buildingsfX: this.dunes1.tilePositionX,
-          buildingsbX: this.dunes1.tilePositionX,
+          buildingsfX: this.buildingsf.tilePositionX,
+          buildingsbX: this.buildingsb.tilePositionX,
           tankerX: this.player.x
           });
       }
@@ -223,8 +223,8 @@ export default class Level9 extends Phaser.Scene {
         }
         this.scene.start('Section3End', {
           backgroundX: this.background.tilePositionX,
-          buildingsfX: this.dunes1.tilePositionX,
-          buildingsbX: this.dunes1.tilePositionX,
+          buildingsfX: this.buildingsf.tilePositionX,
+          buildingsbX: this.buildingsb.tilePositionX,
           tankerX: this.player.x
           });
       }
