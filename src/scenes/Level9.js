@@ -1,16 +1,16 @@
 /*global Phaser*/
-export default class Level5 extends Phaser.Scene {
+export default class Level9 extends Phaser.Scene {
   constructor () {
-    super('Level5');
+    super('Level9');
   }
 
   init (data) {
     // Initialization code goes here
-    this.threeStar = 1;
-    this.twoStar = 3;
-    this.oneStar = 5;
+    this.threeStar = 3;
+    this.twoStar = 4;
+    this.oneStar = 6;
 
-    this.registry.set('level', 5)
+    this.registry.set('level', 9)
     this.squirrelCount = 3;
 
     this.pointerLocation = {x:0, y:0};
@@ -32,15 +32,9 @@ export default class Level5 extends Phaser.Scene {
     //Environment
     this.load.image('ground', './assets/Environment/groundGrass.png');
     this.load.image('background','./assets/Environment/background.png');
-    this.load.image('dunes1','./assets/Environment/dunes1.png');
-    this.load.image('dunes2','./assets/Environment/dunes2.png');
-    this.load.image('dunes3','./assets/Environment/dunes3.png');
-    this.load.image('dunes4','./assets/Environment/dunes4.png');
+    this.load.image('buildingsb','./assets/Environment/backgroundbuildings.png');
+    this.load.image('buildingsf','./assets/Environment/foregroundbuildings.png');
     this.load.image('woodPlatform', './assets/smallWoodPlat.png');
-    this.load.spritesheet('break', './assets/smallWoodPlat_Breakable.png',{
-      frameWidth: 64,
-      frameHeight: 32
-    });
 
     //All to be replaced
     this.load.image('hwall', './assets/Environment/horizontalWall.png');
@@ -63,6 +57,8 @@ export default class Level5 extends Phaser.Scene {
 
   //############CREATE#####################################################################CREATE
   create (data) {
+
+
     //create variables
     this.bulletPresent = false;
     this.gameOver = false;
@@ -76,14 +72,12 @@ export default class Level5 extends Phaser.Scene {
 
     //Create the scene background
     this.background = this.add.tileSprite(this.centerX,this.centerY,0,0, 'background');
-    this.dunes1 = this.add.tileSprite(this.centerX,this.centerY+20,0,0, 'dunes1');
-    this.dunes2 = this.add.tileSprite(this.centerX,this.centerY+30,0,0, 'dunes2');
-    this.dunes3 = this.add.tileSprite(this.centerX,this.centerY+40,0,0, 'dunes3');
-    this.dunes4 = this.add.tileSprite(this.centerX,this.centerY+50,0,0, 'dunes4');
+    this.buildingsb = this.add.tileSprite(this.centerX,this.centerY,0,0, 'buildingsb');
+    this.buildingsf = this.add.tileSprite(this.centerX,this.centerY,0,0, 'buildingsf');
 
     //create player
-    this.player = this.matter.add.image(200, 530, 'tankertot', null, {friction:0}).setFixedRotation(true).setCollisionCategory(this.playerCategory);
-    this.cannon = this.matter.add.image(200, 530, 'cannon', null, {friction:0, shape: 'circle'}).setCollisionCategory(this.playerCategory).setScale(.84);
+    this.player = this.matter.add.image(68, 530, 'tankertot', null, {friction:0}).setFixedRotation(true).setCollisionCategory(this.playerCategory);
+    this.cannon = this.matter.add.image(68, 530, 'cannon', null, {friction:0, shape: 'circle'}).setCollisionCategory(this.playerCategory).setScale(.84);
 
     //create borders
     var vwall1 = this.matter.add.image(16,16, 'vwall', null, { isStatic: true, friction: 0 , restitution: 1 }).setCollisionCategory(this.borderCategory);
@@ -92,30 +86,48 @@ export default class Level5 extends Phaser.Scene {
     var ground = this.matter.add.image(16,584, 'ground', null, { isStatic: true, friction: 0 , restitution: 1 }).setCollisionCategory(this.borderCategory);
 
     //create platforms
-    var plat1 = this.matter.add.image(340, 480, "woodPlatform", null, { isStatic: true, friction: 0 , restitution: 1 }).setScale(2).setCollisionCategory(this.environmentCategory).setAngle(90);
-    var plat2 = this.matter.add.image(525, 200, "woodPlatform", null, { isStatic: true, friction: 0 , restitution: 1 }).setScale(1.5).setCollisionCategory(this.environmentCategory);
-
-    var break1frame = 0;
-    var break1 = this.matter.add.sprite(500, 365, 'break', null, { isStatic: true, friction: 0 , restitution: 1 }, break1frame).setScale(2).setCollisionCategory(this.environmentCategory);
+    var plat1 = this.matter.add.image(100, 200, "woodPlatform", null, { isStatic: true, friction: 0 , restitution: 1 }).setScale(1.5).setCollisionCategory(this.environmentCategory);
+    var plat2 = this.matter.add.image(700, 200, "woodPlatform", null, { isStatic: true, friction: 0 , restitution: 1 }).setScale(1.5).setCollisionCategory(this.environmentCategory);
+    var plat3 = this.matter.add.image(400, 200, "woodPlatform", null, { isStatic: true, friction: 0 , restitution: 1 }).setScale(1.5).setCollisionCategory(this.environmentCategory);
 
     //create enemies
-    var squirrel = this.matter.add.image(421, 530, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(this.enemyCategory).setSensor(true);
-    var speedy = this.matter.add.image(590, 136, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(this.enemyCategory).setSensor(true);
-    var tanky = this.matter.add.image(511, 530, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(this.enemyCategory).setSensor(true);
+    var squirrel = this.matter.add.image(165, 136, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(this.enemyCategory).setSensor(true);
+    var speedy = this.matter.add.image(740, 136, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(this.enemyCategory).setSensor(true);
+    var tanky = this.matter.add.image(465, 136, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(this.enemyCategory).setSensor(true);
 
     //create text/UI
     this.countText = this.add.text( 16, 6, 'Bullets Used: 0', { fontSize: '26px', fill: '#000', stroke: '#000', strokeThickness: 2 });
-    var levelText = this.add.text( this.centerX - 30, 6, 'Level 5', { fontSize: '26px', fill: '#000', stroke: '#000', strokeThickness: 2 });
+    var levelText = this.add.text( this.centerX - 30, 6, 'Level 9', { fontSize: '26px', fill: '#000', stroke: '#000', strokeThickness: 2 });
 
     //assign collisions
     this.player.setCollidesWith([this.borderCategory, this.environmentCategory, this.bulletCategory]);
     this.cannon.setCollidesWith([this.borderCategory, this.environmentCategory]);
 
+    var squirrelTween = this.tweens.add({
+      targets: squirrel,
+      x: 60,
+      ease: "Cubic",
+      duration: 1200,
+      yoyo: true,
+      repeat: -1,
+      repeatDelay: 500
+    });
+
     var speedyTween = this.tweens.add({
       targets: speedy,
-      x: 480,
+      x: 660,
       ease: "Cubic",
       duration: 1500,
+      yoyo: true,
+      repeat: -1,
+      repeatDelay: 500
+    });
+
+    var tankyTween = this.tweens.add({
+      targets: tanky,
+      x: 360,
+      ease: "Cubic",
+      duration: 1800,
       yoyo: true,
       repeat: -1,
       repeatDelay: 500
@@ -135,11 +147,13 @@ export default class Level5 extends Phaser.Scene {
     this.matter.world.on('collisionstart', function(event){
       //Checks if the two objects colliding are the regular squirrel and bullet
       if(event.pairs[0].bodyA.gameObject == squirrel && event.pairs[0].bodyB.gameObject == this.bullet){
+        squirrelTween.remove();
         squirrel.destroy();
         this.squirrelCount -= 1;
         this.sound.play('squirreldeath');
       }//Checks if the two objects colliding are the tank squirrel and bullet
       else if(event.pairs[0].bodyA.gameObject == tanky && event.pairs[0].bodyB.gameObject == this.bullet){
+        tankyTween.remove();
         tanky.destroy();
         this.squirrelCount -= 1;
         this.sound.play('squirreldeath');
@@ -154,39 +168,26 @@ export default class Level5 extends Phaser.Scene {
       //Checks if the two objects colliding are the player and the player bullet
       else if(event.pairs[0].bodyA.gameObject == this.player && event.pairs[0].bodyB.gameObject == this.bullet){
         //GAME OVER
-        this.registry.set('Level5Score', 0)
-        if(this.registry.get('Level5HighScore') < this.registry.get('Level5Score')){
-          this.registry.set('Level5HighScore', this.registry.get('Level5Score'))
+        this.registry.set('Level9Score', 0)
+        if(this.registry.get('Level9HighScore') < this.registry.get('Level9Score')){
+          this.registry.set('Level9HighScore', this.registry.get('Level9Score'))
         }
-        this.scene.start('Section2End', {
-            backgroundX: this.background.tilePositionX,
-            dunes1X: this.dunes1.tilePositionX,
-            dunes2X: this.dunes1.tilePositionX,
-            dunes3X: this.dunes1.tilePositionX,
-            dunes4X: this.dunes1.tilePositionX,
-            tankerX: this.player.x
+        this.scene.start('Section3End', {
+          backgroundX: this.background.tilePositionX,
+          buildingsfX: this.buildingsf.tilePositionX,
+          buildingsbX: this.buildingsb.tilePositionX,
+          tankerX: this.player.x
           });
       }
       //Checks if the two objects colliding are the walls or platforms and bullet
       else if((event.pairs[0].bodyA.gameObject == plat1 ||
           event.pairs[0].bodyA.gameObject == plat2 ||
+          event.pairs[0].bodyA.gameObject == plat3 ||
           event.pairs[0].bodyA.gameObject == ground ||
           event.pairs[0].bodyA.gameObject == hwall ||
           event.pairs[0].bodyA.gameObject == vwall1 ||
           event.pairs[0].bodyA.gameObject == vwall2) && event.pairs[0].bodyB.gameObject == this.bullet){
         this.bounceCount += 1;
-        this.sound.play('bounce');
-      }
-      //checks if the two objects colliding are the breakable walls or the bullet
-      else if(event.pairs[0].bodyA.gameObject == break1 && event.pairs[0].bodyB.gameObject == this.bullet){
-        this.bounceCount += 1;
-        break1frame +=1;
-        if(break1frame > 2){
-          break1.destroy();
-        }
-        else{
-          break1.setFrame(break1frame);
-        }
         this.sound.play('bounce');
       }
 
@@ -199,7 +200,7 @@ export default class Level5 extends Phaser.Scene {
     }, this);
   }
 
-//############UPDATE######################################################################UPDATE
+  //############UPDATE######################################################################UPDATE
   update (time, delta) {
     // Update the scene
     this.updateCannon(this.pointerLocation);
@@ -211,21 +212,19 @@ export default class Level5 extends Phaser.Scene {
       if (this.bulletPresent == false){
         //Loads score Scene and passes info for display over
         if(this.shotCount == this.threeStar){
-          this.registry.set('Level5Score', 3)
+          this.registry.set('Level9Score', 3)
         }else if(this.shotCount <= this.twoStar){
-          this.registry.set('Level5Score', 2)
+          this.registry.set('Level9Score', 2)
         }else if(this.shotCount <= this.oneStar){
-          this.registry.set('Level5Score', 1)
+          this.registry.set('Level9Score', 1)
         }
-        if(this.registry.get('Level5HighScore') < this.registry.get('Level5Score')){
-          this.registry.set('Level5HighScore', this.registry.get('Level5Score'))
+        if(this.registry.get('Level9HighScore') < this.registry.get('Level9Score')){
+          this.registry.set('Level9HighScore', this.registry.get('Level9Score'))
         }
-        this.scene.start('Section2End', {
+        this.scene.start('Section3End', {
           backgroundX: this.background.tilePositionX,
-          dunes1X: this.dunes1.tilePositionX,
-          dunes2X: this.dunes1.tilePositionX,
-          dunes3X: this.dunes1.tilePositionX,
-          dunes4X: this.dunes1.tilePositionX,
+          buildingsfX: this.buildingsf.tilePositionX,
+          buildingsbX: this.buildingsb.tilePositionX,
           tankerX: this.player.x
           });
       }
@@ -236,20 +235,16 @@ export default class Level5 extends Phaser.Scene {
       this.cannon.setVelocityX(-2);
       if(this.player.x > 100){
         this.background.tilePositionX -= 0.1;
-        this.dunes1.tilePositionX -= 0.15;
-        this.dunes2.tilePositionX -= 0.2;
-        this.dunes3.tilePositionX -= 0.25;
-        this.dunes4.tilePositionX -= 0.3;
+        this.buildingsb.tilePositionX -= 0.2;
+        this.buildingsf.tilePositionX -= 0.3;
       }
     } else if(this.movement.d.isDown){
       this.player.setVelocityX(2);
       this.cannon.setVelocityX(2);
       if(this.player.x < 700){
         this.background.tilePositionX += 0.1;
-        this.dunes1.tilePositionX += 0.15;
-        this.dunes2.tilePositionX += 0.2;
-        this.dunes3.tilePositionX += 0.25;
-        this.dunes4.tilePositionX += 0.3;
+        this.buildingsb.tilePositionX += 0.2;
+        this.buildingsf.tilePositionX += 0.3;
       }
     } else{
       this.player.setVelocityX(0);
