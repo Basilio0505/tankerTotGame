@@ -15,11 +15,11 @@ export default class Level3 extends Phaser.Scene {
 
     this.pointerLocation = {x:0, y:0};
 
-    this.playerCategory = this.registry.get('playerCategory')
-    this.enemyCategory = this.registry.get('enemyCategory')
-    this.borderCategory = this.registry.get('borderCategory')
-    this.bulletCategory = this.registry.get('bulletCategory')
-    this.environmentCategory = this.registry.get('environmentCategory')
+    this.playerCategory = this.registry.get('playerCategory');
+    this.enemyCategory = this.registry.get('enemyCategory');
+    this.borderCategory = this.registry.get('borderCategory');
+    this.bulletCategory = this.registry.get('bulletCategory');
+    this.environmentCategory = this.registry.get('environmentCategory');
   }
 
   preload () {// Preload assets
@@ -64,56 +64,68 @@ export default class Level3 extends Phaser.Scene {
   create (data) {
     var level = this.registry.get('level')
     if (this.currentLevel > level){
-      this.registry.set('level', this.currentLevel)
+      this.registry.set('level', this.currentLevel);
     }
+
+    //create variables
+    this.bulletPresent = false;
+    this.gameOver = false;
+    this.bounceCount = 0;
+    this.shotCount = 0;
+    this.movement = this.input.keyboard.addKeys({
+      w:Phaser.Input.Keyboard.KeyCodes.W,
+      s:Phaser.Input.Keyboard.KeyCodes.S,
+      a:Phaser.Input.Keyboard.KeyCodes.A,
+      d:Phaser.Input.Keyboard.KeyCodes.D});
+
     //Create the scene
     this.background = this.add.tileSprite(this.centerX,this.centerY,0,0, 'background');
     this.mountains = this.add.tileSprite(this.centerX,this.centerY-100,0,0, 'mountains');
     this.trees = this.add.tileSprite(this.centerX,this.centerY+150,0,0, 'trees');
 
-    this.player = this.matter.add.image(138, 530, 'tankertot', null, {friction:0}).setCollisionCategory(this.playerCategory);
-    this.player.setFixedRotation(true);
+    //create player
+    this.player = this.matter.add.image(138, 530, 'tankertot', null, {friction:0}).setFixedRotation(true).setCollisionCategory(this.playerCategory);
     this.cannon = this.matter.add.image(138, 530, 'cannon', null, {friction:0, shape: 'circle'}).setCollisionCategory(this.playerCategory).setScale(.84);
+
+    //create borders
     var vwall1 = this.matter.add.image(16,16, 'vwall', null, { isStatic: true, friction: 0 }).setCollisionCategory(this.borderCategory);
     var vwall2 = this.matter.add.image(784,16, 'vwall', null, { isStatic: true, friction: 0 }).setCollisionCategory(this.borderCategory);
     var hwall = this.matter.add.image(16,16, 'hwall', null, { isStatic: true, friction: 0 }).setCollisionCategory(this.borderCategory);
     var ground = this.matter.add.image(16,584, 'ground', null, { isStatic: true, friction: 0 }).setCollisionCategory(this.borderCategory);
 
+    //create platforms
     var plat1 = this.matter.add.image(500, 200, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(1.5).setCollisionCategory(this.environmentCategory);
     var plat2 = this.matter.add.image(250, 200, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(1.5).setCollisionCategory(this.environmentCategory);
     var plat3 = this.matter.add.image(100, 125, "brickPlatform", null, { isStatic: true, friction: 0 }).setScale(1.5).setCollisionCategory(this.environmentCategory).setAngle(-45);
     var plat4 = this.matter.add.image(700, 125, "brickPlatform", null, { isStatic: true, friction: 0 }).setScale(1.5).setCollisionCategory(this.environmentCategory).setAngle(45);
     var plat5 = this.matter.add.image(this.centerX, 455, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(3).setCollisionCategory(this.environmentCategory);
 
-
-    this.player.setCollidesWith([this.borderCategory, this.environmentCategory, this.bulletCategory]);
-    this.cannon.setCollidesWith([this.borderCategory, this.environmentCategory]);
-
+    //create enemies
     var squirrel = this.matter.add.image(505, 136, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(this.enemyCategory).setSensor(true);
     var speedy = this.matter.add.image(261, 136, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(this.enemyCategory).setSensor(true);
     var tanky = this.matter.add.image(700, 528, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(this.enemyCategory).setSensor(true);
 
-    //bool used to stop all other actions while tutorialText is active
-    this.tutorialActive = true;
+    //create tutorial frames
+    this.tutorialActive = true;//bool used to stop all other actions while tutorialText is active
     this.tutorialSuicide = this.add.image(this.centerX, this.centerY, "suicideText").setScale(1.5);
 
-    this.bulletPresent = false;
-    this.gameOver = false;
-    this.bounceCount = 0;
-    this.bulletspeed = 400;
+    //create text/UI
+    this.countText = this.add.text( 16, 6, 'Bullets Used: 0', { fontSize: '26px', fill: '#000', stroke: '#000', strokeThickness: 2 });
+    var levelText = this.add.text( this.centerX - 30, 6, 'Level 3', { fontSize: '26px', fill: '#000', stroke: '#000', strokeThickness: 2 });
 
+    //assign collisions
+    this.player.setCollidesWith([this.borderCategory, this.environmentCategory, this.bulletCategory]);
+    this.cannon.setCollidesWith([this.borderCategory, this.environmentCategory]);
+
+    //create pointer interactions
     this.input.on(
       "pointermove",
       function(pointer){
         this.pointerLocation = pointer;
-        //var betweenPoints = Phaser.Math.Angle.BetweenPoints;
-        //var angle = Phaser.Math.RAD_TO_DEG * betweenPoints(this.cannon, pointer);
-        //this.cannon.setAngle(angle);
       }, this
     );
 
     this.input.on("pointerdown", this.tutorial, this);
-    this.shotCount = 0;
 
     //Decects collision of two objects
     this.matter.world.on('collisionstart', function(event){
@@ -134,7 +146,9 @@ export default class Level3 extends Phaser.Scene {
         this.squirrelCount -= 1;
         this.sound.play('squirreldeath');
       }
+      //Checks if the two objects colliding are the player and the player bullet
       else if(event.pairs[0].bodyA.gameObject == this.player && event.pairs[0].bodyB.gameObject == this.bullet){
+        //GAME OVER
         this.scene.start('Section1End', {
           shotCount: 100,
           threeStar: this.threeStar,
@@ -160,6 +174,7 @@ export default class Level3 extends Phaser.Scene {
         this.sound.play('bounce');
       }
 
+      //If player bullet bounce reaches limit
       if (this.bounceCount > 3){
         this.bullet.destroy();
         this.bulletPresent = false;
@@ -180,26 +195,19 @@ export default class Level3 extends Phaser.Scene {
       if (this.bulletPresent == false){
         //Loads score Scene and passes info for display over
         this.scene.start('Section1End', {
-            shotCount: this.shotCount,
-            threeStar: this.threeStar,
-            twoStar: this.twoStar,
-            oneStar: this.oneStar,
-            backgroundX: this.background.tilePositionX,
-            mountainsX: this.mountains.tilePositionX,
-            treesX: this.trees.tilePositionX,
-            tankerX: this.player.x
+          shotCount: this.shotCount,
+          threeStar: this.threeStar,
+          twoStar: this.twoStar,
+          oneStar: this.oneStar,
+          backgroundX: this.background.tilePositionX,
+          mountainsX: this.mountains.tilePositionX,
+          treesX: this.trees.tilePositionX,
+          tankerX: this.player.x
           });
-        }
+      }
     }
 
-    var movement = this.input.keyboard.addKeys({
-      w:Phaser.Input.Keyboard.KeyCodes.W,
-      s:Phaser.Input.Keyboard.KeyCodes.S,
-      a:Phaser.Input.Keyboard.KeyCodes.A,
-      d:Phaser.Input.Keyboard.KeyCodes.D});
-    var speed = 3;
-
-    if(movement.a.isDown){
+    if(this.movement.a.isDown){
       this.player.setVelocityX(-2);
       this.cannon.setVelocityX(-2);
       if(this.player.x > 100){
@@ -207,7 +215,7 @@ export default class Level3 extends Phaser.Scene {
         this.mountains.tilePositionX -= 0.2;
         this.trees.tilePositionX -= 0.3;
       };
-    } else if(movement.d.isDown){
+    } else if(this.movement.d.isDown){
       this.player.setVelocityX(2);
       this.cannon.setVelocityX(2);
       if(this.player.x < 700){
@@ -218,6 +226,15 @@ export default class Level3 extends Phaser.Scene {
     } else{
       this.player.setVelocityX(0);
       this.cannon.setVelocityX(0);
+    }
+
+    //Check if bullet is out of bounds, destroys and resets bullet vars
+    if (this.bulletPresent){
+      if ((this.bullet.x < 0) || (this.bullet.x > 800) || (this.bullet.y < 0) || (this.bullet.y > 600)){
+        this.bullet.destroy();
+        this.bulletPresent = false;
+        this.bounceCount = 0;
+      }
     }
   }
 
@@ -239,10 +256,12 @@ export default class Level3 extends Phaser.Scene {
       this.bullet.setVelocity(Math.cos(angle)*10, Math.sin(angle)*10);
       this.shotCount += 1;
       this.sound.play('shot');
-      this.bulletPresent = true
+      this.bulletPresent = true;
+      this.countText.setText('Bullets Used: ' + this.shotCount);
     }
   }
 
+  //handles switching through tutorial frames
   tutorial(pointer){
     //Only way I could figure out for it to move on.
     if(this.tutorialActive == true){
@@ -253,6 +272,7 @@ export default class Level3 extends Phaser.Scene {
     }
   }
 
+  //updates cannon to point at pointer location
   updateCannon(pointerLocation){
     var betweenPoints = Phaser.Math.Angle.BetweenPoints;
     var angle = Phaser.Math.RAD_TO_DEG * betweenPoints(this.cannon, pointerLocation);

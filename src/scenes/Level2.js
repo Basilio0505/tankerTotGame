@@ -20,7 +20,6 @@ export default class Level2 extends Phaser.Scene {
     this.borderCategory = this.registry.get('borderCategory');
     this.bulletCategory = this.registry.get('bulletCategory');
     this.environmentCategory = this.registry.get('environmentCategory');
-
   }
 
   preload () {// Preload assets
@@ -65,7 +64,7 @@ export default class Level2 extends Phaser.Scene {
   create (data) {
     var level = this.registry.get('level')
     if (this.currentLevel > level){
-      this.registry.set('level', this.currentLevel)
+      this.registry.set('level', this.currentLevel);
     }
 
     //create variables
