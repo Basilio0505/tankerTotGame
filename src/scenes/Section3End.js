@@ -1,7 +1,7 @@
 /*global Phaser*/
-export default class Section2End extends Phaser.Scene {
+export default class Section3End extends Phaser.Scene {
   constructor () {
-    super('Section2End');
+    super('Section3End');
   }
 
   init (data) {
@@ -12,10 +12,8 @@ export default class Section2End extends Phaser.Scene {
     this.twoStar = data.twoStar;
     this.oneStar = data.oneStar;
     this.backgroundX = data.backgroundX;
-    this.dunes1X = data.dunes1X,
-    this.dunes2X = data.dunes2X,
-    this.dunes3X = data.dunes3X,
-    this.dunes4X = data.dunes4X,
+    this.buildingsfX = data.buildingsfX,
+    this.buildingsbX = data.buildingsbX,
     this.tankerX = data.tankerX;
   }
 
@@ -23,10 +21,8 @@ export default class Section2End extends Phaser.Scene {
     // Preload assets
 
     this.load.image('background','./assets/Environment/background.png');
-    this.load.image('dunes1','./assets/Environment/dunes1.png');
-    this.load.image('dunes2','./assets/Environment/dunes2.png');
-    this.load.image('dunes3','./assets/Environment/dunes3.png');
-    this.load.image('dunes4','./assets/Environment/dunes4.png');
+    this.load.image('buildingsb','./assets/Environment/backgroundbuildings.png');
+    this.load.image('buildingsf','./assets/Environment/foregroundbuildings.png');
     this.load.image('hwall', './assets/Environment/horizontalWall.png');
     this.load.image('vwall', './assets/Environment/verticalWall.png');
     this.load.image('woodPlatform', './assets/smallWoodPlat.png');
@@ -60,14 +56,10 @@ export default class Section2End extends Phaser.Scene {
 
     //Add background
     this.background = this.add.tileSprite(this.centerX,this.centerY,0,0, 'background');
-    this.dunes1 = this.add.tileSprite(this.centerX,this.centerY+20,0,0, 'dunes1');
-    this.dunes2 = this.add.tileSprite(this.centerX,this.centerY+30,0,0, 'dunes2');
-    this.dunes3 = this.add.tileSprite(this.centerX,this.centerY+40,0,0, 'dunes3');
-    this.dunes4 = this.add.tileSprite(this.centerX,this.centerY+50,0,0, 'dunes4');
-    this.dunes1.tilePositionX = this.dunes1X;
-    this.dunes2.tilePositionX = this.dunes2X;
-    this.dunes3.tilePositionX = this.dunes3X;
-    this.dunes4.tilePositionX = this.dunes4X;
+    this.buildingsb = this.add.tileSprite(this.centerX,this.centerY,0,0, 'buildingsb');
+    this.buildingsf = this.add.tileSprite(this.centerX,this.centerY,0,0, 'buildingsf');
+    this.buildingsb.tilePositionX = this.buildingsbX;
+    this.buildingsf.tilePositionX = this.buildingsfX;
     this.player = this.add.sprite(this.tankerX, 530, 'tankertot');
     this.cannon = this.add.sprite(this.tankerX, 530, 'cannon');
     this.add.image(16,16, 'vwall', null);
@@ -160,7 +152,11 @@ export default class Section2End extends Phaser.Scene {
         this.setFrame(0);
       });
       nextButton.on("pointerup", function(){
-        this.scene.start("Level"+(this.currentLevel+1));
+        if (this.currentLevel < 9){
+          this.scene.start("Level"+(this.currentLevel+1));
+        }else{
+          this.scene.start('Title');
+        }
       }, this);
     }
     var menuButton = this.add.sprite(this.centerX , this.centerY + 220, 'levelselect', 0);
