@@ -109,7 +109,7 @@ export default class Level1 extends Phaser.Scene {
     this.trees = this.add.tileSprite(this.centerX,this.centerY+150,0,0, 'trees');
 
     //create player
-    this.player = this.matter.add.image(68, 536, 'tankertot', null, {friction:0}).setCollisionCategory(this.playerCategory).setFixedRotation(true);
+    this.player = this.matter.add.image(68, 536, 'tankertot', null, {friction:0}).setFixedRotation(true).setCollisionCategory(this.playerCategory);
     this.cannon = this.matter.add.image(68, 536, 'cannon', null, {friction:0, shape: 'circle'}).setCollisionCategory(this.playerCategory).setScale(.84);
 
     //create borders
@@ -278,8 +278,8 @@ export default class Level1 extends Phaser.Scene {
         this.bullet.destroy();
         this.bulletPresent = false;
         this.bounceCount = 0;
-      };
-    };
+      }
+    }
   }
 
 //#############FUNCTIONS########################################################FUNCTIONS
