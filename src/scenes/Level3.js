@@ -9,8 +9,7 @@ export default class Level3 extends Phaser.Scene {
     this.threeStar = 1;
     this.twoStar = 3;
     this.oneStar = 5;
-    this.registry.set('Level3Visited', true)
-    this.currentLevel = 3;
+    this.registry.set('level', 3)
     this.squirrelCount = 3;
 
     this.pointerLocation = {x:0, y:0};
@@ -62,10 +61,7 @@ export default class Level3 extends Phaser.Scene {
 
   //############CREATE#####################################################################CREATE
   create (data) {
-    var level = this.registry.get('level')
-    if (this.currentLevel > level){
-      this.registry.set('level', this.currentLevel);
-    }
+
 
     //create variables
     this.bulletPresent = false;
@@ -149,11 +145,11 @@ export default class Level3 extends Phaser.Scene {
       //Checks if the two objects colliding are the player and the player bullet
       else if(event.pairs[0].bodyA.gameObject == this.player && event.pairs[0].bodyB.gameObject == this.bullet){
         //GAME OVER
+        this.registry.set('Level3Score', 0)
+        if(this.registry.get('Level3HighScore') < this.registry.get('Level3Score')){
+          this.registry.set('Level3HighScore', this.registry.get('Level3Score'))
+        }
         this.scene.start('Section1End', {
-          shotCount: 100,
-          threeStar: this.threeStar,
-          twoStar: this.twoStar,
-          oneStar: this.oneStar,
           backgroundX: this.background.tilePositionX,
           mountainsX: this.mountains.tilePositionX,
           treesX: this.trees.tilePositionX,
@@ -194,11 +190,17 @@ export default class Level3 extends Phaser.Scene {
       //Makes sure there is no active bullet present
       if (this.bulletPresent == false){
         //Loads score Scene and passes info for display over
+        if(this.shotCount == this.threeStar){
+          this.registry.set('Level3Score', 3)
+        }else if(this.shotCount <= this.twoStar){
+          this.registry.set('Level3Score', 2)
+        }else if(this.shotCount <= this.oneStar){
+          this.registry.set('Level3Score', 1)
+        }
+        if(this.registry.get('Level3HighScore') < this.registry.get('Level3Score')){
+          this.registry.set('Level3HighScore', this.registry.get('Level3Score'))
+        }
         this.scene.start('Section1End', {
-          shotCount: this.shotCount,
-          threeStar: this.threeStar,
-          twoStar: this.twoStar,
-          oneStar: this.oneStar,
           backgroundX: this.background.tilePositionX,
           mountainsX: this.mountains.tilePositionX,
           treesX: this.trees.tilePositionX,
@@ -253,7 +255,7 @@ export default class Level3 extends Phaser.Scene {
           restitution: 1,
           frictionAir: 0
       }).setScale(2);
-      this.bullet.setVelocity(Math.cos(angle)*10, Math.sin(angle)*10);
+      this.bullet.setVelocity(Math.cos(angle)*7.5, Math.sin(angle)*7.5);
       this.shotCount += 1;
       this.sound.play('shot');
       this.bulletPresent = true;

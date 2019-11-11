@@ -34,6 +34,7 @@ export default class LevelSelect extends Phaser.Scene {
 
   create (data) {
 
+
     //Create the scene
     this.cameras.main.setBackgroundColor(0xb8b8b8);
 
@@ -47,7 +48,7 @@ export default class LevelSelect extends Phaser.Scene {
     var start2 = this.add.sprite(this.centerX+150,this.centerY-180,'level2',0).setInteractive().setScale(5);
     start2.on("pointerover", function(){this.setFrame(1);});
     start2.on("pointerout", function(){this.setFrame(0);});
-    if(this.registry.get('Level1Score') > 0){
+    if(this.registry.get('Level1HighScore') > 0){
       //var check2 = this.add.image(this.centerX+280, this.centerY-185, 'unlocked').setScale(4)
       start2.on("pointerup", function(){this.scene.start("Level2")}, this);
     }else{
@@ -57,7 +58,7 @@ export default class LevelSelect extends Phaser.Scene {
     var start3 = this.add.sprite(this.centerX-150,this.centerY-90,'level3',0).setInteractive().setScale(5);
     start3.on("pointerover", function(){this.setFrame(1);});
     start3.on("pointerout", function(){this.setFrame(0);});
-    if(this.registry.get('Level2Score') > 0){
+    if(this.registry.get('Level2HighScore') > 0){
       //var check2 = this.add.image(this.centerX-280, this.centerY-90, 'unlocked').setScale(4)
       start3.on("pointerup", function(){this.scene.start("Level3")}, this);
     }else{
@@ -67,7 +68,7 @@ export default class LevelSelect extends Phaser.Scene {
     var start4 = this.add.sprite(this.centerX+150,this.centerY-90,'level4',0).setInteractive().setScale(5);
     start4.on("pointerover", function(){this.setFrame(1);});
     start4.on("pointerout", function(){this.setFrame(0);});
-    if(this.registry.get('Level3Score') > 0){
+    if(this.registry.get('Level3HighScore') > 0){
       //var check4 = this.add.image(this.centerX+280, this.centerY-90, 'unlocked').setScale(4)
       start4.on("pointerup", function(){this.scene.start("Level4")}, this);
     }else{
@@ -77,7 +78,7 @@ export default class LevelSelect extends Phaser.Scene {
     var start5 = this.add.sprite(this.centerX-150,this.centerY,'level5',0).setInteractive().setScale(5);
     start5.on("pointerover", function(){this.setFrame(1);});
     start5.on("pointerout", function(){this.setFrame(0);});
-    if(this.registry.get('Level4Score') > 0){
+    if(this.registry.get('Level4HighScore') > 0){
       //var check5 = this.add.image(this.centerX-280, this.centerY, 'unlocked').setScale(4)
       start5.on("pointerup", function(){this.scene.start("Level5")}, this)
     }else{
@@ -87,7 +88,7 @@ export default class LevelSelect extends Phaser.Scene {
     var start6 = this.add.sprite(this.centerX+150,this.centerY,'level6',0).setInteractive().setScale(5);
     start6.on("pointerover", function(){this.setFrame(1);});
     start6.on("pointerout", function(){this.setFrame(0);});
-    if(this.registry.get('Level5Score') > 0){
+    if(this.registry.get('Level5HighScore') > 0){
       //var check6 = this.add.image(this.centerX+280, this.centerY, 'unlocked').setScale(4)
       start6.on("pointerup", function(){this.scene.start("Level6")}, this);
     }else{
@@ -99,9 +100,9 @@ export default class LevelSelect extends Phaser.Scene {
     back.on("pointerout", function(){this.setFrame(0);});
     back.on("pointerup", function(){this.scene.start("Title")}, this);
 
-    var levels = [this.registry.get('Level1Score'),this.registry.get('Level2Score'),
-    this.registry.get('Level3Score'),this.registry.get('Level4Score'),
-    this.registry.get('Level6Score'),this.registry.get('Level5Score')]
+    var levels = [this.registry.get('Level1HighScore'),this.registry.get('Level2HighScore'),
+    this.registry.get('Level3HighScore'),this.registry.get('Level4HighScore'),
+    this.registry.get('Level5HighScore'),this.registry.get('Level6HighScore')]
     console.log(levels)
     var right = 0;
     var down = 0;

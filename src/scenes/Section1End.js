@@ -7,10 +7,8 @@ export default class Section1End extends Phaser.Scene {
   init (data) {
     // Initialization code goes here
     this.currentLevel = this.registry.get('level');
-    this.shotCount = data.shotCount;
-    this.threeStar = data.threeStar;
-    this.twoStar = data.twoStar;
-    this.oneStar = data. oneStar;
+    console.log(this.currentLevel)
+    console.log('sas')
     this.backgroundX = data.backgroundX;
     this.mountainsX = data.mountainsX;
     this.treesX = data.treesX;
@@ -70,8 +68,7 @@ export default class Section1End extends Phaser.Scene {
     //this.platforms.create(400, 500, "woodPlatform").setScale(1.5).refreshBody();
     //this.platforms.create(400, 200, "woodPlatform").setScale(1.5).refreshBody();
     //this.platforms.create(400, 350, "woodPlatform").setScale(1.5).refreshBody();
-
-    if(this.shotCount == this.threeStar){
+    if(this.registry.get('Level'+this.currentLevel+'Score') == 3){
 
       this.add.image(this.centerX - 9, this.centerY - 83, 'winDog').setScale(1.7)
       var star1 = this.add.image(this.centerX - 125, this.centerY, 'fullstar');
@@ -83,7 +80,7 @@ export default class Section1End extends Phaser.Scene {
       this.advance = true;
       this.registry.set('Level'+this.currentLevel+'Score', 3)
 
-    } else if(this.shotCount <= this.twoStar){
+    } else if(this.registry.get('Level'+this.currentLevel+'Score') == 2){
       this.add.image(this.centerX - 9, this.centerY - 83, 'winDog').setScale(1.7)
       var star1 = this.add.image(this.centerX - 125, this.centerY, 'fullstar');
       star1.setScale(0.6);
@@ -96,7 +93,7 @@ export default class Section1End extends Phaser.Scene {
         this.registry.set('Level'+this.currentLevel+'Score', 2)
       }
 
-    } else if(this.shotCount <= this.oneStar){
+    } else if(this.registry.get('Level'+this.currentLevel+'Score') == 1){
       this.add.image(this.centerX - 9, this.centerY - 83, 'winDog').setScale(1.7)
       var star1 = this.add.image(this.centerX - 125, this.centerY, 'fullstar');
       star1.setScale(0.6);

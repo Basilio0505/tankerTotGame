@@ -18,6 +18,12 @@ export default class TitleScene extends Phaser.Scene {
       this.registry.set('Level4Score', -1)
       this.registry.set('Level5Score', -1)
       this.registry.set('Level6Score', -1)
+      this.registry.set('Level1HighScore', -1)
+      this.registry.set('Level2HighScore', -1)
+      this.registry.set('Level3HighScore', -1)
+      this.registry.set('Level4HighScore', -1)
+      this.registry.set('Level5HighScore', -1)
+      this.registry.set('Level6HighScore', -1)
     }
 
   }
