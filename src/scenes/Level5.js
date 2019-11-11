@@ -86,17 +86,17 @@ export default class Level5 extends Phaser.Scene {
     this.cannon = this.matter.add.image(200, 530, 'cannon', null, {friction:0, shape: 'circle'}).setCollisionCategory(this.playerCategory).setScale(.84);
 
     //create borders
-    var vwall1 = this.matter.add.image(16,16, 'vwall', null, { isStatic: true, friction: 0 }).setCollisionCategory(this.borderCategory);
-    var vwall2 = this.matter.add.image(784,16, 'vwall', null, { isStatic: true, friction: 0 }).setCollisionCategory(this.borderCategory);
-    var hwall = this.matter.add.image(16,16, 'hwall', null, { isStatic: true, friction: 0 }).setCollisionCategory(this.borderCategory);
-    var ground = this.matter.add.image(16,584, 'ground', null, { isStatic: true, friction: 0 }).setCollisionCategory(this.borderCategory);
+    var vwall1 = this.matter.add.image(16,16, 'vwall', null, { isStatic: true, friction: 0 , restitution: 1 }).setCollisionCategory(this.borderCategory);
+    var vwall2 = this.matter.add.image(784,16, 'vwall', null, { isStatic: true, friction: 0 , restitution: 1 }).setCollisionCategory(this.borderCategory);
+    var hwall = this.matter.add.image(16,16, 'hwall', null, { isStatic: true, friction: 0 , restitution: 1 }).setCollisionCategory(this.borderCategory);
+    var ground = this.matter.add.image(16,584, 'ground', null, { isStatic: true, friction: 0 , restitution: 1 }).setCollisionCategory(this.borderCategory);
 
     //create platforms
-    var plat1 = this.matter.add.image(340, 480, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(2).setCollisionCategory(this.environmentCategory).setAngle(90);
-    var plat2 = this.matter.add.image(525, 200, "woodPlatform", null, { isStatic: true, friction: 0 }).setScale(1.5).setCollisionCategory(this.environmentCategory);
+    var plat1 = this.matter.add.image(340, 480, "woodPlatform", null, { isStatic: true, friction: 0 , restitution: 1 }).setScale(2).setCollisionCategory(this.environmentCategory).setAngle(90);
+    var plat2 = this.matter.add.image(525, 200, "woodPlatform", null, { isStatic: true, friction: 0 , restitution: 1 }).setScale(1.5).setCollisionCategory(this.environmentCategory);
 
     var break1frame = 0;
-    var break1 = this.matter.add.sprite(500, 365, 'break', null, { isStatic: true, friction: 0 }, break1frame).setScale(2).setCollisionCategory(this.environmentCategory);
+    var break1 = this.matter.add.sprite(500, 365, 'break', null, { isStatic: true, friction: 0 , restitution: 1 }, break1frame).setScale(2).setCollisionCategory(this.environmentCategory);
 
     //create enemies
     var squirrel = this.matter.add.image(421, 530, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(this.enemyCategory).setSensor(true);
