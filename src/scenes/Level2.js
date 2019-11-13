@@ -23,7 +23,7 @@ export default class Level2 extends Phaser.Scene {
 
   preload () {// Preload assets
     //Tutorial Text
-    this.load.image('scoreText', './assets/Tutorial/TextBox_Score.png');
+    /*this.load.image('scoreText', './assets/Tutorial/TextBox_Score.png');
     this.load.image('bulletText', './assets/Tutorial/TextBox_Bullet.png');
 
     //Player Assets
@@ -52,7 +52,7 @@ export default class Level2 extends Phaser.Scene {
     //Load Sound FX
     this.load.audio('shot','./assets/Sounds/FX/shot.wav');
     this.load.audio('squirreldeath','./assets/Sounds/FX/squirreldeath.wav');
-    this.load.audio('bounce','./assets/Sounds/FX/bounce.wav');
+    this.load.audio('bounce','./assets/Sounds/FX/bounce.wav');*/
 
     // Declare variables for center of the scene
     this.centerX = this.cameras.main.width / 2;

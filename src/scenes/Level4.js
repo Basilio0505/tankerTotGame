@@ -23,7 +23,7 @@ export default class Level4 extends Phaser.Scene {
 
   preload () {// Preload assets
     //Player Assets
-    this.load.image('tankertot', './assets/TankerTot/tankerTot.png');
+    /*this.load.image('tankertot', './assets/TankerTot/tankerTot.png');
     this.load.image('cannon', './assets/TankerTot/cannon.png');
     this.load.image('bullet', './assets/TankerTot/bullet.png');
     //this.load.image('rocket', './assets/rocket.png');
@@ -49,7 +49,7 @@ export default class Level4 extends Phaser.Scene {
     //Load Sound FX
     this.load.audio('shot','./assets/Sounds/FX/shot.wav');
     this.load.audio('squirreldeath','./assets/Sounds/FX/squirreldeath.wav');
-    this.load.audio('bounce','./assets/Sounds/FX/bounce.wav');
+    this.load.audio('bounce','./assets/Sounds/FX/bounce.wav');*/
 
     // Declare variables for center of the scene
     this.centerX = this.cameras.main.width / 2;
