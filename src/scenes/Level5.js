@@ -36,8 +36,8 @@ export default class Level5 extends Phaser.Scene {
     this.load.image('dunes2','./assets/Environment/dunes2.png');
     this.load.image('dunes3','./assets/Environment/dunes3.png');
     this.load.image('dunes4','./assets/Environment/dunes4.png');
-    this.load.image('woodPlatform', './assets/smallWoodPlat.png');
-    this.load.spritesheet('break', './assets/smallWoodPlat_Breakable.png',{
+    this.load.image('woodPlatform', './assets/Environment/smallWoodPlat.png');
+    this.load.spritesheet('break', './assets/Environment/smallWoodPlat_Breakable.png',{
       frameWidth: 64,
       frameHeight: 32
     });

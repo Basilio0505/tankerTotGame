@@ -36,7 +36,7 @@ export default class Level3 extends Phaser.Scene {
     this.load.image('background','./assets/Environment/background.png');
     this.load.image('mountains','./assets/Environment/mountains2.png');
     this.load.image('trees','./assets/Environment/trees.png');
-    this.load.image('woodPlatform', './assets/smallWoodPlat.png');
+    this.load.image('woodPlatform', './assets/Environment/smallWoodPlat.png');
     this.load.image('brickPlatform', './assets/Environment/smallBrickPlat.png')
 
 

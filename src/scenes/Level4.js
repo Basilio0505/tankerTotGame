@@ -35,7 +35,7 @@ export default class Level4 extends Phaser.Scene {
     this.load.image('dunes2','./assets/Environment/dunes2.png');
     this.load.image('dunes3','./assets/Environment/dunes3.png');
     this.load.image('dunes4','./assets/Environment/dunes4.png');
-    this.load.image('woodPlatform', './assets/smallWoodPlat.png');
+    this.load.image('woodPlatform', './assets/Environment/smallWoodPlat.png');
 
     //All to be replaced
     this.load.image('hwall', './assets/Environment/horizontalWall.png');

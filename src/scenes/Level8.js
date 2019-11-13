@@ -34,8 +34,8 @@ export default class Level8 extends Phaser.Scene {
     this.load.image('background','./assets/Environment/background.png');
     this.load.image('buildingsb','./assets/Environment/backgroundbuildings.png');
     this.load.image('buildingsf','./assets/Environment/foregroundbuildings.png');
-    this.load.image('woodPlatform', './assets/smallWoodPlat.png');
-    this.load.spritesheet('break', './assets/smallWoodPlat_Breakable.png',{
+    this.load.image('woodPlatform', './assets/Environment/smallWoodPlat.png');
+    this.load.spritesheet('break', './assets/Environment/smallWoodPlat_Breakable.png',{
       frameWidth: 64,
       frameHeight: 32
     });
