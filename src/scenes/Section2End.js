@@ -22,7 +22,7 @@ export default class Section2End extends Phaser.Scene {
   preload () {
     // Preload assets
 
-    this.load.image('background','./assets/Environment/background.png');
+    /*this.load.image('background','./assets/Environment/background.png');
     this.load.image('dunes1','./assets/Environment/dunes1.png');
     this.load.image('dunes2','./assets/Environment/dunes2.png');
     this.load.image('dunes3','./assets/Environment/dunes3.png');
@@ -47,7 +47,7 @@ export default class Section2End extends Phaser.Scene {
     this.load.spritesheet('levelselect','./assets/UI/levelselectbutton.png', {
       frameHeight: 100,
       frameWidth: 200
-    });
+    });*/
 
     // Declare variables for center of the scene
     this.centerX = this.cameras.main.width / 2;

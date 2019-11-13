@@ -16,7 +16,7 @@ export default class Section1End extends Phaser.Scene {
   preload () {
     // Preload assets
 
-    this.load.image('background','./assets/background.png');
+    /*this.load.image('background','./assets/background.png');
     this.load.image('mountains','./assets/mountains2.png');
     this.load.image('trees','./assets/trees.png');
     this.load.image('hwall', './assets/Environment/horizontalWall.png');
@@ -39,7 +39,7 @@ export default class Section1End extends Phaser.Scene {
     this.load.spritesheet('levelselect','./assets/UI/levelselectbutton.png', {
       frameHeight: 100,
       frameWidth: 200
-    });
+    });*/
 
     // Declare variables for center of the scene
     this.centerX = this.cameras.main.width / 2;
