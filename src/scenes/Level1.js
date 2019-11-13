@@ -215,7 +215,15 @@ export default class Level1 extends Phaser.Scene {
     // Update the scene
     this.updateCannon(this.pointerLocation);
     this.cannon.setPosition(this.player.x, this.player.y+3);
+    //Gets rid of tank explosion
+    if(this.explosionCounter > 0){
+      this.explosionCounter -= 1
+      if(this.explosionCounter == 0){
+        this.explosion.destroy();
+        this.explosionCounter = -1
+      }
 
+    }
     //Checks if Winning Condition is met
     if (this.squirrelCount == 0) {
       //Makes sure there is no active bullet present
@@ -276,6 +284,8 @@ export default class Level1 extends Phaser.Scene {
     var betweenPoints = Phaser.Math.Angle.BetweenPoints;
     var angle = betweenPoints(this.player, pointer);
     if(this.bulletPresent == false){
+      this.explosion = this.add.image(this.player.x + (Math.cos(angle)*20), this.player.y + (Math.sin(angle)*20), "explosion" + Math.floor(Math.random()*4)).setScale(1.6);
+      this.explosionCounter = 15
       this.bullet = this.matter.add.sprite(this.player.x + (Math.cos(angle)*45),
       this.player.y+ (Math.sin(angle)*45),
       'bullet',null,{
@@ -286,7 +296,6 @@ export default class Level1 extends Phaser.Scene {
           restitution: 1,
           frictionAir: 0
       }).setScale(2);
-      this.explosion = this.matter.add.image(this.player.x + (Math.cos(angle)*20), this.player.y + (Math.sin(angle)*20), "explosion1")
       this.bullet.setVelocity(Math.cos(angle)*7.5, Math.sin(angle)*7.5);
       this.shotCount += 1;
       this.sound.play('shot');

@@ -75,6 +75,10 @@ export default class TitleScene extends Phaser.Scene {
     this.load.image('tankertot', './assets/TankerTot/tankerTot.png');
     this.load.image('cannon', './assets/TankerTot/cannon.png');
     this.load.image('bullet', './assets/TankerTot/bullet.png');
+    this.load.image('explosion0', './assets/TankerTot/explosion0.png');
+    this.load.image('explosion1', './assets/TankerTot/explosion1.png');
+    this.load.image('explosion2', './assets/TankerTot/explosion2.png');
+    this.load.image('explosion3', './assets/TankerTot/explosion3.png');
     //this.load.image('rocket', './assets/rocket.png');
 
     //Environment
