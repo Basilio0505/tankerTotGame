@@ -215,6 +215,7 @@ export default class Level1 extends Phaser.Scene {
     // Update the scene
     this.updateCannon(this.pointerLocation);
     this.cannon.setPosition(this.player.x, this.player.y+3);
+    
     //Gets rid of tank explosion
     if(this.explosionCounter > 0){
       this.explosionCounter -= 1
@@ -222,7 +223,6 @@ export default class Level1 extends Phaser.Scene {
         this.explosion.destroy();
         this.explosionCounter = -1
       }
-
     }
     //Checks if Winning Condition is met
     if (this.squirrelCount == 0) {

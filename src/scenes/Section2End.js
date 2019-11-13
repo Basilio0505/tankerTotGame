@@ -68,8 +68,8 @@ export default class Section2End extends Phaser.Scene {
     this.dunes2.tilePositionX = this.dunes2X;
     this.dunes3.tilePositionX = this.dunes3X;
     this.dunes4.tilePositionX = this.dunes4X;
-    this.player = this.add.sprite(this.tankerX, 530, 'tankertot');
-    this.cannon = this.add.sprite(this.tankerX, 530, 'cannon');
+    this.player = this.add.sprite(this.tankerX, 536, 'tankertot');
+    this.cannon = this.add.sprite(this.tankerX, 536, 'cannon');
     this.add.image(16,16, 'vwall', null);
     this.add.image(784,16, 'vwall', null);
     this.add.image(16,16, 'hwall', null);

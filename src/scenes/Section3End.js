@@ -60,8 +60,8 @@ export default class Section3End extends Phaser.Scene {
     this.buildingsf = this.add.tileSprite(this.centerX,this.centerY,0,0, 'buildingsf');
     this.buildingsb.tilePositionX = this.buildingsbX;
     this.buildingsf.tilePositionX = this.buildingsfX;
-    this.player = this.add.sprite(this.tankerX, 530, 'tankertot');
-    this.cannon = this.add.sprite(this.tankerX, 530, 'cannon');
+    this.player = this.add.sprite(this.tankerX, 536, 'tankertot');
+    this.cannon = this.add.sprite(this.tankerX, 536, 'cannon');
     this.add.image(16,16, 'vwall', null);
     this.add.image(784,16, 'vwall', null);
     this.add.image(16,16, 'hwall', null);
