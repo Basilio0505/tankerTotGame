@@ -286,6 +286,7 @@ export default class Level1 extends Phaser.Scene {
           restitution: 1,
           frictionAir: 0
       }).setScale(2);
+      this.explosion = this.matter.add.image(this.player.x + (Math.cos(angle)*20), this.player.y + (Math.sin(angle)*20), "explosion1")
       this.bullet.setVelocity(Math.cos(angle)*7.5, Math.sin(angle)*7.5);
       this.shotCount += 1;
       this.sound.play('shot');
