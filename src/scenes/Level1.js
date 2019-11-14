@@ -145,69 +145,79 @@ export default class Level1 extends Phaser.Scene {
 
     //Decects collision of two objects
     this.matter.world.on('collisionstart', function(event){
-      //Checks if the two objects colliding are the regular squirrel and bullet
-      if(event.pairs[0].bodyA.gameObject == squirrel && event.pairs[0].bodyB.gameObject == this.bullet){
-        squirrel.destroy();
-        this.squirrelCount -= 1;
-        this.sound.play('squirreldeath');
-      }//Checks if the two objects colliding are the tank squirrel and bullet
-      else if(event.pairs[0].bodyA.gameObject == tanky && event.pairs[0].bodyB.gameObject == this.bullet){
-        tanky.destroy();
-        this.squirrelCount -= 1;
-        this.sound.play('squirreldeath');
-      }
-      //Checks if the two objects colliding are the speedy squirrel and bullet
-      else if(event.pairs[0].bodyA.gameObject == speedy && event.pairs[0].bodyB.gameObject == this.bullet){
-        speedy.destroy();
-        this.squirrelCount -= 1;
-        this.sound.play('squirreldeath');
-      }
-      //Checks if the two objects colliding are the player and the player bullet
-      else if(event.pairs[0].bodyA.gameObject == this.player && event.pairs[0].bodyB.gameObject == this.bullet){
-        //GAME OVER
-        this.registry.set('Level1Score', 0)
-        if(this.registry.get('Level1HighScore') < this.registry.get('Level1Score')){
-          this.registry.set('Level1HighScore', this.registry.get('Level1Score'))
+      //Checks if the two objects colliding involving the bullet
+      if (event.pairs[0].bodyB.gameObject == this.bullet){
+        console.log('bullet collisionstart');
+        //Checks if the two objects colliding are the original squirrel and bullet
+        if(event.pairs[0].bodyA.gameObject == squirrel){
+          console.log('hit squirrel');
+          squirrel.destroy();
+          this.squirrelCount -= 1;
+          this.sound.play('squirreldeath');
+        }//Checks if the two objects colliding are the tank squirrel and bullet
+        else if(event.pairs[0].bodyA.gameObject == tanky){
+          console.log('hit squirrel');
+          tanky.destroy();
+          this.squirrelCount -= 1;
+          this.sound.play('squirreldeath');
+        }
+        //Checks if the two objects colliding are the speedy squirrel and bullet
+        else if(event.pairs[0].bodyA.gameObject == speedy){
+          console.log('hit squirrel');
+          speedy.destroy();
+          this.squirrelCount -= 1;
+          this.sound.play('squirreldeath');
+        }
+        //Checks if the two objects colliding are the player and the player bullet
+        else if(event.pairs[0].bodyA.gameObject == this.player){
+          //GAME OVER
+          console.log('hit self');
+          this.registry.set('Level1Score', 0)
+          if(this.registry.get('Level1HighScore') < this.registry.get('Level1Score')){
+            this.registry.set('Level1HighScore', this.registry.get('Level1Score'))
+          }
+          this.scene.start('Section1End', {
+            backgroundX: this.background.tilePositionX,
+            mountainsX: this.mountains.tilePositionX,
+            treesX: this.trees.tilePositionX,
+            tankerX: this.player.x
+            });
+        }
+        //Checks if the two objects colliding are the walls or platforms and bullet
+        else if((event.pairs[0].bodyA.gameObject == plat1 ||
+            event.pairs[0].bodyA.gameObject == plat2 ||
+            event.pairs[0].bodyA.gameObject == plat3 ||
+            event.pairs[0].bodyA.gameObject == ground ||
+            event.pairs[0].bodyA.gameObject == hwall ||
+            event.pairs[0].bodyA.gameObject == vwall1 ||
+            event.pairs[0].bodyA.gameObject == vwall2)){
+          console.log('hit wall');
+          this.bounceCount += 1;
+          this.sound.play('bounce');
+        }
+        //checks if the two objects colliding are the breakable walls or the bullet
+        else if(event.pairs[0].bodyA.gameObject == break1){
+          console.log('hit breakable');
+          this.bounceCount += 1;
+          break1frame +=1;
+          if(break1frame > 2){
+            break1.destroy();
+          }
+          else{
+            break1.setFrame(break1frame);
+          }
+          this.sound.play('bounce');
         }
 
-        this.scene.start('Section1End', {
-          backgroundX: this.background.tilePositionX,
-          mountainsX: this.mountains.tilePositionX,
-          treesX: this.trees.tilePositionX,
-          tankerX: this.player.x
-          });
-      }
-      //Checks if the two objects colliding are the walls or platforms and bullet
-      else if((event.pairs[0].bodyA.gameObject == plat1 ||
-          event.pairs[0].bodyA.gameObject == plat2 ||
-          event.pairs[0].bodyA.gameObject == plat3 ||
-          event.pairs[0].bodyA.gameObject == ground ||
-          event.pairs[0].bodyA.gameObject == hwall ||
-          event.pairs[0].bodyA.gameObject == vwall1 ||
-          event.pairs[0].bodyA.gameObject == vwall2) && event.pairs[0].bodyB.gameObject == this.bullet){
-        this.bounceCount += 1;
-        this.sound.play('bounce');
-      }
-      //checks if the two objects colliding are the breakable walls or the bullet
-      else if(event.pairs[0].bodyA.gameObject == break1 && event.pairs[0].bodyB.gameObject == this.bullet){
-        this.bounceCount += 1;
-        break1frame +=1;
-        if(break1frame > 2){
-          break1.destroy();
-        }
-        else{
-          break1.setFrame(break1frame);
-        }
-        this.sound.play('bounce');
-      }
-
-      //If player bullet bounce reaches limit
-      if (this.bounceCount > 3){
-        this.bullet.destroy();
-        this.bulletPresent = false;
-        this.bounceCount = 0;
-      };
-    }, this);
+        //If player bullet bounce reaches limit
+        console.log('Bounce Count: ' + this.bounceCount);
+        if (this.bounceCount > 3){
+          this.bullet.destroy();
+          this.bulletPresent = false;
+          this.bounceCount = 0;
+        };
+      };//END BULLET IF STATEMENT
+    }, this);//END OF COLLISIONSTART 
   }
 
 //############UPDATE######################################################################UPDATE
@@ -215,7 +225,7 @@ export default class Level1 extends Phaser.Scene {
     // Update the scene
     this.updateCannon(this.pointerLocation);
     this.cannon.setPosition(this.player.x, this.player.y+3);
-    
+
     //Gets rid of tank explosion
     if(this.explosionCounter > 0){
       this.explosionCounter -= 1
