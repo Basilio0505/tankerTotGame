@@ -108,6 +108,7 @@ export default class TitleScene extends Phaser.Scene {
     this.load.image('speedy','./assets/enemies/speedySquirrel.png');
     this.load.image('tanky','./assets/enemies/tankSquirrel.png' );
     this.load.image('squirrel','./assets/enemies/enemySquirrel.png');
+    this.load.image('enemybullet','./assets/enemies/enemybullet.png');
 
     //Load Sound FX
     this.load.audio('shot','./assets/Sounds/FX/shot.wav');
@@ -205,6 +206,7 @@ export default class TitleScene extends Phaser.Scene {
       this.enemyCategory = this.matter.world.nextCategory();
       this.registry.set('enemyCategory', this.enemyCategory)
     }
+
   }
 
   update (time, delta) {

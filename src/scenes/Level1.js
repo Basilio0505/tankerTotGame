@@ -145,6 +145,7 @@ export default class Level1 extends Phaser.Scene {
 
     //Decects collision of two objects
     this.matter.world.on('collisionstart', function(event){
+      console.log("Interesting");
       //Checks if the two objects colliding involving the bullet
       if (event.pairs[0].bodyB.gameObject == this.bullet){
         console.log('bullet collisionstart');
@@ -217,7 +218,7 @@ export default class Level1 extends Phaser.Scene {
           this.bounceCount = 0;
         };
       };//END BULLET IF STATEMENT
-    }, this);//END OF COLLISIONSTART 
+    }, this);//END OF COLLISIONSTART
   }
 
 //############UPDATE######################################################################UPDATE
