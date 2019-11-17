@@ -35,7 +35,7 @@ export default class LevelSelect extends Phaser.Scene {
 
   preload () {
     // Preload assets
-    
+
     // Declare variables for center of the scene
     this.centerX = this.cameras.main.width / 2;
     this.centerY = this.cameras.main.height / 2;
