@@ -23,7 +23,7 @@ export default class Level3 extends Phaser.Scene {
 
   preload () {
     // Preload assets
-    
+
     // Declare variables for center of the scene
     this.centerX = this.cameras.main.width / 2;
     this.centerY = this.cameras.main.height / 2;
@@ -137,6 +137,7 @@ export default class Level3 extends Phaser.Scene {
           event.pairs[0].bodyA.gameObject == vwall1 ||
           event.pairs[0].bodyA.gameObject == vwall2) && event.pairs[0].bodyB.gameObject == this.bullet){
         this.bounceCount += 1;
+        this.bullet.setFrame(this.bounceCount);
         this.sound.play('bounce');
       }
 
@@ -228,7 +229,7 @@ export default class Level3 extends Phaser.Scene {
       this.explosionCounter = 15
       this.bullet = this.matter.add.sprite(this.player.x + (Math.cos(angle)*45),
       this.player.y+ (Math.sin(angle)*45),
-      'bullet',null,{
+      'bulletss',0,{
           shape: 'circle',
           ignoreGravity: true,
           collisionFilter: {category: this.bulletCategory},

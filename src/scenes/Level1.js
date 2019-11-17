@@ -153,6 +153,7 @@ export default class Level1 extends Phaser.Scene {
             event.pairs[0].bodyA.gameObject == vwall2)){
           console.log('hit wall');
           this.bounceCount += 1;
+          this.bullet.setFrame(this.bounceCount);
           this.sound.play('bounce');
         }
         //checks if the two objects colliding are the breakable walls or the bullet
@@ -258,7 +259,7 @@ export default class Level1 extends Phaser.Scene {
       this.explosionCounter = 15
       this.bullet = this.matter.add.sprite(this.player.x + (Math.cos(angle)*45),
       this.player.y+ (Math.sin(angle)*45),
-      'bullet',null,{
+      'bulletss',0,{
           shape: 'circle',
           ignoreGravity: true,
           collisionFilter: {category: this.bulletCategory},
