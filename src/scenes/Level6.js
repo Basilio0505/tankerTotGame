@@ -19,6 +19,7 @@ export default class Level6 extends Phaser.Scene {
     this.enemyCategory = this.registry.get('enemyCategory');
     this.borderCategory = this.registry.get('borderCategory');
     this.bulletCategory = this.registry.get('bulletCategory');
+    this.enemybulletCategoy = this.registry.get('enemybulletCategoy');
     this.environmentCategory = this.registry.get('environmentCategory');
   }
 
@@ -62,6 +63,9 @@ export default class Level6 extends Phaser.Scene {
     this.enemy1bulletPresent = false;
     this.enemy2bulletPresent = false;
     this.enemy3bulletPresent = false;
+    this.squirrelDead = false;
+    this.tankyDead = false;
+    this.speedyDead = false;
 
     //create variables
     this.bulletPresent = false;
@@ -158,12 +162,14 @@ export default class Level6 extends Phaser.Scene {
       if(event.pairs[0].bodyA.gameObject == this.squirrel && event.pairs[0].bodyB.gameObject == this.bullet){
         squirrelTween.remove();
         this.squirrel.destroy();
+        this.squirrelDead = true;
         this.squirrelCount -= 1;
         this.sound.play('squirreldeath');
       }//Checks if the two objects colliding are the tank squirrel and bullet
       else if(event.pairs[0].bodyA.gameObject == this.tanky && event.pairs[0].bodyB.gameObject == this.bullet){
         tankyTween.remove();
         this.tanky.destroy();
+        this.tankyDead = true;
         this.squirrelCount -= 1;
         this.sound.play('squirreldeath');
       }
@@ -171,6 +177,7 @@ export default class Level6 extends Phaser.Scene {
       else if(event.pairs[0].bodyA.gameObject == this.speedy && event.pairs[0].bodyB.gameObject == this.bullet){
         speedyTween.remove();
         this.speedy.destroy();
+        this.speedyDead = true;
         this.squirrelCount -= 1;
         this.sound.play('squirreldeath');
       }
@@ -239,7 +246,7 @@ export default class Level6 extends Phaser.Scene {
     this.updateCannon(this.pointerLocation);
     this.cannon.setPosition(this.player.x, this.player.y+3);
 
-    if(this.enemy1bulletPresent == false){
+    if(this.enemy1bulletPresent == false && !this.squirrelDead){
       this.enemyShoot(this.squirrel);
     }
 
@@ -311,6 +318,13 @@ export default class Level6 extends Phaser.Scene {
         this.bounceCount = 0;
       }
     }
+
+    if (this.enemy1bulletPresent){
+      if ((this.enemy1bullet.x < 0) || (this.enemy1bullet.x > 800) || (this.enemy1bullet.y < 0) || (this.enemy1bullet.y > 600)){
+        this.enemy1bullet.destroy();
+        this.enemy1bulletPresent = false;
+      }
+    }
   }
 
   //#############FUNCTIONS########################################################FUNCTIONS
@@ -342,17 +356,18 @@ export default class Level6 extends Phaser.Scene {
     var betweenPoints = Phaser.Math.Angle.BetweenPoints;
     var angle = betweenPoints(this.player, enemy);
     if  (this.enemy1bulletPresent == false){
-      this.enemy1bullet = this.matter.add.sprite(enemy.x + (Math.cos(angle)*45),
-        enemy.y + (Math.sin(angle)*45),
+      this.enemy1bullet = this.matter.add.sprite(enemy.x /*+ (Math.cos(angle)*45)*/,
+        enemy.y /*+ (Math.sin(angle)*45)*/,
         'enemybullet', null, {
           shape: 'circle',
           ignoreGravity: true,
-          collisionFilter:{category: this.bulletCategory},
+          collisionFilter:{category: this.enemybulletCategoy},
           isStatic: false,
           restitution: 1,
           frictionAir: 0
         }).setScale(2);
-      this.enemy1bullet.setVelocity(Math.cos(angle)*7.5, Math.sin(angle)* 7.5);
+      this.enemy1bullet.setCollidesWith([this.playerCategory, this.borderCategory]);
+      this.enemy1bullet.setVelocity(Math.cos(angle) * -4, Math.sin(angle) * -4);
       this.sound.play('shot');
       this.enemy1bulletPresent = true;
     }
