@@ -184,27 +184,31 @@ export default class TitleScene extends Phaser.Scene {
     //Create collision categories
     if(this.registry.get('playerCategory') == undefined){
       this.playerCategory = this.matter.world.nextCategory();
-      this.registry.set('playerCategory', this.playerCategory)
+      this.registry.set('playerCategory', this.playerCategory);
     }
 
     if(this.registry.get('borderCategory') == undefined){
       this.borderCategory = this.matter.world.nextCategory();
-      this.registry.set('borderCategory', this.borderCategory)
+      this.registry.set('borderCategory', this.borderCategory);
     }
 
     if(this.registry.get('environmentCategory') == undefined){
       this.environmentCategory = this.matter.world.nextCategory();
-      this.registry.set('environmentCategory', this.environmentCategory)
+      this.registry.set('environmentCategory', this.environmentCategory);
     }
 
     if(this.registry.get('bulletCategory') == undefined){
       this.bulletCategory = this.matter.world.nextCategory();
-      this.registry.set('bulletCategory', this.bulletCategory)
+      this.registry.set('bulletCategory', this.bulletCategory);
     }
 
     if(this.registry.get('enemyCategory') == undefined){
       this.enemyCategory = this.matter.world.nextCategory();
-      this.registry.set('enemyCategory', this.enemyCategory)
+      this.registry.set('enemyCategory', this.enemyCategory);
+    }
+    if(this.registry.get('enemybulletCategory') == undefined){
+      this.enemybulletCategoy = this.matter.world.nextCategory();
+      this.registry.set('enemybulletCategoy', this.enemybulletCategoy);
     }
 
   }

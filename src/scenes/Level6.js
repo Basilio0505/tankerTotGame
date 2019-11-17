@@ -153,9 +153,7 @@ export default class Level6 extends Phaser.Scene {
     this.matter.world.on('collisionstart', function(event){
       //console.log(event.pairs[0].bodyA);
       //console.log(event.pairs[0].bodyB);
-      if(event.pairs[0].bodyA.gameObject == plat2 && event.pairs[0].bodyB.gameObject == vwall2){
-        console.log("INSANE");
-      }
+
       //Checks if the two objects colliding are the regular squirrel and bullet
       if(event.pairs[0].bodyA.gameObject == this.squirrel && event.pairs[0].bodyB.gameObject == this.bullet){
         squirrelTween.remove();
@@ -179,7 +177,6 @@ export default class Level6 extends Phaser.Scene {
       //Checks if the two objects colliding are the player and the player bullet
       else if(event.pairs[0].bodyA.gameObject == this.player && event.pairs[0].bodyB.gameObject == this.bullet){
         //GAME OVER
-        console.log(event.pairs[0].bodyA);
         this.registry.set('Level6Score', 0)
         if(this.registry.get('Level6HighScore') < this.registry.get('Level6Score')){
           this.registry.set('Level6HighScore', this.registry.get('Level6Score'))
@@ -203,9 +200,8 @@ export default class Level6 extends Phaser.Scene {
           event.pairs[0].bodyA.gameObject == vwall2) && event.pairs[0].bodyB.gameObject == this.bullet){
         this.bounceCount += 1;
         this.sound.play('bounce');
-        console.log(event.pairs[0].bodyA);
       }
-      /*
+
       if(event.pairs[0].bodyA.gameObject == this.player && event.pairs[0].bodyB.gameObject == this.enemy1bullet){
         this.registry.set('Level6Score', 0);
         if(this.registry.get('Level6HighScore') < this.registry.get('Level6Score')){
@@ -226,7 +222,7 @@ export default class Level6 extends Phaser.Scene {
         event.pairs[0].bodyA.gameObject == vwall2) && event.pairs[0].bodyB.gameObject == this.enemy1bullet){
           this.enemy1bullet.destroy();
           this.enemy1bulletPresent = false;
-      }*/
+      }
 
       //If player bullet bounce reaches limit
       if (this.bounceCount > 3){
@@ -243,10 +239,9 @@ export default class Level6 extends Phaser.Scene {
     this.updateCannon(this.pointerLocation);
     this.cannon.setPosition(this.player.x, this.player.y+3);
 
-    /*
-    if(this.enemy1bullet == false){
-      enemyShoot(this.squirrel);
-    }*/
+    if(this.enemy1bulletPresent == false){
+      this.enemyShoot(this.squirrel);
+    }
 
     //Gets rid of tank explosion
     if(this.explosionCounter > 0){
@@ -326,15 +321,15 @@ export default class Level6 extends Phaser.Scene {
       this.explosion = this.add.image(this.player.x + (Math.cos(angle)*20), this.player.y + (Math.sin(angle)*20), "explosion" + Math.floor(Math.random()*4)).setScale(1.6);
       this.explosionCounter = 15
       this.bullet = this.matter.add.sprite(this.player.x + (Math.cos(angle)*45),
-      this.player.y+ (Math.sin(angle)*45),
-      'bullet',null,{
+        this.player.y+ (Math.sin(angle)*45),
+        'bullet',null,{
           shape: 'circle',
           ignoreGravity: true,
           collisionFilter: {category: this.bulletCategory},
           isStatic: false,
           restitution: 1,
           frictionAir: 0
-      }).setScale(2);
+        }).setScale(2);
       this.bullet.setVelocity(Math.cos(angle)*7.5, Math.sin(angle)*7.5);
       this.shotCount += 1;
       this.sound.play('shot');
@@ -347,16 +342,16 @@ export default class Level6 extends Phaser.Scene {
     var betweenPoints = Phaser.Math.Angle.BetweenPoints;
     var angle = betweenPoints(this.player, enemy);
     if  (this.enemy1bulletPresent == false){
-      console.log("what is happening");
-      this.enemy1bullet = this.matter.add.sprite(enemy.x + (Math.cos(angle)*45), enemy.y + (Math.sin(angle)*45),
+      this.enemy1bullet = this.matter.add.sprite(enemy.x + (Math.cos(angle)*45),
+        enemy.y + (Math.sin(angle)*45),
         'enemybullet', null, {
-        shape: 'circle',
-        ignoreGravity: true,
-        collisionFilter:{category: this.bulletCategory},
-        isStatic: false,
-        restitution: 1,
-        frictionAir: 0
-      }).setScale(2);
+          shape: 'circle',
+          ignoreGravity: true,
+          collisionFilter:{category: this.bulletCategory},
+          isStatic: false,
+          restitution: 1,
+          frictionAir: 0
+        }).setScale(2);
       this.enemy1bullet.setVelocity(Math.cos(angle)*7.5, Math.sin(angle)* 7.5);
       this.sound.play('shot');
       this.enemy1bulletPresent = true;
