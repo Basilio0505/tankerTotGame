@@ -35,23 +35,7 @@ export default class LevelSelect extends Phaser.Scene {
 
   preload () {
     // Preload assets
-    /*this.load.spritesheet('start', './assets/StartMenu/Start_Button.png', {frameHeight: 20,frameWidth: 50});
-    this.load.spritesheet('back', './assets/StartMenu/Back_Button.png', {frameHeight: 20,frameWidth: 50});
-    this.load.spritesheet('level1', './assets/StartMenu/Level1.png', {frameHeight: 20,frameWidth: 50});
-    this.load.spritesheet('level2', './assets/StartMenu/Level2.png', {frameHeight: 20,frameWidth: 50});
-    this.load.spritesheet('level3', './assets/StartMenu/Level3.png', {frameHeight: 20,frameWidth: 50});
-    this.load.spritesheet('level4', './assets/StartMenu/Level4.png', {frameHeight: 20,frameWidth: 50});
-    this.load.spritesheet('level5', './assets/StartMenu/Level5.png', {frameHeight: 20,frameWidth: 50});
-    this.load.spritesheet('level6', './assets/StartMenu/Level6.png', {frameHeight: 20,frameWidth: 50});
-    this.load.spritesheet('level7', './assets/StartMenu/Level7.png', {frameHeight: 20,frameWidth: 50});
-    this.load.spritesheet('level8', './assets/StartMenu/Level8.png', {frameHeight: 20,frameWidth: 50});
-    this.load.spritesheet('level9', './assets/StartMenu/Level9.png', {frameHeight: 20,frameWidth: 50});
-    this.load.image('title', './assets/StartMenu/TileText.png');
-    this.load.image('image', './assets/StartMenu/Starting_TankerTot.png');
-    this.load.image('unlocked', './assets/StartMenu/unlockedLevel.png');
-    this.load.image('locked', './assets/StartMenu/lockedLevel.png');
-    this.load.image('emptystar','./assets/UI/emptystar.png');
-    this.load.image('fullstar','./assets/UI/fullstar.png');*/
+    
     // Declare variables for center of the scene
     this.centerX = this.cameras.main.width / 2;
     this.centerY = this.cameras.main.height / 2;

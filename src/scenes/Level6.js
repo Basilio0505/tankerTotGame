@@ -23,35 +23,8 @@ export default class Level6 extends Phaser.Scene {
     this.environmentCategory = this.registry.get('environmentCategory');
   }
 
-  preload () {// Preload assets
-    //Player Assets
-    /*this.load.image('tankertot', './assets/TankerTot/tankerTot.png');
-    this.load.image('cannon', './assets/TankerTot/cannon.png');
-    this.load.image('bullet', './assets/TankerTot/bullet.png');
-    //this.load.image('rocket', './assets/rocket.png');
-
-    //Environment
-    this.load.image('ground', './assets/Environment/groundGrass.png');
-    this.load.image('background','./assets/Environment/background.png');
-    this.load.image('dunes1','./assets/Environment/dunes1.png');
-    this.load.image('dunes2','./assets/Environment/dunes2.png');
-    this.load.image('dunes3','./assets/Environment/dunes3.png');
-    this.load.image('dunes4','./assets/Environment/dunes4.png');
-    this.load.image('woodPlatform', './assets/Environment/smallWoodPlat.png');
-
-    //All to be replaced
-    this.load.image('hwall', './assets/Environment/horizontalWall.png');
-    this.load.image('vwall', './assets/Environment/verticalWall.png');
-
-    //Enemies
-    this.load.image('speedy','./assets/enemies/speedySquirrel.png');
-    this.load.image('tanky','./assets/enemies/tankSquirrel.png' );
-    this.load.image('squirrel','./assets/enemies/enemySquirrel.png');
-
-    //Load Sound FX
-    this.load.audio('shot','./assets/Sounds/FX/shot.wav');
-    this.load.audio('squirreldeath','./assets/Sounds/FX/squirreldeath.wav');
-    this.load.audio('bounce','./assets/Sounds/FX/bounce.wav');*/
+  preload () {
+    // Preload assets
 
     // Declare variables for center of the scene
     this.centerX = this.cameras.main.width / 2;

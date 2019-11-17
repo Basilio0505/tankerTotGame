@@ -21,49 +21,8 @@ export default class Level1 extends Phaser.Scene {
     this.environmentCategory = this.registry.get('environmentCategory');
   }
 
-  preload () {// Preload assets
-    //Tutorial Text
-    /*this.load.image('movementText', './assets/Tutorial/TextBox_Movement.png');
-    this.load.image('shootText', './assets/Tutorial/TextBox_ShootBasics.png');
-    this.load.image('startText', './assets/Tutorial/TextBox_PugIncoming.png');
-    this.load.image('dutyText', './assets/Tutorial/TextBox_PugDuty.png');
-    this.load.image('timeText', './assets/Tutorial/TextBox_PugAboutTime.png');
-    this.load.image('speedText', './assets/Tutorial/TextBox_PugSpeed.png');
-
-    //Tutorial General
-    this.load.image('blackGeneral', './assets/Tutorial/blackGeneralPug.png');
-    this.load.image('generalPug', './assets/Tutorial/generalPug.png');
-
-    //Player Assets
-    this.load.image('tankertot', './assets/TankerTot/tankerTot.png');
-    this.load.image('cannon', './assets/TankerTot/cannon.png');
-    this.load.image('bullet', './assets/TankerTot/bullet.png');
-    //this.load.image('rocket', './assets/rocket.png');
-
-    //Environment
-    this.load.image('ground', './assets/Environment/groundGrass.png');
-    this.load.image('background','./assets/Environment/background.png');
-    this.load.image('mountains','./assets/Environment/mountains2.png');
-    this.load.image('trees','./assets/Environment/trees.png');
-    this.load.image('woodPlatform', './assets/Environment/smallWoodPlat.png');
-    this.load.spritesheet('break', './assets/Environment/smallWoodPlat_Breakable.png',{
-      frameWidth: 64,
-      frameHeight: 32
-    });
-
-    //All to be replaced
-    this.load.image('hwall', './assets/Environment/horizontalWall.png');
-    this.load.image('vwall', './assets/Environment/verticalWall.png');
-
-    //Enemies
-    this.load.image('speedy','./assets/enemies/speedySquirrel.png');
-    this.load.image('tanky','./assets/enemies/tankSquirrel.png' );
-    this.load.image('squirrel','./assets/enemies/enemySquirrel.png');
-
-    //Load Sound FX
-    this.load.audio('shot','./assets/Sounds/FX/shot.wav');
-    this.load.audio('squirreldeath','./assets/Sounds/FX/squirreldeath.wav');
-    this.load.audio('bounce','./assets/Sounds/FX/bounce.wav');*/
+  preload () {
+    // Preload assets
 
     // Declare variables for center of the scene
     this.centerX = this.cameras.main.width / 2;
