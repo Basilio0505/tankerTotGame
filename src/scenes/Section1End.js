@@ -164,7 +164,6 @@ export default class Section1End extends Phaser.Scene {
     }
     else if(this.counter == 0){
       this.counter = -1
-      this.registry.set('selfHit', false)
       this.player.destroy();
       this.explosion.destroy();
       this.cannon.destroy();
