@@ -47,6 +47,8 @@ export default class TitleScene extends Phaser.Scene {
     this.load.image('title', './assets/StartMenu/TitleText.png');
     this.load.image('image', './assets/StartMenu/Starting_TankerTot.png');
 
+
+
     // Declare variables for center of the scene
     this.centerX = this.cameras.main.width / 2;
     this.centerY = this.cameras.main.height / 2;
@@ -72,6 +74,7 @@ export default class TitleScene extends Phaser.Scene {
     this.load.image('suicideText', './assets/Tutorial/TextBox_Suicide.png');
 
     //Player Assets
+    this.load.image('ghost', './assets/tankerTot/ghost.png');
     this.load.image('tankertot', './assets/TankerTot/tankerTot.png');
     this.load.image('cannon', './assets/TankerTot/cannon.png');
     this.load.image('bullet', './assets/TankerTot/bullet.png');
@@ -98,6 +101,8 @@ export default class TitleScene extends Phaser.Scene {
     this.load.image('buildingsf','./assets/Environment/foregroundbuildings.png');
 
     this.load.image('woodPlatform', './assets/Environment/smallWoodPlat.png');
+    this.load.atlas('sheet', 'assets/Environment/curvy.png', 'assets/physics/curvy.json');
+    this.load.json('shapes', 'assets/physics/curvy.json');
     this.load.image('brickPlatform', './assets/Environment/smallBrickPlat.png')
     this.load.spritesheet('break', './assets/Environment/smallWoodPlat_Breakable.png',{
       frameWidth: 64,
@@ -156,6 +161,7 @@ export default class TitleScene extends Phaser.Scene {
   }
 
   create (data) {
+    this.registry.set('selfHit', false)
     //Create the scene
     //Background Color
     this.cameras.main.setBackgroundColor(0xb8b8b8);

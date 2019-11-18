@@ -64,6 +64,11 @@ export default class Level1 extends Phaser.Scene {
     var plat2 = this.matter.add.image(640, 200, "woodPlatform", null, { isStatic: true, friction: 0, restitution: 1  }).setScale(1.5).setCollisionCategory(this.environmentCategory);
     var plat3 = this.matter.add.image(440, 365, "woodPlatform", null, { isStatic: true, friction: 0, restitution: 1  }).setScale(1.5).setCollisionCategory(this.environmentCategory);
 
+    //var shapes = this.cache.json.get('shapes');
+    //console.log(shapes)
+    //this.matter.add.sprite(200, 50, 'sheet', 'curvy', {shape: shapes.curvy});
+
+
     var break1frame = 0;
     var break1 = this.matter.add.sprite(100, 100, 'break', null, { isStatic: true, friction: 0, restitution: 1  }, break1frame).setScale(2).setCollisionCategory(this.environmentCategory);
 
@@ -131,6 +136,7 @@ export default class Level1 extends Phaser.Scene {
         //Checks if the two objects colliding are the player and the player bullet
         else if(event.pairs[0].bodyA.gameObject == this.player){
           //GAME OVER
+          this.registry.set('selfHit', true)
           console.log('hit self');
           this.registry.set('Level1Score', 0)
           if(this.registry.get('Level1HighScore') < this.registry.get('Level1Score')){

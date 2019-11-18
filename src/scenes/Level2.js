@@ -116,6 +116,7 @@ export default class Level2 extends Phaser.Scene {
       else if(event.pairs[0].bodyA.gameObject == this.player && event.pairs[0].bodyB.gameObject == this.bullet){
         //GAME OVER
         this.registry.set('Level2Score', 0)
+        this.registry.set('selfHit', true)
         if(this.registry.get('Level2HighScore') < this.registry.get('Level2Score')){
           this.registry.set('Level2HighScore', this.registry.get('Level2Score'))
         }

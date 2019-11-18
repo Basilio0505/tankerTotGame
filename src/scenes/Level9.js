@@ -143,6 +143,7 @@ export default class Level9 extends Phaser.Scene {
       //Checks if the two objects colliding are the player and the player bullet
       else if(event.pairs[0].bodyA.gameObject == this.player && event.pairs[0].bodyB.gameObject == this.bullet){
         //GAME OVER
+        this.registry.set('selfHit', true)
         this.registry.set('Level9Score', 0)
         if(this.registry.get('Level9HighScore') < this.registry.get('Level9Score')){
           this.registry.set('Level9HighScore', this.registry.get('Level9Score'))
