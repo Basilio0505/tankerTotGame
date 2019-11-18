@@ -10,39 +10,7 @@ export default class TestScene0 extends Phaser.Scene {
 
   preload () {
     // Preload assets
-    this.load.image('tankertot', './assets/TankerTot/tankerTot.png');
-    this.load.image('cannon', './assets/TankerTot/cannon.png');
-    this.load.image('bullet', './assets/bullet.png');
-
-    this.load.image('squirrel','./assets/enemySquirrel.png');
-
-    //Environment
-    this.load.image('ground', './assets/Environment/groundGrass.png');
-    this.load.image('background','./assets/Environment/background.png');
-    this.load.image('mountains','./assets/Environment/mountains.png');
-    this.load.image('trees','./assets/Environment/trees.png');
-    this.load.image('woodPlatform', './assets/smallWoodPlat.png');
-
-    //#########################################################################
-    this.load.spritesheet('breakable', './assets/smallWoodPlat_Breakable.png', {
-      frameHeight: 32,
-      frameWidth: 64
-    });
-    //###########################################################################
-
-    //All to be replaced
-    this.load.image('hwall', './assets/Environment/horizontalWall.png');
-    this.load.image('vwall', './assets/Environment/verticalWall.png');
-    //this.load.image('gate', './assets/Environment/gate.png');
-    this.load.image('rocket', './assets/rocket.png');
-    this.load.image('speedy','./assets/speedySquirrel.png');
-    this.load.image('tanky','./assets/tankSquirrel.png' );
-
-    //Load Sound FX
-    this.load.audio('shot','./assets/Sounds/FX/shot.wav');
-    this.load.audio('squirreldeath','./assets/Sounds/FX/squirreldeath.wav');
-    this.load.audio('bounce','./assets/Sounds/FX/bounce.wav');
-
+    
     // Declare variables for center of the scene
     this.centerX = this.cameras.main.width / 2;
     this.centerY = this.cameras.main.height / 2;

@@ -21,38 +21,8 @@ export default class Level2 extends Phaser.Scene {
     this.environmentCategory = this.registry.get('environmentCategory');
   }
 
-  preload () {// Preload assets
-    //Tutorial Text
-    this.load.image('scoreText', './assets/Tutorial/TextBox_Score.png');
-    this.load.image('bulletText', './assets/Tutorial/TextBox_Bullet.png');
-
-    //Player Assets
-    this.load.image('tankertot', './assets/TankerTot/tankerTot.png');
-    this.load.image('cannon', './assets/TankerTot/cannon.png');
-    this.load.image('bullet', './assets/TankerTot/bullet.png');
-    //this.load.image('rocket', './assets/rocket.png');
-
-    //Environment
-    this.load.image('ground', './assets/Environment/groundGrass.png');
-    this.load.image('background','./assets/Environment/background.png');
-    this.load.image('mountains','./assets/Environment/mountains2.png');
-    this.load.image('trees','./assets/Environment/trees.png');
-    this.load.image('woodPlatform', './assets/Environment/smallWoodPlat.png');
-    this.load.image('brickPlatform', './assets/Environment/smallBrickPlat.png')
-
-    //All to be replaced
-    this.load.image('hwall', './assets/Environment/horizontalWall.png');
-    this.load.image('vwall', './assets/Environment/verticalWall.png');
-
-    //Enemies
-    this.load.image('speedy','./assets/enemies/speedySquirrel.png');
-    this.load.image('tanky','./assets/enemies/tankSquirrel.png' );
-    this.load.image('squirrel','./assets/enemies/enemySquirrel.png');
-
-    //Load Sound FX
-    this.load.audio('shot','./assets/Sounds/FX/shot.wav');
-    this.load.audio('squirreldeath','./assets/Sounds/FX/squirreldeath.wav');
-    this.load.audio('bounce','./assets/Sounds/FX/bounce.wav');
+  preload () {
+    // Preload assets
 
     // Declare variables for center of the scene
     this.centerX = this.cameras.main.width / 2;
@@ -167,6 +137,7 @@ export default class Level2 extends Phaser.Scene {
           event.pairs[0].bodyA.gameObject == vwall1 ||
           event.pairs[0].bodyA.gameObject == vwall2) && event.pairs[0].bodyB.gameObject == this.bullet){
         this.bounceCount += 1;
+        this.bullet.setFrame(this.bounceCount);
         this.sound.play('bounce');
       }
 
@@ -184,6 +155,15 @@ export default class Level2 extends Phaser.Scene {
     // Update the scene
     this.updateCannon(this.pointerLocation);
     this.cannon.setPosition(this.player.x, this.player.y+3);
+
+    //Gets rid of tank explosion
+    if(this.explosionCounter > 0){
+      this.explosionCounter -= 1
+      if(this.explosionCounter == 0){
+        this.explosion.destroy();
+        this.explosionCounter = -1
+      }
+    }
 
     //Checks if Winning Condition is met
     if (this.squirrelCount == 0) {
@@ -246,9 +226,11 @@ export default class Level2 extends Phaser.Scene {
     var betweenPoints = Phaser.Math.Angle.BetweenPoints;
     var angle = betweenPoints(this.player, pointer);
     if(this.bulletPresent == false){
+      this.explosion = this.add.image(this.player.x + (Math.cos(angle)*20), this.player.y + (Math.sin(angle)*20), "explosion" + Math.floor(Math.random()*4)).setScale(1.6);
+      this.explosionCounter = 15
       this.bullet = this.matter.add.sprite(this.player.x + (Math.cos(angle)*45),
       this.player.y+ (Math.sin(angle)*45),
-      'bullet',null,{
+      'bulletss',0,{
           shape: 'circle',
           ignoreGravity: true,
           collisionFilter: {category: this.bulletCategory},

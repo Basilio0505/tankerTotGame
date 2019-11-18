@@ -22,33 +22,6 @@ export default class Section2End extends Phaser.Scene {
   preload () {
     // Preload assets
 
-    this.load.image('background','./assets/Environment/background.png');
-    this.load.image('dunes1','./assets/Environment/dunes1.png');
-    this.load.image('dunes2','./assets/Environment/dunes2.png');
-    this.load.image('dunes3','./assets/Environment/dunes3.png');
-    this.load.image('dunes4','./assets/Environment/dunes4.png');
-    this.load.image('hwall', './assets/Environment/horizontalWall.png');
-    this.load.image('vwall', './assets/Environment/verticalWall.png');
-    this.load.image('woodPlatform', './assets/smallWoodPlat.png');
-    this.load.image('tankertot', './assets/TankerTot/tankerTot.png');
-    this.load.image('winDog','./assets/UI/totGuitar.png');
-    this.load.image('loseDog', './assets/UI/totSad.png');
-    this.load.image('cannon', './assets/TankerTot/cannon.png');
-    this.load.image('emptystar','./assets/UI/emptystar.png');
-    this.load.image('fullstar','./assets/UI/fullstar.png');
-    this.load.spritesheet('restart','./assets/UI/restartlevelbutton.png', {
-      frameHeight: 100,
-      frameWidth: 200
-    });
-    this.load.spritesheet('next','./assets/UI/nextlevelbutton.png', {
-      frameHeight: 100,
-      frameWidth: 200
-    });
-    this.load.spritesheet('levelselect','./assets/UI/levelselectbutton.png', {
-      frameHeight: 100,
-      frameWidth: 200
-    });
-
     // Declare variables for center of the scene
     this.centerX = this.cameras.main.width / 2;
     this.centerY = this.cameras.main.height / 2;
@@ -68,8 +41,8 @@ export default class Section2End extends Phaser.Scene {
     this.dunes2.tilePositionX = this.dunes2X;
     this.dunes3.tilePositionX = this.dunes3X;
     this.dunes4.tilePositionX = this.dunes4X;
-    this.player = this.add.sprite(this.tankerX, 530, 'tankertot');
-    this.cannon = this.add.sprite(this.tankerX, 530, 'cannon');
+    this.player = this.add.sprite(this.tankerX, 536, 'tankertot');
+    this.cannon = this.add.sprite(this.tankerX, 536, 'cannon');
     this.add.image(16,16, 'vwall', null);
     this.add.image(784,16, 'vwall', null);
     this.add.image(16,16, 'hwall', null);
