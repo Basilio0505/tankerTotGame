@@ -115,6 +115,7 @@ export default class Level3 extends Phaser.Scene {
       //Checks if the two objects colliding are the player and the player bullet
       else if(event.pairs[0].bodyA.gameObject == this.player && event.pairs[0].bodyB.gameObject == this.bullet){
         //GAME OVER
+        this.registry.set('selfHit', true)
         this.registry.set('Level3Score', 0)
         if(this.registry.get('Level3HighScore') < this.registry.get('Level3Score')){
           this.registry.set('Level3HighScore', this.registry.get('Level3Score'))

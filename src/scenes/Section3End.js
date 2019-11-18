@@ -161,12 +161,27 @@ export default class Section3End extends Phaser.Scene {
     restartButton.on("pointerup", function(){
         this.scene.start("Level"+this.currentLevel)
     }, this);
+
+    if(this.registry.get('selfHit')){
+      this.registry.set('selfHit', false);
+      this.counter = 50;
+      this.explosion = this.add.image(this.player.x, 536, 'explosion1').setScale(3)
+    }
     //################################################################
   }
 
   update (time, delta) {
     // Update the scene
-
+    if (this.counter > 0){
+      this.counter -= 1
+    }
+    else if(this.counter == 0){
+      this.counter = -1
+      this.player.destroy();
+      this.explosion.destroy();
+      this.cannon.destroy();
+      this.add.image(this.player.x, 520, 'ghost')
+    }
 
   }
 }

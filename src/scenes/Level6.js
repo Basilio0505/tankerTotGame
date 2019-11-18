@@ -158,6 +158,7 @@ export default class Level6 extends Phaser.Scene {
         //Checks if the two objects colliding are the player and the player bullet
         else if(event.pairs[0].bodyA.gameObject == this.player ){//&& event.pairs[0].bodyB.gameObject == this.bullet){
           //GAME OVER
+          this.registry.set('selfHit', true)
           console.log(this.player.category);
           this.registry.set('Level6Score', 0)
           if(this.registry.get('Level6HighScore') < this.registry.get('Level6Score')){
