@@ -184,7 +184,7 @@ export default class Level4 extends Phaser.Scene {
   update (time, delta) {
     // Update the scene
     this.updateCannon(this.pointerLocation);
-    this.cannon.setPosition(this.player.x, this.player.y+3);
+    this.cannon.setPosition(this.player.x, 536);
 
     //Gets rid of tank explosion
     if(this.explosionCounter > 0){

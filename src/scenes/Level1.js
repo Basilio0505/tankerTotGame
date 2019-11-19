@@ -191,7 +191,7 @@ export default class Level1 extends Phaser.Scene {
   update (time, delta) {
     // Update the scene
     this.updateCannon(this.pointerLocation);
-    this.cannon.setPosition(this.player.x, this.player.y+3);
+    this.cannon.setPosition(this.player.x, 536);
 
     //Gets rid of tank explosion
     if(this.explosionCounter > 0){
@@ -224,7 +224,6 @@ export default class Level1 extends Phaser.Scene {
           });
       }
     }
-
     if(this.movement.a.isDown){
       this.player.setVelocityX(-2);
       this.cannon.setVelocityX(-2);
@@ -245,7 +244,6 @@ export default class Level1 extends Phaser.Scene {
       this.player.setVelocityX(0);
       this.cannon.setVelocityX(0);
     }
-
     //Check if bullet is out of bounds, destroys and resets bullet vars
     if (this.bulletPresent){
       if ((this.bullet.x < 0) || (this.bullet.x > 800) || (this.bullet.y < 0) || (this.bullet.y > 600)){
