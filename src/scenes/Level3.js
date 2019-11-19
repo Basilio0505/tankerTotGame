@@ -223,9 +223,9 @@ export default class Level3 extends Phaser.Scene {
 
   //#############FUNCTIONS########################################################FUNCTIONS
   shoot(pointer){
-    var betweenPoints = Phaser.Math.Angle.BetweenPoints;
-    var angle = betweenPoints(this.player, pointer);
     if(this.bulletPresent == false){
+      var betweenPoints = Phaser.Math.Angle.BetweenPoints;
+      var angle = betweenPoints(this.player, pointer);
       this.explosion = this.add.image(this.player.x + (Math.cos(angle)*20), this.player.y + (Math.sin(angle)*20), "explosion" + Math.floor(Math.random()*4)).setScale(1.6);
       this.explosionCounter = 15
       this.bullet = this.matter.add.sprite(this.player.x + (Math.cos(angle)*45),
