@@ -236,7 +236,7 @@ export default class Level6 extends Phaser.Scene {
   update (time, delta) {
     // Update the scene
     this.updateCannon(this.pointerLocation);
-    this.cannon.setPosition(this.player.x, this.player.y+3);
+    this.cannon.setPosition(this.player.x, 536);
 
     if(this.enemy1bulletPresent == false && !this.squirrelDead){
       this.enemy1Shoot(this.squirrel);
