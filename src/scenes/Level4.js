@@ -290,9 +290,13 @@ export default class Level4 extends Phaser.Scene {
   updateCannon(pointerLocation){
     var betweenPoints = Phaser.Math.Angle.BetweenPoints;
     var angle = Phaser.Math.RAD_TO_DEG * betweenPoints(this.cannon, pointerLocation);
+    var test = Math.sqrt((this.pointerLocation.x-this.cannon.x)*(this.pointerLocation.x-this.cannon.x)+
+    (this.pointerLocation.y-this.cannon.y)*(this.pointerLocation.y-this.cannon.y))
+    var scale = test/730
     this.cannon.setAngle(angle);
     this.trajectory.setAngle(angle+45)
-    this.trajectory.setPosition(this.player.x + (Math.cos(angle*Math.PI/180)*50), 540 + (Math.sin(angle*Math.PI/180)*50))
-
+    this.trajectory.setPosition(this.player.x + (Math.cos(angle*Math.PI/180)*(370 * scale)),
+     540 + (Math.sin(angle*Math.PI/180)*(370 * scale)))
+    this.trajectory.setScale(scale)
   }
 }

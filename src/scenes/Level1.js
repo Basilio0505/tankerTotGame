@@ -53,6 +53,7 @@ export default class Level1 extends Phaser.Scene {
     this.player = this.matter.add.image(68, 536, 'tankertot', null, {friction:0}).setFixedRotation(true).setCollisionCategory(this.playerCategory);
     this.cannon = this.matter.add.image(68, 540, 'cannon', null, {friction:0, shape: 'circle'}).setCollisionCategory(this.playerCategory).setScale(.78);
     this.trajectory = this.add.image(68, 540, 'trajectory', null, {friction:0});
+
     //create borders
     var vwall1 = this.matter.add.image(16,16, 'vwall', null, { isStatic: true, friction: 0, restitution: 1 }).setCollisionCategory(this.borderCategory);
     var vwall2 = this.matter.add.image(784,16, 'vwall', null, { isStatic: true, friction: 0, restitution: 1  }).setCollisionCategory(this.borderCategory);
@@ -88,6 +89,8 @@ export default class Level1 extends Phaser.Scene {
 
     this.pug = this.add.image(this.centerX - 140, this.centerY - 100, "generalPug").setScale(1.5);
     this.blackPug = this.add.image(this.centerX - 140, this.centerY - 100, "blackGeneral").setScale(1.5);
+
+
 
     //create text/UI
     this.countText = this.add.text( 16, 6, 'Bullets Used: 0', { fontSize: '26px', fill: '#000', stroke: '#000', strokeThickness: 2 });
@@ -318,8 +321,13 @@ export default class Level1 extends Phaser.Scene {
   updateCannon(pointerLocation){
     var betweenPoints = Phaser.Math.Angle.BetweenPoints;
     var angle = Phaser.Math.RAD_TO_DEG * betweenPoints(this.cannon, pointerLocation);
+    var test = Math.sqrt((this.pointerLocation.x-this.cannon.x)*(this.pointerLocation.x-this.cannon.x)+
+    (this.pointerLocation.y-this.cannon.y)*(this.pointerLocation.y-this.cannon.y))
+    var scale = test/730
     this.cannon.setAngle(angle);
     this.trajectory.setAngle(angle+45)
-    this.trajectory.setPosition(this.player.x + (Math.cos(angle*Math.PI/180)*50), 540 + (Math.sin(angle*Math.PI/180)*50))
+    this.trajectory.setPosition(this.player.x + (Math.cos(angle*Math.PI/180)*(370 * scale)),
+     540 + (Math.sin(angle*Math.PI/180)*(370 * scale)))
+    this.trajectory.setScale(scale)
   }
 }
