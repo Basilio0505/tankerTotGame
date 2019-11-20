@@ -78,6 +78,7 @@ export default class TitleScene extends Phaser.Scene {
     this.load.image('tankertot', './assets/TankerTot/tankerTot.png');
     this.load.image('cannon', './assets/TankerTot/cannon.png');
     this.load.image('bullet', './assets/TankerTot/bullet.png');
+    this.load.image('trajectory', './assets/TankerTot/trajectory.png');
     this.load.spritesheet('bulletss', './assets/TankerTot/bulletss.png',{
       frameWidth: 5,
       frameHeight: 5
