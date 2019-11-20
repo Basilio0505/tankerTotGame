@@ -52,8 +52,9 @@ export default class Level4 extends Phaser.Scene {
     this.dunes4 = this.add.tileSprite(this.centerX,this.centerY+50,0,0, 'dunes4');
 
     //create player
-    this.player = this.matter.add.image(68, 530, 'tankertot', null, {friction:0}).setFixedRotation(true).setCollisionCategory(this.playerCategory);
-    this.cannon = this.matter.add.image(68, 530, 'cannon', null, {friction:0, shape: 'circle'}).setCollisionCategory(this.playerCategory).setScale(.84);
+    this.player = this.matter.add.image(68, 536, 'tankertot', null, {friction:0}).setFixedRotation(true).setCollisionCategory(this.playerCategory);
+    this.cannon = this.matter.add.image(68, 540, 'cannon', null, {friction:0, shape: 'circle'}).setCollisionCategory(this.playerCategory).setScale(.78);
+    this.trajectory = this.add.image(68, 540, 'trajectory', null, {friction:0});
 
     //create borders
     var vwall1 = this.matter.add.image(16,16, 'vwall', null, { isStatic: true, friction: 0 , restitution: 1 }).setCollisionCategory(this.borderCategory);
@@ -173,6 +174,7 @@ export default class Level4 extends Phaser.Scene {
 
       //If player bullet bounce reaches limit
       if (this.bounceCount > 3){
+        this.trajectory = this.add.image(68, 540, 'trajectory', null, {friction:0});
         this.bullet.destroy();
         this.bulletPresent = false;
         this.bounceCount = 0;
@@ -184,7 +186,7 @@ export default class Level4 extends Phaser.Scene {
   update (time, delta) {
     // Update the scene
     this.updateCannon(this.pointerLocation);
-    this.cannon.setPosition(this.player.x, 536);
+    this.cannon.setPosition(this.player.x, 540);
 
     //Gets rid of tank explosion
     if(this.explosionCounter > 0){
@@ -261,10 +263,11 @@ export default class Level4 extends Phaser.Scene {
     var betweenPoints = Phaser.Math.Angle.BetweenPoints;
     var angle = betweenPoints(this.player, pointer);
     if(this.bulletPresent == false){
+      this.trajectory.destroy()
       this.explosion = this.add.image(this.player.x + (Math.cos(angle)*20), this.player.y + (Math.sin(angle)*20), "explosion" + Math.floor(Math.random()*4)).setScale(1.6);
       this.explosionCounter = 15
-      this.bullet = this.matter.add.sprite(this.player.x + (Math.cos(angle)*45),
-      this.player.y+ (Math.sin(angle)*45),
+      this.bullet = this.matter.add.sprite(this.player.x + (Math.cos(angle)*40),
+      this.player.y+ (Math.sin(angle)*40),
       'bulletss',0,{
           shape: 'circle',
           ignoreGravity: true,
@@ -286,5 +289,8 @@ export default class Level4 extends Phaser.Scene {
     var betweenPoints = Phaser.Math.Angle.BetweenPoints;
     var angle = Phaser.Math.RAD_TO_DEG * betweenPoints(this.cannon, pointerLocation);
     this.cannon.setAngle(angle);
+    this.trajectory.setAngle(angle+45)
+    this.trajectory.setPosition(this.player.x + (Math.cos(angle*Math.PI/180)*50), 540 + (Math.sin(angle*Math.PI/180)*50))
+
   }
 }

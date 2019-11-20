@@ -51,8 +51,8 @@ export default class Level1 extends Phaser.Scene {
 
     //create player
     this.player = this.matter.add.image(68, 536, 'tankertot', null, {friction:0}).setFixedRotation(true).setCollisionCategory(this.playerCategory);
-    this.cannon = this.matter.add.image(68, 536, 'cannon', null, {friction:0, shape: 'circle'}).setCollisionCategory(this.playerCategory).setScale(.80);
-    this.trajectory = this.add.image(68, 540, 'trajectory', null, {friction:0}).setScale(1);
+    this.cannon = this.matter.add.image(68, 540, 'cannon', null, {friction:0, shape: 'circle'}).setCollisionCategory(this.playerCategory).setScale(.78);
+    this.trajectory = this.add.image(68, 540, 'trajectory', null, {friction:0});
     //create borders
     var vwall1 = this.matter.add.image(16,16, 'vwall', null, { isStatic: true, friction: 0, restitution: 1 }).setCollisionCategory(this.borderCategory);
     var vwall2 = this.matter.add.image(784,16, 'vwall', null, { isStatic: true, friction: 0, restitution: 1  }).setCollisionCategory(this.borderCategory);
@@ -179,7 +179,7 @@ export default class Level1 extends Phaser.Scene {
         //If player bullet bounce reaches limit
         console.log('Bounce Count: ' + this.bounceCount);
         if (this.bounceCount > 3){
-          this.trajectory = this.add.image(68, 540, 'trajectory', null, {friction:0}).setScale(1);
+          this.trajectory = this.add.image(68, 540, 'trajectory', null, {friction:0});
           this.bullet.destroy();
           this.bulletPresent = false;
           this.bounceCount = 0;
