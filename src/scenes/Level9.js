@@ -205,6 +205,8 @@ export default class Level9 extends Phaser.Scene {
           this.registry.set('Level9Score', 2)
         }else if(this.shotCount <= this.oneStar){
           this.registry.set('Level9Score', 1)
+        }else if(this.shotCount > this.oneStar){
+          this.registry.set('Level9Score', 0)
         }
         if(this.registry.get('Level9HighScore') < this.registry.get('Level9Score')){
           this.registry.set('Level9HighScore', this.registry.get('Level9Score'))

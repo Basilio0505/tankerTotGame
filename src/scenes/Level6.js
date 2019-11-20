@@ -194,6 +194,7 @@ export default class Level6 extends Phaser.Scene {
           if(this.registry.get('Level6HighScore') < this.registry.get('Level6Score')){
             this.registry.set('Level6HighScore', this.registry.get('Level6Score'));
           }
+          this.registry.set('selfHit', true)
           this.scene.start('Section2End', {
             backgroundX: this.background.tilePositionX,
             dunes1X: this.dunes1.tilePositionX,
@@ -270,6 +271,8 @@ export default class Level6 extends Phaser.Scene {
           this.registry.set('Level6Score', 2)
         }else if(this.shotCount <= this.oneStar){
           this.registry.set('Level6Score', 1)
+        }else if(this.shotCount > this.oneStar){
+          this.registry.set('Level6Score', 0)
         }
         if(this.registry.get('Level6HighScore') < this.registry.get('Level6Score')){
           this.registry.set('Level6HighScore', this.registry.get('Level6Score'))

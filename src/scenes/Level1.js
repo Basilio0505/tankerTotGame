@@ -213,6 +213,8 @@ export default class Level1 extends Phaser.Scene {
           this.registry.set('Level1Score', 2)
         }else if(this.shotCount <= this.oneStar){
           this.registry.set('Level1Score', 1)
+        }else if(this.shotCount > this.oneStar){
+          this.registry.set('Level1Score', 0)
         }
         if(this.registry.get('Level1HighScore') < this.registry.get('Level1Score')){
           this.registry.set('Level1HighScore', this.registry.get('Level1Score'))
