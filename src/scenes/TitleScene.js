@@ -8,30 +8,29 @@ export default class TitleScene extends Phaser.Scene {
     // Initialization code goes here
 
     if(this.registry.get('level') == undefined){
-      this.registry.set('level', 1)
+      this.registry.set('level', 1);
     }
 
     if(this.registry.get('Level1Score') == undefined){
-      this.registry.set('Level1Score', -1)
-      this.registry.set('Level2Score', -1)
-      this.registry.set('Level3Score', -1)
-      this.registry.set('Level4Score', -1)
-      this.registry.set('Level5Score', -1)
-      this.registry.set('Level6Score', -1)
-      this.registry.set('Level7Score', -1)
-      this.registry.set('Level8Score', -1)
-      this.registry.set('Level9Score', -1)
-      this.registry.set('Level1HighScore', -1)
-      this.registry.set('Level2HighScore', -1)
-      this.registry.set('Level3HighScore', -1)
-      this.registry.set('Level4HighScore', -1)
-      this.registry.set('Level5HighScore', -1)
-      this.registry.set('Level6HighScore', -1)
-      this.registry.set('Level7HighScore', -1)
-      this.registry.set('Level8HighScore', -1)
-      this.registry.set('Level9HighScore', -1)
+      this.registry.set('Level1Score', -1);
+      this.registry.set('Level2Score', -1);
+      this.registry.set('Level3Score', -1);
+      this.registry.set('Level4Score', -1);
+      this.registry.set('Level5Score', -1);
+      this.registry.set('Level6Score', -1);
+      this.registry.set('Level7Score', -1);
+      this.registry.set('Level8Score', -1);
+      this.registry.set('Level9Score', -1);
+      this.registry.set('Level1HighScore', -1);
+      this.registry.set('Level2HighScore', -1);
+      this.registry.set('Level3HighScore', -1);
+      this.registry.set('Level4HighScore', -1);
+      this.registry.set('Level5HighScore', -1);
+      this.registry.set('Level6HighScore', -1);
+      this.registry.set('Level7HighScore', -1);
+      this.registry.set('Level8HighScore', -1);
+      this.registry.set('Level9HighScore', -1);
     }
-
   }
 
   preload () {
@@ -72,6 +71,7 @@ export default class TitleScene extends Phaser.Scene {
     this.load.image('bulletText', './assets/Tutorial/TextBox_Bullet.png');
     //Level 3
     this.load.image('suicideText', './assets/Tutorial/TextBox_Suicide.png');
+    this.load.image('bounceText', './assets/Tutorial/TextBox_Bounce.png');
 
     //Player Assets
     this.load.image('ghost', './assets/tankerTot/ghost.png');

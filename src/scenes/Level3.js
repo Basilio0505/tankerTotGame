@@ -75,6 +75,7 @@ export default class Level3 extends Phaser.Scene {
     //create tutorial frames
     this.tutorialActive = true;//bool used to stop all other actions while tutorialText is active
     this.tutorialSuicide = this.add.image(this.centerX, this.centerY, "suicideText").setScale(1.5);
+    this.tutorialBounce = this.add.image(this.centerX, this.centerY, "bounceText").setScale(1.5);
 
     //create text/UI
     this.countText = this.add.text( 16, 6, 'Bullets Used: 0', { fontSize: '26px', fill: '#000', stroke: '#000', strokeThickness: 2 });
@@ -256,10 +257,14 @@ export default class Level3 extends Phaser.Scene {
   tutorial(pointer){
     //Only way I could figure out for it to move on.
     if(this.tutorialActive == true){
+      if(this.tutorialBounce.x == this.centerX){
+        this.tutorialBounce.destroy();
+        this.tutorialBounce.x = this.centerX-30;
+      } else {
         this.tutorialSuicide.destroy();
         this.tutorialActive = false;
+      }
     } else{
-      console.log('card')
       this.shoot(pointer);
     }
   }
