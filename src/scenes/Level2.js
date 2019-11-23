@@ -23,7 +23,6 @@ export default class Level2 extends Phaser.Scene {
 
   preload () {
     // Preload assets
-
     // Declare variables for center of the scene
     this.centerX = this.cameras.main.width / 2;
     this.centerY = this.cameras.main.height / 2;
@@ -31,7 +30,6 @@ export default class Level2 extends Phaser.Scene {
 
 //############CREATE#####################################################################CREATE
   create (data) {
-
     //create variables
     this.bulletPresent = false;
     this.gameOver = false;
@@ -97,50 +95,52 @@ export default class Level2 extends Phaser.Scene {
     //Decects collision of two objects
     this.matter.world.on('collisionstart', function(event){
       //Checks if the two objects colliding are the regular squirrel and bullet
-      if(event.pairs[0].bodyA.gameObject == squirrel && event.pairs[0].bodyB.gameObject == this.bullet){
-        squirrel.destroy();
-        this.squirrelCount -= 1;
-        this.sound.play('squirreldeath');
-      }//Checks if the two objects colliding are the tank squirrel and bullet
-      else if(event.pairs[0].bodyA.gameObject == tanky && event.pairs[0].bodyB.gameObject == this.bullet){
-        tanky.destroy();
-        this.squirrelCount -= 1;
-        this.sound.play('squirreldeath');
-      }
-      //Checks if the two objects colliding are the speedy squirrel and bullet
-      else if(event.pairs[0].bodyA.gameObject == speedy && event.pairs[0].bodyB.gameObject == this.bullet){
-        speedy.destroy();
-        this.squirrelCount -= 1;
-        this.sound.play('squirreldeath');
-      }
-      //Checks if the two objects colliding are the player and the player bullet
-      else if(event.pairs[0].bodyA.gameObject == this.player && event.pairs[0].bodyB.gameObject == this.bullet){
-        //GAME OVER
-        this.registry.set('Level2Score', 0)
-        this.registry.set('selfHit', true)
-        if(this.registry.get('Level2HighScore') < this.registry.get('Level2Score')){
-          this.registry.set('Level2HighScore', this.registry.get('Level2Score'))
+      if (event.pairs[0].bodyB.gameObject == this.bullet){
+        if(event.pairs[0].bodyA.gameObject == squirrel){
+          squirrel.destroy();
+          this.squirrelCount -= 1;
+          this.sound.play('squirreldeath');
+        }//Checks if the two objects colliding are the tank squirrel and bullet
+        else if(event.pairs[0].bodyA.gameObject == tanky){
+          tanky.destroy();
+          this.squirrelCount -= 1;
+          this.sound.play('squirreldeath');
         }
-        this.scene.start('Section1End', {
-          backgroundX: this.background.tilePositionX,
-          mountainsX: this.mountains.tilePositionX,
-          treesX: this.trees.tilePositionX,
-          tankerX: this.player.x
-          });
-      }
-      //Checks if the two objects colliding are the walls or platforms and bullet
-      else if((event.pairs[0].bodyA.gameObject == plat1 ||
-          event.pairs[0].bodyA.gameObject == plat2 ||
-          event.pairs[0].bodyA.gameObject == plat3 ||
-          event.pairs[0].bodyA.gameObject == plat4 ||
-          event.pairs[0].bodyA.gameObject == plat5 ||
-          event.pairs[0].bodyA.gameObject == ground ||
-          event.pairs[0].bodyA.gameObject == hwall ||
-          event.pairs[0].bodyA.gameObject == vwall1 ||
-          event.pairs[0].bodyA.gameObject == vwall2) && event.pairs[0].bodyB.gameObject == this.bullet){
-        this.bounceCount += 1;
-        this.bullet.setFrame(this.bounceCount);
-        this.sound.play('bounce');
+        //Checks if the two objects colliding are the speedy squirrel and bullet
+        else if(event.pairs[0].bodyA.gameObject == speedy){
+          speedy.destroy();
+          this.squirrelCount -= 1;
+          this.sound.play('squirreldeath');
+        }
+        //Checks if the two objects colliding are the player and the player bullet
+        else if(event.pairs[0].bodyA.gameObject == this.player){
+          //GAME OVER
+          this.registry.set('Level2Score', 0);
+          this.registry.set('selfHit', true);
+          if(this.registry.get('Level2HighScore') < this.registry.get('Level2Score')){
+            this.registry.set('Level2HighScore', this.registry.get('Level2Score'));
+          }
+          this.scene.start('Section1End', {
+            backgroundX: this.background.tilePositionX,
+            mountainsX: this.mountains.tilePositionX,
+            treesX: this.trees.tilePositionX,
+            tankerX: this.player.x
+            });
+        }
+          //Checks if the two objects colliding are the walls or platforms and bullet
+        else if(event.pairs[0].bodyA.gameObject == plat1 ||
+            event.pairs[0].bodyA.gameObject == plat2 ||
+            event.pairs[0].bodyA.gameObject == plat3 ||
+            event.pairs[0].bodyA.gameObject == plat4 ||
+            event.pairs[0].bodyA.gameObject == plat5 ||
+            event.pairs[0].bodyA.gameObject == ground ||
+            event.pairs[0].bodyA.gameObject == hwall ||
+            event.pairs[0].bodyA.gameObject == vwall1 ||
+            event.pairs[0].bodyA.gameObject == vwall2){
+          this.bounceCount += 1;
+          this.bullet.setFrame(this.bounceCount);
+          this.sound.play('bounce');
+        }
       }
 
       //If player bullet bounce reaches limit

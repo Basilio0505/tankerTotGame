@@ -134,14 +134,14 @@ export default class Level6 extends Phaser.Scene {
 
       //Checks if the two objects colliding are the regular squirrel and bullet
       if (event.pairs[0].bodyB.gameObject == this.bullet){
-        if(event.pairs[0].bodyA.gameObject == this.squirrel ){//&& event.pairs[0].bodyB.gameObject == this.bullet){
+        if(event.pairs[0].bodyA.gameObject == this.squirrel ){
           squirrelTween.remove();
           this.squirrel.destroy();
           this.squirrelDead = true;
           this.squirrelCount -= 1;
           this.sound.play('squirreldeath');
         }//Checks if the two objects colliding are the tank squirrel and bullet
-        else if(event.pairs[0].bodyA.gameObject == this.tanky ){//&& event.pairs[0].bodyB.gameObject == this.bullet){
+        else if(event.pairs[0].bodyA.gameObject == this.tanky ){
           tankyTween.remove();
           this.tanky.destroy();
           this.tankyDead = true;
@@ -149,7 +149,7 @@ export default class Level6 extends Phaser.Scene {
           this.sound.play('squirreldeath');
         }
         //Checks if the two objects colliding are the speedy squirrel and bullet
-        else if(event.pairs[0].bodyA.gameObject == this.speedy ){//&& event.pairs[0].bodyB.gameObject == this.bullet){
+        else if(event.pairs[0].bodyA.gameObject == this.speedy ){
           speedyTween.remove();
           this.speedy.destroy();
           this.speedyDead = true;
@@ -157,13 +157,12 @@ export default class Level6 extends Phaser.Scene {
           this.sound.play('squirreldeath');
         }
         //Checks if the two objects colliding are the player and the player bullet
-        else if(event.pairs[0].bodyA.gameObject == this.player ){//&& event.pairs[0].bodyB.gameObject == this.bullet){
+        else if(event.pairs[0].bodyA.gameObject == this.player ){
           //GAME OVER
-          this.registry.set('selfHit', true)
-          console.log(this.player.category);
-          this.registry.set('Level6Score', 0)
+          this.registry.set('selfHit', true);
+          this.registry.set('Level6Score', 0);
           if(this.registry.get('Level6HighScore') < this.registry.get('Level6Score')){
-            this.registry.set('Level6HighScore', this.registry.get('Level6Score'))
+            this.registry.set('Level6HighScore', this.registry.get('Level6Score'));
           }
           this.scene.start('Section2End', {
             backgroundX: this.background.tilePositionX,
@@ -181,7 +180,7 @@ export default class Level6 extends Phaser.Scene {
             event.pairs[0].bodyA.gameObject == ground ||
             event.pairs[0].bodyA.gameObject == hwall ||
             event.pairs[0].bodyA.gameObject == vwall1 ||
-            event.pairs[0].bodyA.gameObject == vwall2) ){//&& event.pairs[0].bodyB.gameObject == this.bullet){
+            event.pairs[0].bodyA.gameObject == vwall2) ){
           this.bounceCount += 1;
           this.bullet.setFrame(this.bounceCount);
           this.sound.play('bounce');
@@ -189,7 +188,7 @@ export default class Level6 extends Phaser.Scene {
       }
 
       if(event.pairs[0].bodyB.gameObject == this.enemy1bullet || event.pairs[0].bodyB.gameObject == this.enemy2bullet || event.pairs[0].bodyB.gameObject == this.enemy3bullet){
-        if(event.pairs[0].bodyA.gameObject == this.player){//&& event.pairs[0].bodyB.gameObject == this.enemy1bullet){
+        if(event.pairs[0].bodyA.gameObject == this.player){
           this.registry.set('Level6Score', 0);
           if(this.registry.get('Level6HighScore') < this.registry.get('Level6Score')){
             this.registry.set('Level6HighScore', this.registry.get('Level6Score'));

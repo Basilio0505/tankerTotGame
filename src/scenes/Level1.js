@@ -139,11 +139,11 @@ export default class Level1 extends Phaser.Scene {
         //Checks if the two objects colliding are the player and the player bullet
         else if(event.pairs[0].bodyA.gameObject == this.player){
           //GAME OVER
-          this.registry.set('selfHit', true)
+          this.registry.set('selfHit', true);
           console.log('hit self');
-          this.registry.set('Level1Score', 0)
+          this.registry.set('Level1Score', 0);
           if(this.registry.get('Level1HighScore') < this.registry.get('Level1Score')){
-            this.registry.set('Level1HighScore', this.registry.get('Level1Score'))
+            this.registry.set('Level1HighScore', this.registry.get('Level1Score'));
           }
           this.scene.start('Section1End', {
             backgroundX: this.background.tilePositionX,
