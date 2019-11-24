@@ -62,18 +62,13 @@ export default class Level1 extends Phaser.Scene {
     var plat2 = this.matter.add.image(640, 200, "woodPlatform", null, { isStatic: true, friction: 0, restitution: 1  }).setScale(1.5).setCollisionCategory(this.environmentCategory);
     var plat3 = this.matter.add.image(440, 365, "woodPlatform", null, { isStatic: true, friction: 0, restitution: 1  }).setScale(1.5).setCollisionCategory(this.environmentCategory);
 
-    //var shapes = this.cache.json.get('shapes');
-    //console.log(shapes)
-    //this.matter.add.sprite(200, 50, 'sheet', 'curvy', {shape: shapes.curvy});
-
-
     var break1frame = 0;
     var break1 = this.matter.add.sprite(100, 100, 'break', null, { isStatic: true, friction: 0, restitution: 1  }, break1frame).setScale(2).setCollisionCategory(this.environmentCategory);
 
     //create enemies
-    var squirrel = this.matter.add.image(205, 456, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(this.enemyCategory).setSensor(true);
-    var speedy = this.matter.add.image(611, 136, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(this.enemyCategory).setSensor(true);
-    var tanky = this.matter.add.image(411, 301, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(this.enemyCategory).setSensor(true);
+    var squirrel = this.matter.add.image(215, 456, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(this.enemyCategory).setSensor(true);
+    var speedy = this.matter.add.image(620, 136, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(this.enemyCategory).setSensor(true);
+    var tanky = this.matter.add.image(420, 301, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(this.enemyCategory).setSensor(true);
 
     //player trajectory
     this.trajectory = this.add.image(68, 540, 'trajectory', null, {friction:0});
@@ -116,23 +111,19 @@ export default class Level1 extends Phaser.Scene {
     this.matter.world.on('collisionstart', function(event){
       //Checks if the two objects colliding involving the bullet
       if (event.pairs[0].bodyB.gameObject == this.bullet){
-        console.log('bullet collisionstart');
         //Checks if the two objects colliding are the original squirrel and bullet
         if(event.pairs[0].bodyA.gameObject == squirrel){
-          console.log('hit squirrel');
           squirrel.destroy();
           this.squirrelCount -= 1;
           this.sound.play('squirreldeath');
         }//Checks if the two objects colliding are the tank squirrel and bullet
         else if(event.pairs[0].bodyA.gameObject == tanky){
-          console.log('hit squirrel');
           tanky.destroy();
           this.squirrelCount -= 1;
           this.sound.play('squirreldeath');
         }
         //Checks if the two objects colliding are the speedy squirrel and bullet
         else if(event.pairs[0].bodyA.gameObject == speedy){
-          console.log('hit squirrel');
           speedy.destroy();
           this.squirrelCount -= 1;
           this.sound.play('squirreldeath');
@@ -141,7 +132,6 @@ export default class Level1 extends Phaser.Scene {
         else if(event.pairs[0].bodyA.gameObject == this.player){
           //GAME OVER
           this.registry.set('selfHit', true);
-          console.log('hit self');
           this.registry.set('Level1Score', 0);
           if(this.registry.get('Level1HighScore') < this.registry.get('Level1Score')){
             this.registry.set('Level1HighScore', this.registry.get('Level1Score'));
@@ -161,14 +151,12 @@ export default class Level1 extends Phaser.Scene {
             event.pairs[0].bodyA.gameObject == hwall ||
             event.pairs[0].bodyA.gameObject == vwall1 ||
             event.pairs[0].bodyA.gameObject == vwall2)){
-          console.log('hit wall');
           this.bounceCount += 1;
           this.bullet.setFrame(this.bounceCount);
           this.sound.play('bounce');
         }
         //checks if the two objects colliding are the breakable walls or the bullet
         else if(event.pairs[0].bodyA.gameObject == break1){
-          console.log('hit breakable');
           this.bounceCount += 1;
           break1frame +=1;
           if(break1frame > 2){
@@ -181,7 +169,6 @@ export default class Level1 extends Phaser.Scene {
         }
 
         //If player bullet bounce reaches limit
-        console.log('Bounce Count: ' + this.bounceCount);
         if (this.bounceCount > 3){
           this.trajectory = this.add.image(68, 540, 'trajectory', null, {friction:0});
           this.bullet.destroy();
