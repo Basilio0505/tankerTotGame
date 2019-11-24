@@ -61,16 +61,22 @@ export default class Level7 extends Phaser.Scene {
     var ground = this.matter.add.image(16,584, 'ground', null, { isStatic: true, friction: 0 , restitution: 1 }).setCollisionCategory(this.borderCategory);
 
     //create plaforms
-    var plat1 = this.matter.add.image(100, 300, "woodPlatform", null, { isStatic: true, friction: 0 , restitution: 1 }).setCollisionCategory(this.environmentCategory).setAngle(90);
-    var plat2 = this.matter.add.image(400, 55, "woodPlatform", null, { isStatic: true, friction: 0 , restitution: 1 }).setCollisionCategory(this.environmentCategory);
-    var plat3 = this.matter.add.image(690, 300, "woodPlatform", null, { isStatic: true, friction: 0 , restitution: 1 }).setCollisionCategory(this.environmentCategory).setAngle(90);
-    var plat4 = this.matter.add.image(670, 545, "brickPlatform", null, { isStatic: true, friction: 0 , restitution: 1 }).setCollisionCategory(this.environmentCategory).setAngle(135);
-    var plat4 = this.matter.add.image(670, 275, "brickPlatform", null, { isStatic: true, friction: 0 , restitution: 1 }).setCollisionCategory(this.environmentCategory).setAngle(45);
+    this.plat1angle = 0;
+    this.plat1 = this.matter.add.image(400, 300, "steelPlatform", null, { isStatic: true, friction: 0 , restitution: 1 }).setCollisionCategory(this.environmentCategory).setAngle(this.plat1angle).setScale(1.3);
+    var plat2 = this.matter.add.image(400, 143, "woodPlatform", null, { isStatic: true, friction: 0 , restitution: 1 }).setCollisionCategory(this.environmentCategory);
+    var plat3 = this.matter.add.image(85, 364, "brickPlatform", null, { isStatic: true, friction: 0 , restitution: 1 }).setCollisionCategory(this.environmentCategory).setScale(1.6);
+    var plat4 = this.matter.add.image(715, 364, "brickPlatform", null, { isStatic: true, friction: 0 , restitution: 1 }).setCollisionCategory(this.environmentCategory).setScale(1.6);
+    var plat5 = this.matter.add.image(185, 364, "brickPlatform", null, { isStatic: true, friction: 0 , restitution: 1 }).setCollisionCategory(this.environmentCategory).setScale(1.6);
+    var plat6 = this.matter.add.image(615, 364, "brickPlatform", null, { isStatic: true, friction: 0 , restitution: 1 }).setCollisionCategory(this.environmentCategory).setScale(1.6);
+    var plat7 = this.matter.add.image(85, 230, "brickPlatform", null, { isStatic: true, friction: 0 , restitution: 1 }).setCollisionCategory(this.environmentCategory).setScale(1.6);
+    var plat8 = this.matter.add.image(715, 230, "brickPlatform", null, { isStatic: true, friction: 0 , restitution: 1 }).setCollisionCategory(this.environmentCategory).setScale(1.6);
+    var plat9 = this.matter.add.image(185, 230, "brickPlatform", null, { isStatic: true, friction: 0 , restitution: 1 }).setCollisionCategory(this.environmentCategory).setScale(1.6);
+    var plat0 = this.matter.add.image(615, 230, "brickPlatform", null, { isStatic: true, friction: 0 , restitution: 1 }).setCollisionCategory(this.environmentCategory).setScale(1.6);
 
     //create enemies
-    var squirrel = this.matter.add.image(700, 426, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(this.enemyCategory).setSensor(true);
-    var speedy = this.matter.add.image(660, 136, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(this.enemyCategory).setSensor(true);
-    var tanky = this.matter.add.image(460, 301, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(this.enemyCategory).setSensor(true);
+    var squirrel = this.matter.add.image(700, 298, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(this.enemyCategory).setSensor(true);
+    var speedy = this.matter.add.image(400, 85, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(this.enemyCategory).setSensor(true);
+    var tanky = this.matter.add.image(100, 298, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(this.enemyCategory).setSensor(true);
 
     //create text/UI
     this.countText = this.add.text( 16, 6, 'Bullets Used: 0', { fontSize: '26px', fill: '#000', stroke: '#000', strokeThickness: 2 });
@@ -80,7 +86,7 @@ export default class Level7 extends Phaser.Scene {
     this.player.setCollidesWith([this.borderCategory, this.environmentCategory, this.bulletCategory]);
     this.cannon.setCollidesWith([this.borderCategory, this.environmentCategory]);
 
-    var squirrelTween = this.tweens.add({
+    /*var squirrelTween = this.tweens.add({
       targets: squirrel,
       x: 600,
       ease: "Cubic",
@@ -108,7 +114,7 @@ export default class Level7 extends Phaser.Scene {
       yoyo: true,
       repeat: -1,
       repeatDelay: 500
-    });
+    });*/
 
     //create pointer interactions
     this.input.on(
@@ -125,20 +131,20 @@ export default class Level7 extends Phaser.Scene {
       if (event.pairs[0].bodyB.gameObject == this.bullet){
         //Checks if the two objects colliding are the regular squirrel and bullet
         if(event.pairs[0].bodyA.gameObject == squirrel){
-          squirrelTween.remove();
+          //squirrelTween.remove();
           squirrel.destroy();
           this.squirrelCount -= 1;
           this.sound.play('squirreldeath');
         }//Checks if the two objects colliding are the tank squirrel and bullet
         else if(event.pairs[0].bodyA.gameObject == tanky){
-          tankyTween.remove();
+          //tankyTween.remove();
           tanky.destroy();
           this.squirrelCount -= 1;
           this.sound.play('squirreldeath');
         }
         //Checks if the two objects colliding are the speedy squirrel and bullet
         else if(event.pairs[0].bodyA.gameObject == speedy){
-          speedyTween.remove();
+          //speedyTween.remove();
           speedy.destroy();
           this.squirrelCount -= 1;
           this.sound.play('squirreldeath');
@@ -159,9 +165,16 @@ export default class Level7 extends Phaser.Scene {
             });
         }
         //Checks if the two objects colliding are the walls or platforms and bullet
-        else if(event.pairs[0].bodyA.gameObject == plat1 ||
+        else if(event.pairs[0].bodyA.gameObject == this.plat1 ||
             event.pairs[0].bodyA.gameObject == plat2 ||
             event.pairs[0].bodyA.gameObject == plat3 ||
+            event.pairs[0].bodyA.gameObject == plat4 ||
+            event.pairs[0].bodyA.gameObject == plat5 ||
+            event.pairs[0].bodyA.gameObject == plat6 ||
+            event.pairs[0].bodyA.gameObject == plat7 ||
+            event.pairs[0].bodyA.gameObject == plat8 ||
+            event.pairs[0].bodyA.gameObject == plat9 ||
+            event.pairs[0].bodyA.gameObject == plat0 ||
             event.pairs[0].bodyA.gameObject == ground ||
             event.pairs[0].bodyA.gameObject == hwall ||
             event.pairs[0].bodyA.gameObject == vwall1 ||
@@ -187,6 +200,14 @@ export default class Level7 extends Phaser.Scene {
     // Update the scene
     this.updateCannon(this.pointerLocation);
     this.cannon.setPosition(this.player.x, 540);
+
+    //Update platform rotation
+    if (this.plat1angle >= 360){
+      this.plat1angle = 0
+    }else{
+      this.plat1angle += 1;
+    }
+    this.plat1.setAngle(this.plat1angle);
 
     //Gets rid of tank explosion
     if(this.explosionCounter > 0){
