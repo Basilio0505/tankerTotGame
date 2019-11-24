@@ -239,17 +239,15 @@ export default class Level8 extends Phaser.Scene {
 
       if(event.pairs[0].bodyB.gameObject == this.enemy1bullet || event.pairs[0].bodyB.gameObject == this.enemy2bullet || event.pairs[0].bodyB.gameObject == this.enemy3bullet){
         if(event.pairs[0].bodyA.gameObject == this.player){
-          this.registry.set('Level6Score', 0);
-          if(this.registry.get('Level6HighScore') < this.registry.get('Level6Score')){
-            this.registry.set('Level6HighScore', this.registry.get('Level6Score'));
+          this.registry.set('Level8Score', 0);
+          if(this.registry.get('Level8HighScore') < this.registry.get('Level8Score')){
+            this.registry.set('Level8HighScore', this.registry.get('Level8Score'));
           }
           this.registry.set('selfHit', true)
-          this.scene.start('Section2End', {
+          this.scene.start('Section3End', {
             backgroundX: this.background.tilePositionX,
-            dunes1X: this.dunes1.tilePositionX,
-            dunes2X: this.dunes1.tilePositionX,
-            dunes3X: this.dunes1.tilePositionX,
-            dunes4X: this.dunes1.tilePositionX,
+            buildingsfX: this.buildingsf.tilePositionX,
+            buildingsbX: this.buildingsb.tilePositionX,
             tankerX: this.player.x
           });
         }
