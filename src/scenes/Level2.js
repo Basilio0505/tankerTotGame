@@ -80,7 +80,7 @@ export default class Level2 extends Phaser.Scene {
     //create text/UI
     this.countText = this.add.text( 16, 6, 'Bullets Used: 0', { fontSize: '26px', fill: '#000', stroke: '#000', strokeThickness: 2 });
     var levelText = this.add.text( this.centerX - 30, 6, 'Level 2', { fontSize: '26px', fill: '#000', stroke: '#000', strokeThickness: 2 });
-    var exit = this.add.sprite(this.centerX+300,this.centerY-283,'level2',0).setInteractive().setScale(2.2);
+    var exit = this.add.sprite(this.centerX+300,this.centerY-283,'exit',0).setInteractive().setScale(2.2);
     exit.on("pointerover", function(){this.setFrame(1);});
     exit.on("pointerout", function(){this.setFrame(0);});
     exit.on("pointerup", function(){this.scene.start("LevelSelect")}, this);
