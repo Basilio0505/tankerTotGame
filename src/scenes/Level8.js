@@ -97,7 +97,7 @@ export default class Level8 extends Phaser.Scene {
     exit.on("pointerup", function(){this.scene.start("LevelSelect")}, this);
 
     //assign collisions
-    this.player.setCollidesWith([this.borderCategory, this.environmentCategory, this.bulletCategory]);
+    this.player.setCollidesWith([this.borderCategory, this.environmentCategory, this.bulletCategory, this.enemybulletCategoy ]);
     this.cannon.setCollidesWith([this.borderCategory, this.environmentCategory]);
 
     var squirrelTween = this.tweens.add({
