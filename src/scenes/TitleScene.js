@@ -102,6 +102,7 @@ export default class TitleScene extends Phaser.Scene {
     this.load.image('buildingsf','./assets/Environment/foregroundbuildings.png');
 
     this.load.image('woodPlatform', './assets/Environment/smallWoodPlat.png');
+    this.load.image('steelPlatform', './assets/Environment/steelPlat.png');
     this.load.atlas('sheet', 'assets/Environment/curvy.png', 'assets/physics/curvy.json');
     this.load.json('shapes', 'assets/physics/curvy.json');
     this.load.image('brickPlatform', './assets/Environment/smallBrickPlat.png')

@@ -60,9 +60,11 @@ export default class Level7 extends Phaser.Scene {
     var ground = this.matter.add.image(16,584, 'ground', null, { isStatic: true, friction: 0 , restitution: 1 }).setCollisionCategory(this.borderCategory);
 
     //create plaforms
-    var plat1 = this.matter.add.image(650, 490, "woodPlatform", null, { isStatic: true, friction: 0 , restitution: 1 }).setScale(1.5).setCollisionCategory(this.environmentCategory);
-    var plat2 = this.matter.add.image(600, 200, "woodPlatform", null, { isStatic: true, friction: 0 , restitution: 1 }).setScale(1.5).setCollisionCategory(this.environmentCategory);
-    var plat3 = this.matter.add.image(400, 365, "woodPlatform", null, { isStatic: true, friction: 0 , restitution: 1 }).setScale(1.5).setCollisionCategory(this.environmentCategory);
+    var plat1 = this.matter.add.image(100, 300, "woodPlatform", null, { isStatic: true, friction: 0 , restitution: 1 }).setCollisionCategory(this.environmentCategory).setAngle(90);
+    var plat2 = this.matter.add.image(400, 55, "woodPlatform", null, { isStatic: true, friction: 0 , restitution: 1 }).setCollisionCategory(this.environmentCategory);
+    var plat3 = this.matter.add.image(690, 300, "woodPlatform", null, { isStatic: true, friction: 0 , restitution: 1 }).setCollisionCategory(this.environmentCategory).setAngle(90);
+    var plat4 = this.matter.add.image(670, 545, "brickPlatform", null, { isStatic: true, friction: 0 , restitution: 1 }).setCollisionCategory(this.environmentCategory).setAngle(135);
+    var plat4 = this.matter.add.image(670, 275, "brickPlatform", null, { isStatic: true, friction: 0 , restitution: 1 }).setCollisionCategory(this.environmentCategory).setAngle(45);
 
     //create enemies
     var squirrel = this.matter.add.image(700, 426, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(this.enemyCategory).setSensor(true);
