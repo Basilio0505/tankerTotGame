@@ -42,8 +42,6 @@ export default class Level1 extends Phaser.Scene {
       a:Phaser.Input.Keyboard.KeyCodes.A,
       d:Phaser.Input.Keyboard.KeyCodes.D});
 
-
-
     //Create the scene background
     this.background = this.add.tileSprite(this.centerX,this.centerY,0,0, 'background');
     this.mountains = this.add.tileSprite(this.centerX,this.centerY-100,0,0, 'mountains');
@@ -90,8 +88,6 @@ export default class Level1 extends Phaser.Scene {
     this.pug = this.add.image(this.centerX - 140, this.centerY - 100, "generalPug").setScale(1.5);
     this.blackPug = this.add.image(this.centerX - 140, this.centerY - 100, "blackGeneral").setScale(1.5);
 
-
-
     //create text/UI
     this.countText = this.add.text( 16, 6, 'Bullets Used: 0', { fontSize: '26px', fill: '#000', stroke: '#000', strokeThickness: 2 });
     var levelText = this.add.text( this.centerX - 30, 6, 'Level 1', { fontSize: '26px', fill: '#000', stroke: '#000', strokeThickness: 2 });
@@ -112,7 +108,6 @@ export default class Level1 extends Phaser.Scene {
 
     //Decects collision of two objects
     this.matter.world.on('collisionstart', function(event){
-      console.log("Interesting");
       //Checks if the two objects colliding involving the bullet
       if (event.pairs[0].bodyB.gameObject == this.bullet){
         console.log('bullet collisionstart');
