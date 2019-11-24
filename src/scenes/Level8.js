@@ -19,6 +19,7 @@ export default class Level8 extends Phaser.Scene {
     this.enemyCategory = this.registry.get('enemyCategory');
     this.borderCategory = this.registry.get('borderCategory');
     this.bulletCategory = this.registry.get('bulletCategory');
+    this.enemybulletCategoy = this.registry.get('enemybulletCategoy');
     this.environmentCategory = this.registry.get('environmentCategory');
   }
 
@@ -32,6 +33,13 @@ export default class Level8 extends Phaser.Scene {
 
   //############CREATE#####################################################################CREATE
   create (data) {
+    this.enemy1bulletPresent = false;
+    this.enemy2bulletPresent = false;
+    this.enemy3bulletPresent = false;
+    this.squirrelDead = false;
+    this.tankyDead = false;
+    this.speedyDead = false;
+
     //create variables
     this.bulletPresent = false;
     this.gameOver = false;
@@ -59,16 +67,23 @@ export default class Level8 extends Phaser.Scene {
     var ground = this.matter.add.image(16,584, 'ground', null, { isStatic: true, friction: 0 , restitution: 1 }).setCollisionCategory(this.borderCategory);
 
     //create platforms
-    var plat1 = this.matter.add.image(340, 480, "woodPlatform", null, { isStatic: true, friction: 0 , restitution: 1 }).setScale(2).setCollisionCategory(this.environmentCategory).setAngle(90);
-    var plat2 = this.matter.add.image(525, 200, "woodPlatform", null, { isStatic: true, friction: 0 , restitution: 1 }).setScale(1.5).setCollisionCategory(this.environmentCategory);
+    var plat1 = this.matter.add.image(100, 200, "woodPlatform", null, { isStatic: true, friction: 0 , restitution: 1 }).setScale(1.5).setCollisionCategory(this.environmentCategory);
+    var plat2 = this.matter.add.image(695, 200, "woodPlatform", null, { isStatic: true, friction: 0 , restitution: 1 }).setScale(1.5).setCollisionCategory(this.environmentCategory);
+    var plat3 = this.matter.add.image(400, 200, "woodPlatform", null, { isStatic: true, friction: 0 , restitution: 1 }).setScale(1.5).setCollisionCategory(this.environmentCategory);
 
     var break1frame = 0;
-    var break1 = this.matter.add.sprite(500, 365, 'break', null, { isStatic: true, friction: 0 , restitution: 1 }, break1frame).setScale(2).setCollisionCategory(this.environmentCategory);
+    var break1 = this.matter.add.sprite(190, 120, 'break', null, { isStatic: true, friction: 0 , restitution: 1 }, break1frame).setScale(2).setCollisionCategory(this.environmentCategory).setAngle(90);
+    var break2frame = 0;
+    var break2 = this.matter.add.sprite(310, 120, 'break', null, { isStatic: true, friction: 0 , restitution: 1 }, break2frame).setScale(2).setCollisionCategory(this.environmentCategory).setAngle(90);
+    var break3frame = 0;
+    var break3 = this.matter.add.sprite(490, 120, 'break', null, { isStatic: true, friction: 0 , restitution: 1 }, break3frame).setScale(2).setCollisionCategory(this.environmentCategory).setAngle(90);
+    var break4frame = 0;
+    var break4 = this.matter.add.sprite(610, 120, 'break', null, { isStatic: true, friction: 0 , restitution: 1 }, break4frame).setScale(2).setCollisionCategory(this.environmentCategory).setAngle(90);
 
     //create enemies
-    var squirrel = this.matter.add.image(421, 530, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(this.enemyCategory).setSensor(true);
-    var speedy = this.matter.add.image(590, 136, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(this.enemyCategory).setSensor(true);
-    var tanky = this.matter.add.image(511, 530, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(this.enemyCategory).setSensor(true);
+    this.squirrel = this.matter.add.image(165, 136, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(this.enemyCategory).setSensor(true);
+    this.speedy = this.matter.add.image(740, 136, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(this.enemyCategory).setSensor(true);
+    this.tanky = this.matter.add.image(465, 136, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(this.enemyCategory).setSensor(true);
 
     //player trajectory
     this.trajectory = this.add.image(68, 540, 'trajectory', null, {friction:0});
@@ -85,11 +100,31 @@ export default class Level8 extends Phaser.Scene {
     this.player.setCollidesWith([this.borderCategory, this.environmentCategory, this.bulletCategory]);
     this.cannon.setCollidesWith([this.borderCategory, this.environmentCategory]);
 
+    var squirrelTween = this.tweens.add({
+      targets: this.squirrel,
+      x: 60,
+      ease: "Cubic",
+      duration: 1200,
+      yoyo: true,
+      repeat: -1,
+      repeatDelay: 500
+    });
+
     var speedyTween = this.tweens.add({
-      targets: speedy,
-      x: 480,
+      targets: this.speedy,
+      x: 660,
       ease: "Cubic",
       duration: 1500,
+      yoyo: true,
+      repeat: -1,
+      repeatDelay: 500
+    });
+
+    var tankyTween = this.tweens.add({
+      targets: this.tanky,
+      x: 360,
+      ease: "Cubic",
+      duration: 1800,
       yoyo: true,
       repeat: -1,
       repeatDelay: 500
@@ -109,20 +144,25 @@ export default class Level8 extends Phaser.Scene {
     this.matter.world.on('collisionstart', function(event){
       if (event.pairs[0].bodyB.gameObject == this.bullet){
         //Checks if the two objects colliding are the regular squirrel and bullet
-        if(event.pairs[0].bodyA.gameObject == squirrel){
-          squirrel.destroy();
+        if(event.pairs[0].bodyA.gameObject == this.squirrel ){
+          squirrelTween.remove();
+          this.squirrel.destroy();
+          this.squirrelDead = true;
           this.squirrelCount -= 1;
           this.sound.play('squirreldeath');
         }//Checks if the two objects colliding are the tank squirrel and bullet
-        else if(event.pairs[0].bodyA.gameObject == tanky){
-          tanky.destroy();
+        else if(event.pairs[0].bodyA.gameObject == this.tanky ){
+          tankyTween.remove();
+          this.tanky.destroy();
+          this.tankyDead = true;
           this.squirrelCount -= 1;
           this.sound.play('squirreldeath');
         }
         //Checks if the two objects colliding are the speedy squirrel and bullet
-        else if(event.pairs[0].bodyA.gameObject == speedy){
+        else if(event.pairs[0].bodyA.gameObject == this.speedy ){
           speedyTween.remove();
-          speedy.destroy();
+          this.speedy.destroy();
+          this.speedyDead = true;
           this.squirrelCount -= 1;
           this.sound.play('squirreldeath');
         }
@@ -144,6 +184,7 @@ export default class Level8 extends Phaser.Scene {
         //Checks if the two objects colliding are the walls or platforms and bullet
         else if(event.pairs[0].bodyA.gameObject == plat1 ||
             event.pairs[0].bodyA.gameObject == plat2 ||
+            event.pairs[0].bodyA.gameObject == plat3 ||
             event.pairs[0].bodyA.gameObject == ground ||
             event.pairs[0].bodyA.gameObject == hwall ||
             event.pairs[0].bodyA.gameObject == vwall1 ||
@@ -163,6 +204,71 @@ export default class Level8 extends Phaser.Scene {
             break1.setFrame(break1frame);
           }
           this.sound.play('bounce');
+        }else if(event.pairs[0].bodyA.gameObject == break2){
+          this.bounceCount += 1;
+          break2frame +=1;
+          if(break2frame > 2){
+            break2.destroy();
+          }
+          else{
+            break2.setFrame(break2frame);
+          }
+          this.sound.play('bounce');
+        }else if(event.pairs[0].bodyA.gameObject == break3){
+          this.bounceCount += 1;
+          break3frame +=1;
+          if(break3frame > 2){
+            break3.destroy();
+          }
+          else{
+            break3.setFrame(break3frame);
+          }
+          this.sound.play('bounce');
+        }else if(event.pairs[0].bodyA.gameObject == break4){
+          this.bounceCount += 1;
+          break4frame +=1;
+          if(break4frame > 2){
+            break4.destroy();
+          }
+          else{
+            break4.setFrame(break4frame);
+          }
+          this.sound.play('bounce');
+        }
+      }
+
+      if(event.pairs[0].bodyB.gameObject == this.enemy1bullet || event.pairs[0].bodyB.gameObject == this.enemy2bullet || event.pairs[0].bodyB.gameObject == this.enemy3bullet){
+        if(event.pairs[0].bodyA.gameObject == this.player){
+          this.registry.set('Level8Score', 0);
+          if(this.registry.get('Level8HighScore') < this.registry.get('Level8Score')){
+            this.registry.set('Level8HighScore', this.registry.get('Level8Score'));
+          }
+          this.registry.set('selfHit', true)
+          this.scene.start('Section3End', {
+            backgroundX: this.background.tilePositionX,
+            buildingsfX: this.buildingsf.tilePositionX,
+            buildingsbX: this.buildingsb.tilePositionX,
+            tankerX: this.player.x
+          });
+        }
+        //Checks if the two objects colliding are the walls or the enemy bullet
+        else if((event.pairs[0].bodyA.gameObject == ground ||
+          event.pairs[0].bodyA.gameObject == vwall1 ||
+          event.pairs[0].bodyA.gameObject == vwall2) && event.pairs[0].bodyB.gameObject == this.enemy1bullet){
+            this.enemy1bullet.destroy();
+            this.enemy1bulletPresent = false;
+        }
+        else if((event.pairs[0].bodyA.gameObject == ground ||
+          event.pairs[0].bodyA.gameObject == vwall1 ||
+          event.pairs[0].bodyA.gameObject == vwall2) && event.pairs[0].bodyB.gameObject == this.enemy2bullet){
+            this.enemy2bullet.destroy();
+            this.enemy2bulletPresent = false;
+        }
+        else if((event.pairs[0].bodyA.gameObject == ground ||
+          event.pairs[0].bodyA.gameObject == vwall1 ||
+          event.pairs[0].bodyA.gameObject == vwall2) && event.pairs[0].bodyB.gameObject == this.enemy3bullet){
+            this.enemy3bullet.destroy();
+            this.enemy3bulletPresent = false;
         }
       }
 
@@ -181,6 +287,16 @@ export default class Level8 extends Phaser.Scene {
     // Update the scene
     this.updateCannon(this.pointerLocation);
     this.cannon.setPosition(this.player.x, 540);
+
+    if(this.enemy1bulletPresent == false && !this.squirrelDead){
+      this.enemy1Shoot(this.squirrel);
+    }
+    if(this.enemy2bulletPresent == false && !this.tankyDead){
+      this.enemy2Shoot(this.tanky);
+    }
+    if(this.enemy3bulletPresent == false && !this.speedyDead){
+      this.enemy3Shoot(this.speedy);
+    }
 
     //Gets rid of tank explosion
     if(this.explosionCounter > 0){
@@ -246,6 +362,25 @@ export default class Level8 extends Phaser.Scene {
         this.bounceCount = 0;
       }
     }
+
+    if (this.enemy1bulletPresent){
+      if ((this.enemy1bullet.x < 0) || (this.enemy1bullet.x > 800) || (this.enemy1bullet.y < 0) || (this.enemy1bullet.y > 600)){
+        this.enemy1bullet.destroy();
+        this.enemy1bulletPresent = false;
+      }
+    }
+    if (this.enemy2bulletPresent){
+      if ((this.enemy2bullet.x < 0) || (this.enemy2bullet.x > 800) || (this.enemy2bullet.y < 0) || (this.enemy2bullet.y > 600)){
+        this.enemy2bullet.destroy();
+        this.enemy2bulletPresent = false;
+      }
+    }
+    if (this.enemy3bulletPresent){
+      if ((this.enemy3bullet.x < 0) || (this.enemy3bullet.x > 800) || (this.enemy3bullet.y < 0) || (this.enemy3bullet.y > 600)){
+        this.enemy3bullet.destroy();
+        this.enemy3bulletPresent = false;
+      }
+    }
   }
 
   //#############FUNCTIONS########################################################FUNCTIONS
@@ -277,6 +412,67 @@ export default class Level8 extends Phaser.Scene {
           this.countText.setText('Bullets Used: ' + this.shotCount);
         }
       }
+    }
+  }
+
+  enemy1Shoot(enemy){
+    var betweenPoints = Phaser.Math.Angle.BetweenPoints;
+    var angle = betweenPoints(this.player, enemy);
+    if  (this.enemy1bulletPresent == false){
+      this.enemy1bullet = this.matter.add.sprite(enemy.x, enemy.y,
+        'enemybullet', null, {
+          shape: 'circle',
+          ignoreGravity: true,
+          collisionFilter:{category: this.enemybulletCategoy},
+          isStatic: false,
+          restitution: 1,
+          frictionAir: 0
+        });
+      this.enemy1bullet.setCollidesWith([this.playerCategory, this.borderCategory]);
+      this.enemy1bullet.setVelocity(Math.cos(angle) * -4, Math.sin(angle) * -4);
+      this.enemy1bullet.setAngle((angle * (180 / Math.PI))+90);
+      this.sound.play('shot');
+      this.enemy1bulletPresent = true;
+    }
+  }
+  enemy2Shoot(enemy){
+    var betweenPoints = Phaser.Math.Angle.BetweenPoints;
+    var angle = betweenPoints(this.player, enemy);
+    if  (this.enemy2bulletPresent == false){
+      this.enemy2bullet = this.matter.add.sprite(enemy.x, enemy.y,
+        'enemybullet', null, {
+          shape: 'circle',
+          ignoreGravity: true,
+          collisionFilter:{category: this.enemybulletCategoy},
+          isStatic: false,
+          restitution: 1,
+          frictionAir: 0
+        });
+      this.enemy2bullet.setCollidesWith([this.playerCategory, this.borderCategory]);
+      this.enemy2bullet.setVelocity(Math.cos(angle) * -4, Math.sin(angle) * -4);
+      this.enemy2bullet.setAngle((angle * (180 / Math.PI))+90);
+      this.sound.play('shot');
+      this.enemy2bulletPresent = true;
+    }
+  }
+  enemy3Shoot(enemy){
+    var betweenPoints = Phaser.Math.Angle.BetweenPoints;
+    var angle = betweenPoints(this.player, enemy);
+    if  (this.enemy3bulletPresent == false){
+      this.enemy3bullet = this.matter.add.sprite(enemy.x, enemy.y,
+        'enemybullet', null, {
+          shape: 'circle',
+          ignoreGravity: true,
+          collisionFilter:{category: this.enemybulletCategoy},
+          isStatic: false,
+          restitution: 1,
+          frictionAir: 0
+        });
+      this.enemy3bullet.setCollidesWith([this.playerCategory, this.borderCategory]);
+      this.enemy3bullet.setVelocity(Math.cos(angle) * -4, Math.sin(angle) * -4);
+      this.enemy3bullet.setAngle((angle * (180 / Math.PI))+90);
+      this.sound.play('shot');
+      this.enemy3bulletPresent = true;
     }
   }
 
