@@ -81,7 +81,7 @@ export default class Level1 extends Phaser.Scene {
     //create tutorial frames
     this.tutorialActive = true;//bool used to stop all other actions while tutorialText is active
     this.tutorialShoot = this.add.image(this.centerX, this.centerY, "shootText").setScale(1.5);
-    this.tutorialMove = this.add.image(this.centerX, this.centerY, "movementText").setScale(1.5);
+    //this.tutorialMove = this.add.image(this.centerX, this.centerY, "movementText").setScale(1.5);
     this.tutorialSpeed = this.add.image(this.centerX, this.centerY, "speedText").setScale(1.5);
     this.tutorialDuty = this.add.image(this.centerX, this.centerY, "dutyText").setScale(1.5);
     this.tutorialTime = this.add.image(this.centerX, this.centerY, "timeText").setScale(1.5);
@@ -93,6 +93,10 @@ export default class Level1 extends Phaser.Scene {
     //create text/UI
     this.countText = this.add.text( 16, 6, 'Bullets Used: 0', { fontSize: '26px', fill: '#000', stroke: '#000', strokeThickness: 2 });
     var levelText = this.add.text( this.centerX - 30, 6, 'Level 1', { fontSize: '26px', fill: '#000', stroke: '#000', strokeThickness: 2 });
+    var exit = this.add.sprite(this.centerX+300,this.centerY-283,'level2',0).setInteractive().setScale(2.2);
+    exit.on("pointerover", function(){this.setFrame(1);});
+    exit.on("pointerout", function(){this.setFrame(0);});
+    exit.on("pointerup", function(){this.scene.start("LevelSelect")}, this);
 
     //assign collisons
     this.player.setCollidesWith([this.borderCategory, this.environmentCategory, this.bulletCategory]);
@@ -307,10 +311,11 @@ export default class Level1 extends Phaser.Scene {
         this.tutorialSpeed.destroy();
         this.pug.destroy()
         this.tutorialSpeed.x = this.centerX-30;
-      } else if(this.tutorialMove.x == this.centerX){
+      } /*else if(this.tutorialMove.x == this.centerX){
         this.tutorialMove.destroy();
         this.tutorialMove.x = this.centerX-30;
-      } else {
+      }*/
+      else {
         this.tutorialShoot.destroy();
         this.tutorialActive = false;
       }
