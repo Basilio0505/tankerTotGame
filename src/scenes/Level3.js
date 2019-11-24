@@ -52,7 +52,6 @@ export default class Level3 extends Phaser.Scene {
     //create player
     this.player = this.matter.add.image(138, 535, 'tankertot', null, {friction:0, ignoreGravity: true}).setFixedRotation(true).setCollisionCategory(this.playerCategory);
     this.cannon = this.matter.add.image(138, 540, 'cannon', null, {circle: 'circle', friction: 0, ignoreGravity: true}).setCollisionCategory(this.playerCategory).setScale(.78);
-    this.trajectory = this.add.image(68, 540, 'trajectory', null, {friction:0});
 
     //create borders
     var vwall1 = this.matter.add.image(16,16, 'vwall', null, { isStatic: true, friction: 0 , restitution: 1 }).setCollisionCategory(this.borderCategory);
@@ -72,10 +71,14 @@ export default class Level3 extends Phaser.Scene {
     var speedy = this.matter.add.image(261, 136, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(this.enemyCategory).setSensor(true);
     var tanky = this.matter.add.image(700, 528, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(this.enemyCategory).setSensor(true);
 
+    //player trajectory
+    this.trajectory = this.add.image(68, 540, 'trajectory', null, {friction:0});
+
     //create tutorial frames
     this.tutorialActive = true;//bool used to stop all other actions while tutorialText is active
     this.tutorialSuicide = this.add.image(this.centerX, this.centerY, "suicideText").setScale(1.5);
     this.tutorialBounce = this.add.image(this.centerX, this.centerY, "bounceText").setScale(1.5);
+
 
     //create text/UI
     this.countText = this.add.text( 16, 6, 'Bullets Used: 0', { fontSize: '26px', fill: '#000', stroke: '#000', strokeThickness: 2 });
@@ -231,27 +234,33 @@ export default class Level3 extends Phaser.Scene {
 
   //#############FUNCTIONS########################################################FUNCTIONS
   shoot(pointer){
-    if(this.bulletPresent == false){
-      this.trajectory.destroy()
-      var betweenPoints = Phaser.Math.Angle.BetweenPoints;
-      var angle = betweenPoints(this.player, pointer);
-      this.explosion = this.add.image(this.player.x + (Math.cos(angle)*20), this.player.y + (Math.sin(angle)*20), "explosion" + Math.floor(Math.random()*4)).setScale(1.6);
-      this.explosionCounter = 15
-      this.bullet = this.matter.add.sprite(this.player.x + (Math.cos(angle)*40),
-      this.player.y+ (Math.sin(angle)*40),
-      'bulletss',0,{
-          shape: 'circle',
-          ignoreGravity: true,
-          collisionFilter: {category: this.bulletCategory},
-          isStatic: false,
-          restitution: 1,
-          frictionAir: 0
-      }).setScale(2);
-      this.bullet.setVelocity(Math.cos(angle)*7.5, Math.sin(angle)*7.5);
-      this.shotCount += 1;
-      this.sound.play('shot');
-      this.bulletPresent = true;
-      this.countText.setText('Bullets Used: ' + this.shotCount);
+    if(pointer.x > 30 && pointer.x < 770 &&
+    pointer.y > 30 && pointer.y < 570){
+      if(pointer.x > (this.player.x + 30) || pointer.x < (this.player.x - 30) ||
+      pointer.y < (this.player.y - 30)){
+        var betweenPoints = Phaser.Math.Angle.BetweenPoints;
+        var angle = betweenPoints(this.player, pointer);
+        if(this.bulletPresent == false){
+          this.trajectory.destroy()
+          this.explosion = this.add.image(this.player.x + (Math.cos(angle)*20), this.player.y + (Math.sin(angle)*20), "explosion" + Math.floor(Math.random()*4)).setScale(1.6);
+          this.explosionCounter = 15
+          this.bullet = this.matter.add.sprite(this.player.x + (Math.cos(angle)*40),
+          this.player.y+ (Math.sin(angle)*40),
+          'bulletss',0,{
+              shape: 'circle',
+              ignoreGravity: true,
+              collisionFilter: {category: this.bulletCategory},
+              isStatic: false,
+              restitution: 1,
+              frictionAir: 0
+          }).setScale(2);
+          this.bullet.setVelocity(Math.cos(angle)*7.5, Math.sin(angle)*7.5);
+          this.shotCount += 1;
+          this.sound.play('shot');
+          this.bulletPresent = true;
+          this.countText.setText('Bullets Used: ' + this.shotCount);
+        }
+      }
     }
   }
 
