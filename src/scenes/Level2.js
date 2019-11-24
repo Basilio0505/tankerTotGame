@@ -7,8 +7,8 @@ export default class Level2 extends Phaser.Scene {
   init (data) {
     // Initialization code goes here
     this.threeStar = 1;
-    this.twoStar = 3;
-    this.oneStar = 5;
+    this.twoStar = 2;
+    this.oneStar = 3;
     this.registry.set('level', 2)
     this.squirrelCount = 3;
 
@@ -78,7 +78,7 @@ export default class Level2 extends Phaser.Scene {
       this.tutorialBullet = this.add.image(this.centerX, this.centerY, "bulletText").setScale(1.5);
     }
     //create text/UI
-    this.countText = this.add.text( 16, 6, 'Bullets Used: 0', { fontSize: '26px', fill: '#000', stroke: '#000', strokeThickness: 2 });
+    this.countText = this.add.text( 16, 6, 'Bullets Left: ' + this.oneStar, { fontSize: '26px', fill: '#000', stroke: '#000', strokeThickness: 2 });
     var levelText = this.add.text( this.centerX - 30, 6, 'Level 2', { fontSize: '26px', fill: '#000', stroke: '#000', strokeThickness: 2 });
     var exit = this.add.sprite(this.centerX+300,this.centerY-283,'level2',0).setInteractive().setScale(2.2);
     exit.on("pointerover", function(){this.setFrame(1);});
@@ -176,9 +176,9 @@ export default class Level2 extends Phaser.Scene {
     }
 
     //Checks if Winning Condition is met
-    if (this.squirrelCount == 0) {
+    if (this.bulletPresent == false) {
       //Makes sure there is no active bullet present
-      if (this.bulletPresent == false){
+      if (this.squirrelCount == 0){
         //Loads score Scene and passes info for display over
         if(this.shotCount == this.threeStar){
           this.registry.set('Level2Score', 3)
@@ -192,6 +192,15 @@ export default class Level2 extends Phaser.Scene {
         if(this.registry.get('Level2HighScore') < this.registry.get('Level2Score')){
           this.registry.set('Level2HighScore', this.registry.get('Level2Score'))
         }
+        this.scene.start('Section1End', {
+          backgroundX: this.background.tilePositionX,
+          mountainsX: this.mountains.tilePositionX,
+          treesX: this.trees.tilePositionX,
+          tankerX: this.player.x
+          });
+      }
+      else if(this.oneStar - this.shotCount < 1){
+        this.registry.set('Level2Score', 0)
         this.scene.start('Section1End', {
           backgroundX: this.background.tilePositionX,
           mountainsX: this.mountains.tilePositionX,
@@ -259,7 +268,7 @@ export default class Level2 extends Phaser.Scene {
           this.shotCount += 1;
           this.sound.play('shot');
           this.bulletPresent = true;
-          this.countText.setText('Bullets Used: ' + this.shotCount);
+          this.countText.setText('Bullets Left: ' + (this.oneStar - this.shotCount));
         }
       }
     }

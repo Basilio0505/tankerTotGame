@@ -7,8 +7,8 @@ export default class Level1 extends Phaser.Scene {
   init (data) {
     // Initialization code goes here
     this.threeStar = 1;
-    this.twoStar = 3;
-    this.oneStar = 5;
+    this.twoStar = 2;
+    this.oneStar = 3;
     this.registry.set('level', 1)
     this.squirrelCount = 3;
 
@@ -62,8 +62,6 @@ export default class Level1 extends Phaser.Scene {
     var plat2 = this.matter.add.image(640, 200, "woodPlatform", null, { isStatic: true, friction: 0, restitution: 1  }).setScale(1.5).setCollisionCategory(this.environmentCategory);
     var plat3 = this.matter.add.image(440, 365, "woodPlatform", null, { isStatic: true, friction: 0, restitution: 1  }).setScale(1.5).setCollisionCategory(this.environmentCategory);
 
-    var break1frame = 0;
-    var break1 = this.matter.add.sprite(100, 100, 'break', null, { isStatic: true, friction: 0, restitution: 1  }, break1frame).setScale(2).setCollisionCategory(this.environmentCategory);
 
     //create enemies
     var squirrel = this.matter.add.image(215, 456, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(this.enemyCategory).setSensor(true);
@@ -89,7 +87,7 @@ export default class Level1 extends Phaser.Scene {
 
 
     //create text/UI
-    this.countText = this.add.text( 16, 6, 'Bullets Used: 0', { fontSize: '26px', fill: '#000', stroke: '#000', strokeThickness: 2 });
+    this.countText = this.add.text( 16, 6, 'Bullets Left: ' + this.oneStar, { fontSize: '26px', fill: '#000', stroke: '#000', strokeThickness: 2 });
     var levelText = this.add.text( this.centerX - 30, 6, 'Level 1', { fontSize: '26px', fill: '#000', stroke: '#000', strokeThickness: 2 });
     var exit = this.add.sprite(this.centerX+300,this.centerY-283,'level2',0).setInteractive().setScale(2.2);
     exit.on("pointerover", function(){this.setFrame(1);});
@@ -158,18 +156,6 @@ export default class Level1 extends Phaser.Scene {
           this.bullet.setFrame(this.bounceCount);
           this.sound.play('bounce');
         }
-        //checks if the two objects colliding are the breakable walls or the bullet
-        else if(event.pairs[0].bodyA.gameObject == break1){
-          this.bounceCount += 1;
-          break1frame +=1;
-          if(break1frame > 2){
-            break1.destroy();
-          }
-          else{
-            break1.setFrame(break1frame);
-          }
-          this.sound.play('bounce');
-        }
 
         //If player bullet bounce reaches limit
         if (this.bounceCount > 3){
@@ -188,6 +174,7 @@ export default class Level1 extends Phaser.Scene {
     this.updateCannon(this.pointerLocation);
     this.cannon.setPosition(this.player.x, 540);
 
+
     //Gets rid of tank explosion
     if(this.explosionCounter > 0){
       this.explosionCounter -= 1
@@ -197,9 +184,9 @@ export default class Level1 extends Phaser.Scene {
       }
     }
     //Checks if Winning Condition is met
-    if (this.squirrelCount == 0) {
+    if (this.bulletPresent == false) {
       //Makes sure there is no active bullet present
-      if (this.bulletPresent == false){
+      if (this.squirrelCount == 0){
         //Loads score Scene and passes info for display over
         if(this.shotCount == this.threeStar){
           this.registry.set('Level1Score', 3)
@@ -220,7 +207,19 @@ export default class Level1 extends Phaser.Scene {
           tankerX: this.player.x
           });
       }
+      else if(this.oneStar - this.shotCount < 1){
+        this.registry.set('Level1Score', 0)
+        this.scene.start('Section1End', {
+          backgroundX: this.background.tilePositionX,
+          mountainsX: this.mountains.tilePositionX,
+          treesX: this.trees.tilePositionX,
+          tankerX: this.player.x
+          });
+      }
     }
+
+    //checks if too many shots were taken
+
     if(this.movement.a.isDown){
       this.player.setVelocityX(-2);
       this.cannon.setVelocityX(-2);
@@ -277,7 +276,7 @@ export default class Level1 extends Phaser.Scene {
           this.shotCount += 1;
           this.sound.play('shot');
           this.bulletPresent = true;
-          this.countText.setText('Bullets Used: ' + this.shotCount);
+          this.countText.setText('Bullets Left: ' + (this.oneStar - this.shotCount));
         }
       }
     }

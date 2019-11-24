@@ -82,7 +82,7 @@ export default class Level6 extends Phaser.Scene {
     this.trajectory = this.add.image(68, 540, 'trajectory', null, {friction:0});
 
     //create text/UI
-    this.countText = this.add.text( 16, 6, 'Bullets Used: 0', { fontSize: '26px', fill: '#000', stroke: '#000', strokeThickness: 2 });
+    this.countText = this.add.text( 16, 6, 'Bullets Left: ' + this.oneStar, { fontSize: '26px', fill: '#000', stroke: '#000', strokeThickness: 2 });
     var levelText = this.add.text( this.centerX - 30, 6, 'Level 6', { fontSize: '26px', fill: '#000', stroke: '#000', strokeThickness: 2 });
     var exit = this.add.sprite(this.centerX+300,this.centerY-283,'level2',0).setInteractive().setScale(2.2);
     exit.on("pointerover", function(){this.setFrame(1);});
@@ -266,9 +266,9 @@ export default class Level6 extends Phaser.Scene {
     }
 
     //Checks if Winning Condition is met
-    if (this.squirrelCount == 0) {
+    if (this.bulletPresent == false) {
       //Makes sure there is no active bullet present
-      if (this.bulletPresent == false){
+      if (this.squirrelCount == 0){
         //Loads score Scene and passes info for display over
         if(this.shotCount <= this.threeStar){
           this.registry.set('Level6Score', 3)
@@ -288,6 +288,15 @@ export default class Level6 extends Phaser.Scene {
           dunes2X: this.dunes1.tilePositionX,
           dunes3X: this.dunes1.tilePositionX,
           dunes4X: this.dunes1.tilePositionX,
+          tankerX: this.player.x
+          });
+      }
+      else if(this.oneStar - this.shotCount < 1){
+        this.registry.set('Level6Score', 0)
+        this.scene.start('Section2End', {
+          backgroundX: this.background.tilePositionX,
+          mountainsX: this.mountains.tilePositionX,
+          treesX: this.trees.tilePositionX,
           tankerX: this.player.x
           });
       }
@@ -373,7 +382,7 @@ export default class Level6 extends Phaser.Scene {
           this.shotCount += 1;
           this.sound.play('shot');
           this.bulletPresent = true;
-          this.countText.setText('Bullets Used: ' + this.shotCount);
+          this.countText.setText('Bullets Left: ' + (this.oneStar - this.shotCount));
         }
       }
     }
