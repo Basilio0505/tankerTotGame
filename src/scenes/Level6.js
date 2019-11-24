@@ -379,8 +379,7 @@ export default class Level6 extends Phaser.Scene {
     var betweenPoints = Phaser.Math.Angle.BetweenPoints;
     var angle = betweenPoints(this.player, enemy);
     if  (this.enemy1bulletPresent == false){
-      this.enemy1bullet = this.matter.add.sprite(enemy.x /*+ (Math.cos(angle)*45)*/,
-        enemy.y /*+ (Math.sin(angle)*45)*/,
+      this.enemy1bullet = this.matter.add.sprite(enemy.x, enemy.y,
         'enemybullet', null, {
           shape: 'circle',
           ignoreGravity: true,
@@ -388,9 +387,10 @@ export default class Level6 extends Phaser.Scene {
           isStatic: false,
           restitution: 1,
           frictionAir: 0
-        }).setScale(2);
+        });
       this.enemy1bullet.setCollidesWith([this.playerCategory, this.borderCategory]);
       this.enemy1bullet.setVelocity(Math.cos(angle) * -4, Math.sin(angle) * -4);
+      this.enemy1bullet.setAngle((angle * (180 / Math.PI))+90);
       this.sound.play('shot');
       this.enemy1bulletPresent = true;
     }
@@ -399,8 +399,7 @@ export default class Level6 extends Phaser.Scene {
     var betweenPoints = Phaser.Math.Angle.BetweenPoints;
     var angle = betweenPoints(this.player, enemy);
     if  (this.enemy2bulletPresent == false){
-      this.enemy2bullet = this.matter.add.sprite(enemy.x /*+ (Math.cos(angle)*45)*/,
-        enemy.y /*+ (Math.sin(angle)*45)*/,
+      this.enemy2bullet = this.matter.add.sprite(enemy.x, enemy.y,
         'enemybullet', null, {
           shape: 'circle',
           ignoreGravity: true,
@@ -408,9 +407,10 @@ export default class Level6 extends Phaser.Scene {
           isStatic: false,
           restitution: 1,
           frictionAir: 0
-        }).setScale(2);
+        });
       this.enemy2bullet.setCollidesWith([this.playerCategory, this.borderCategory]);
       this.enemy2bullet.setVelocity(Math.cos(angle) * -4, Math.sin(angle) * -4);
+      this.enemy2bullet.setAngle((angle * (180 / Math.PI))+90);
       this.sound.play('shot');
       this.enemy2bulletPresent = true;
     }
@@ -419,8 +419,7 @@ export default class Level6 extends Phaser.Scene {
     var betweenPoints = Phaser.Math.Angle.BetweenPoints;
     var angle = betweenPoints(this.player, enemy);
     if  (this.enemy3bulletPresent == false){
-      this.enemy3bullet = this.matter.add.sprite(enemy.x /*+ (Math.cos(angle)*45)*/,
-        enemy.y /*+ (Math.sin(angle)*45)*/,
+      this.enemy3bullet = this.matter.add.sprite(enemy.x, enemy.y,
         'enemybullet', null, {
           shape: 'circle',
           ignoreGravity: true,
@@ -428,9 +427,10 @@ export default class Level6 extends Phaser.Scene {
           isStatic: false,
           restitution: 1,
           frictionAir: 0
-        }).setScale(2);
+        });
       this.enemy3bullet.setCollidesWith([this.playerCategory, this.borderCategory]);
       this.enemy3bullet.setVelocity(Math.cos(angle) * -4, Math.sin(angle) * -4);
+      this.enemy3bullet.setAngle((angle * (180 / Math.PI))+90);
       this.sound.play('shot');
       this.enemy3bulletPresent = true;
     }
