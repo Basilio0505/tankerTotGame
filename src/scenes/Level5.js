@@ -51,8 +51,8 @@ export default class Level5 extends Phaser.Scene {
     this.dunes4 = this.add.tileSprite(this.centerX,this.centerY+50,0,0, 'dunes4');
 
     //create player
-    this.player = this.matter.add.image(200, 535, 'tankertot', null, {friction:0, ignoreGravity: true}).setFixedRotation(true).setCollisionCategory(this.playerCategory);
-    this.cannon = this.matter.add.image(200, 540, 'cannon', null, {shape: 'circle', friction:0, ignoreGravity: true}).setCollisionCategory(this.playerCategory).setScale(.78);
+    this.player = this.matter.add.image(300, 535, 'tankertot', null, {friction:0, ignoreGravity: true}).setFixedRotation(true).setCollisionCategory(this.playerCategory);
+    this.cannon = this.matter.add.image(300, 540, 'cannon', null, {shape: 'circle', friction:0, ignoreGravity: true}).setCollisionCategory(this.playerCategory).setScale(.78);
 
     //create borders
     var vwall1 = this.matter.add.image(16,16, 'vwall', null, { isStatic: true, friction: 0 , restitution: 1 }).setCollisionCategory(this.borderCategory);
@@ -75,10 +75,14 @@ export default class Level5 extends Phaser.Scene {
     //player trajectory
     this.trajectory = this.add.image(68, 540, 'trajectory', null, {friction:0});
 
+    //create tutorial frames
+    this.tutorialActive = true;//bool used to stop all other actions while tutorialText is active
+    this.tutorialMove = this.add.image(this.centerX, this.centerY, "movementText").setScale(1.5);
+
     //create text/UI
     this.countText = this.add.text( 16, 6, 'Bullets Left: ' + this.oneStar, { fontSize: '26px', fill: '#000', stroke: '#000', strokeThickness: 2 });
     var levelText = this.add.text( this.centerX - 30, 6, 'Level 5', { fontSize: '26px', fill: '#000', stroke: '#000', strokeThickness: 2 });
-    var exit = this.add.sprite(this.centerX+300,this.centerY-283,'level2',0).setInteractive().setScale(2.2);
+    var exit = this.add.sprite(this.centerX+300,this.centerY-283,'exit',0).setInteractive().setScale(2.2);
     exit.on("pointerover", function(){this.setFrame(1);});
     exit.on("pointerout", function(){this.setFrame(0);});
     exit.on("pointerup", function(){this.scene.start("LevelSelect")}, this);
@@ -105,7 +109,7 @@ export default class Level5 extends Phaser.Scene {
       }, this
     );
 
-    this.input.on("pointerdown", this.shoot, this);
+    this.input.on("pointerdown", this.tutorial, this);
 
     //Decects collision of two objects
     this.matter.world.on('collisionstart', function(event){
@@ -269,6 +273,16 @@ export default class Level5 extends Phaser.Scene {
   }
 
   //#############FUNCTIONS########################################################FUNCTIONS
+  tutorial(pointer){
+    if(this.tutorialActive == true){
+      this.tutorialMove.destroy();
+      this.tutorialActive = false;
+    }
+    else{
+      this.shoot(pointer);
+    }
+  }
+
   shoot(pointer){
     if(pointer.x > 30 && pointer.x < 770 &&
     pointer.y > 30 && pointer.y < 570){
