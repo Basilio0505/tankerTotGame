@@ -6,9 +6,9 @@ export default class Level8 extends Phaser.Scene {
 
   init (data) {
     // Initialization code goes here
-    this.threeStar = 1;
-    this.twoStar = 3;
-    this.oneStar = 5;
+    this.threeStar = 5;
+    this.twoStar = 8;
+    this.oneStar = 10;
 
     this.registry.set('level', 8)
     this.squirrelCount = 3;
