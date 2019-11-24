@@ -75,10 +75,11 @@ export default class Level3 extends Phaser.Scene {
     this.trajectory = this.add.image(68, 540, 'trajectory', null, {friction:0});
 
     //create tutorial frames
-    this.tutorialActive = true;//bool used to stop all other actions while tutorialText is active
-    this.tutorialSuicide = this.add.image(this.centerX, this.centerY, "suicideText").setScale(1.5);
-    this.tutorialBounce = this.add.image(this.centerX, this.centerY, "bounceText").setScale(1.5);
-
+    if(this.tutorialActive == undefined){
+      this.tutorialActive = true;//bool used to stop all other actions while tutorialText is active
+      this.tutorialSuicide = this.add.image(this.centerX, this.centerY, "suicideText").setScale(1.5);
+      this.tutorialBounce = this.add.image(this.centerX, this.centerY, "bounceText").setScale(1.5);
+    }
 
     //create text/UI
     this.countText = this.add.text( 16, 6, 'Bullets Used: 0', { fontSize: '26px', fill: '#000', stroke: '#000', strokeThickness: 2 });
