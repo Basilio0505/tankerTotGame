@@ -46,8 +46,6 @@ export default class TitleScene extends Phaser.Scene {
     this.load.image('title', './assets/StartMenu/TitleText.png');
     this.load.image('image', './assets/StartMenu/Starting_TankerTot.png');
 
-
-
     // Declare variables for center of the scene
     this.centerX = this.cameras.main.width / 2;
     this.centerY = this.cameras.main.height / 2;
@@ -60,7 +58,6 @@ export default class TitleScene extends Phaser.Scene {
     this.load.image('blackGeneral', './assets/Tutorial/blackGeneralPug.png');
     this.load.image('generalPug', './assets/Tutorial/generalPug.png');
     //Text
-    this.load.image('movementText', './assets/Tutorial/TextBox_Movement.png');
     this.load.image('shootText', './assets/Tutorial/TextBox_ShootBasics.png');
     this.load.image('startText', './assets/Tutorial/TextBox_PugIncoming.png');
     this.load.image('dutyText', './assets/Tutorial/TextBox_PugDuty.png');
@@ -72,6 +69,10 @@ export default class TitleScene extends Phaser.Scene {
     //Level 3
     this.load.image('suicideText', './assets/Tutorial/TextBox_Suicide.png');
     this.load.image('bounceText', './assets/Tutorial/TextBox_Bounce.png');
+    //Level 5
+    this.load.image('movementText', './assets/Tutorial/TextBox_Movement.png');
+    //Level 7
+    this.load.image('upgradeText', './assets/Tutorial/TextBox_PugUpgrade.png')
 
     //Player Assets
     this.load.image('ghost', './assets/tankerTot/ghost.png');
