@@ -74,16 +74,19 @@ export default class Level1 extends Phaser.Scene {
     this.trajectory = this.add.image(68, 540, 'trajectory', null, {friction:0});
 
     //create tutorial frames
-    this.tutorialActive = true;//bool used to stop all other actions while tutorialText is active
-    this.tutorialShoot = this.add.image(this.centerX, this.centerY, "shootText").setScale(1.5);
-    //this.tutorialMove = this.add.image(this.centerX, this.centerY, "movementText").setScale(1.5);
-    this.tutorialSpeed = this.add.image(this.centerX, this.centerY, "speedText").setScale(1.5);
-    this.tutorialDuty = this.add.image(this.centerX, this.centerY, "dutyText").setScale(1.5);
-    this.tutorialTime = this.add.image(this.centerX, this.centerY, "timeText").setScale(1.5);
-    this.tutorialStart = this.add.image(this.centerX, this.centerY, "startText").setScale(1.5);
+    if(this.tutorialActive == undefined){
+      this.tutorialActive = true;//bool used to stop all other actions while tutorialText is active
+      this.tutorialShoot = this.add.image(this.centerX, this.centerY, "shootText").setScale(1.5);
+      //this.tutorialMove = this.add.image(this.centerX, this.centerY, "movementText").setScale(1.5);
+      this.tutorialSpeed = this.add.image(this.centerX, this.centerY, "speedText").setScale(1.5);
+      this.tutorialDuty = this.add.image(this.centerX, this.centerY, "dutyText").setScale(1.5);
+      this.tutorialTime = this.add.image(this.centerX, this.centerY, "timeText").setScale(1.5);
+      this.tutorialStart = this.add.image(this.centerX, this.centerY, "startText").setScale(1.5);
 
-    this.pug = this.add.image(this.centerX - 140, this.centerY - 100, "generalPug").setScale(1.5);
-    this.blackPug = this.add.image(this.centerX - 140, this.centerY - 100, "blackGeneral").setScale(1.5);
+      this.pug = this.add.image(this.centerX - 140, this.centerY - 100, "generalPug").setScale(1.5);
+      this.blackPug = this.add.image(this.centerX - 140, this.centerY - 100, "blackGeneral").setScale(1.5);
+    }
+
 
     //create text/UI
     this.countText = this.add.text( 16, 6, 'Bullets Used: 0', { fontSize: '26px', fill: '#000', stroke: '#000', strokeThickness: 2 });

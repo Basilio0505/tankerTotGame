@@ -72,10 +72,11 @@ export default class Level2 extends Phaser.Scene {
     this.trajectory = this.add.image(68, 540, 'trajectory', null, {friction:0});
 
     //create tutorial frames
-    this.tutorialActive = true;//bool used to stop all other actions while tutorialText is active
-    this.tutorialScore = this.add.image(this.centerX, this.centerY, "scoreText").setScale(1.5);
-    this.tutorialBullet = this.add.image(this.centerX, this.centerY, "bulletText").setScale(1.5);
-
+    if(this.tutorialActive == undefined){
+      this.tutorialActive = true;//bool used to stop all other actions while tutorialText is active
+      this.tutorialScore = this.add.image(this.centerX, this.centerY, "scoreText").setScale(1.5);
+      this.tutorialBullet = this.add.image(this.centerX, this.centerY, "bulletText").setScale(1.5);
+    }
     //create text/UI
     this.countText = this.add.text( 16, 6, 'Bullets Used: 0', { fontSize: '26px', fill: '#000', stroke: '#000', strokeThickness: 2 });
     var levelText = this.add.text( this.centerX - 30, 6, 'Level 2', { fontSize: '26px', fill: '#000', stroke: '#000', strokeThickness: 2 });
