@@ -197,7 +197,7 @@ export default class Level7 extends Phaser.Scene {
       }
 
       //If player bullet bounce reaches limit
-      if (this.bounceCount > 3){
+      if (this.bounceCount > 6){
         this.trajectory = this.add.image(68, 540, 'trajectory', null, {friction:0});
         this.bullet.destroy();
         this.bulletPresent = false;
