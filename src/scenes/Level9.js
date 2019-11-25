@@ -6,12 +6,12 @@ export default class Level9 extends Phaser.Scene {
 
   init (data) {
     // Initialization code goes here
-    this.threeStar = 3;
-    this.twoStar = 4;
-    this.oneStar = 6;
+    this.threeStar = 4;
+    this.twoStar = 6;
+    this.oneStar = 8;
 
     this.registry.set('level', 9)
-    this.squirrelCount = 3;
+    this.squirrelCount = 11;
 
     this.pointerLocation = {x:0, y:0};
 
@@ -59,14 +59,27 @@ export default class Level9 extends Phaser.Scene {
     var ground = this.matter.add.image(16,584, 'ground', null, { isStatic: true, friction: 0 , restitution: 1 }).setCollisionCategory(this.borderCategory);
 
     //create platforms
-    var plat1 = this.matter.add.image(100, 200, "woodPlatform", null, { isStatic: true, friction: 0 , restitution: 1 }).setScale(1.5).setCollisionCategory(this.environmentCategory);
-    var plat2 = this.matter.add.image(700, 200, "woodPlatform", null, { isStatic: true, friction: 0 , restitution: 1 }).setScale(1.5).setCollisionCategory(this.environmentCategory);
-    var plat3 = this.matter.add.image(400, 200, "woodPlatform", null, { isStatic: true, friction: 0 , restitution: 1 }).setScale(1.5).setCollisionCategory(this.environmentCategory);
+    var plat1 = this.matter.add.image(72, 72, "woodPlatform", null, { isStatic: true, friction: 0 , restitution: 1 }).setAngle(135).setCollisionCategory(this.environmentCategory);
+    var plat2 = this.matter.add.image(728, 72, "woodPlatform", null, { isStatic: true, friction: 0 , restitution: 1 }).setAngle(45).setCollisionCategory(this.environmentCategory);
+    var plat3 = this.matter.add.image(400, 213, "woodPlatform", null, { isStatic: true, friction: 0 , restitution: 1 }).setScale(2).setCollisionCategory(this.environmentCategory);
+    var plat4 = this.matter.add.image(172, 333, "woodPlatform", null, { isStatic: true, friction: 0 , restitution: 1 }).setCollisionCategory(this.environmentCategory);
+    var plat5 = this.matter.add.image(322, 458, "woodPlatform", null, { isStatic: true, friction: 0 , restitution: 1 }).setCollisionCategory(this.environmentCategory);
+    var plat6 = this.matter.add.image(628, 333, "woodPlatform", null, { isStatic: true, friction: 0 , restitution: 1 }).setCollisionCategory(this.environmentCategory);
+    var plat7 = this.matter.add.image(478, 458, "woodPlatform", null, { isStatic: true, friction: 0 , restitution: 1 }).setCollisionCategory(this.environmentCategory);
 
     //create enemies
-    var squirrel = this.matter.add.image(165, 136, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(this.enemyCategory).setSensor(true);
-    var speedy = this.matter.add.image(740, 136, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(this.enemyCategory).setSensor(true);
-    var tanky = this.matter.add.image(465, 136, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(this.enemyCategory).setSensor(true);
+    var squirrel0 = this.matter.add.image(72, 260, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(this.enemyCategory).setSensor(true).setAngle(90);
+    var squirrel1 = this.matter.add.image(72, 330, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(this.enemyCategory).setSensor(true).setAngle(90);
+    var squirrel2 = this.matter.add.image(72, 400, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(this.enemyCategory).setSensor(true).setAngle(90);
+    var squirrel3 = this.matter.add.image(728, 260, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(this.enemyCategory).setSensor(true).setAngle(270);
+    var squirrel4 = this.matter.add.image(728, 330, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(this.enemyCategory).setSensor(true).setAngle(270);
+    var squirrel5 = this.matter.add.image(728, 400, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(this.enemyCategory).setSensor(true).setAngle(270);
+    var squirrel6 = this.matter.add.image(172, 275, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(this.enemyCategory).setSensor(true);
+    var squirrel7 = this.matter.add.image(322, 400, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(this.enemyCategory).setSensor(true);
+    var squirrel8 = this.matter.add.image(628, 275, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(this.enemyCategory).setSensor(true);
+    var squirrel9 = this.matter.add.image(478, 400, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(this.enemyCategory).setSensor(true);
+    this.kingsquirrel = this.matter.add.image(400, 112, "squirrel", null, { isStatic: true }).setScale(2).setCollisionCategory(this.enemyCategory).setSensor(true);
+    this.kingsquirrel.health = 4;
 
     //player trajectory
     this.trajectory = this.add.image(68, 540, 'trajectory', null, {friction:0});
@@ -83,35 +96,6 @@ export default class Level9 extends Phaser.Scene {
     this.player.setCollidesWith([this.borderCategory, this.environmentCategory, this.bulletCategory]);
     this.cannon.setCollidesWith([this.borderCategory, this.environmentCategory]);
 
-    var squirrelTween = this.tweens.add({
-      targets: squirrel,
-      x: 60,
-      ease: "Cubic",
-      duration: 1200,
-      yoyo: true,
-      repeat: -1,
-      repeatDelay: 500
-    });
-
-    var speedyTween = this.tweens.add({
-      targets: speedy,
-      x: 660,
-      ease: "Cubic",
-      duration: 1500,
-      yoyo: true,
-      repeat: -1,
-      repeatDelay: 500
-    });
-
-    var tankyTween = this.tweens.add({
-      targets: tanky,
-      x: 360,
-      ease: "Cubic",
-      duration: 1800,
-      yoyo: true,
-      repeat: -1,
-      repeatDelay: 500
-    });
 
     //create pointer interactions
     this.input.on(
@@ -127,25 +111,67 @@ export default class Level9 extends Phaser.Scene {
     this.matter.world.on('collisionstart', function(event){
       if (event.pairs[0].bodyB.gameObject == this.bullet){
         //Checks if the two objects colliding are the regular squirrel and bullet
-        if(event.pairs[0].bodyA.gameObject == squirrel){
-          squirrelTween.remove();
-          squirrel.destroy();
+        if(event.pairs[0].bodyA.gameObject == squirrel0){
+          squirrel0.destroy();
           this.squirrelCount -= 1;
           this.sound.play('squirreldeath');
         }//Checks if the two objects colliding are the tank squirrel and bullet
-        else if(event.pairs[0].bodyA.gameObject == tanky){
-          tankyTween.remove();
-          tanky.destroy();
+        else if(event.pairs[0].bodyA.gameObject == squirrel1){
+          squirrel1.destroy();
           this.squirrelCount -= 1;
           this.sound.play('squirreldeath');
         }
         //Checks if the two objects colliding are the speedy squirrel and bullet
-        else if(event.pairs[0].bodyA.gameObject == speedy){
-          speedyTween.remove();
-          speedy.destroy();
+        else if(event.pairs[0].bodyA.gameObject == squirrel2){
+          squirrel2.destroy();
           this.squirrelCount -= 1;
           this.sound.play('squirreldeath');
         }
+        else if(event.pairs[0].bodyA.gameObject == squirrel3){
+          squirrel3.destroy();
+          this.squirrelCount -= 1;
+          this.sound.play('squirreldeath');
+        }
+        else if(event.pairs[0].bodyA.gameObject == squirrel4){
+          squirrel4.destroy();
+          this.squirrelCount -= 1;
+          this.sound.play('squirreldeath');
+        }
+        else if(event.pairs[0].bodyA.gameObject == squirrel5){
+          squirrel5.destroy();
+          this.squirrelCount -= 1;
+          this.sound.play('squirreldeath');
+        }
+        else if(event.pairs[0].bodyA.gameObject == squirrel6){
+          squirrel6.destroy();
+          this.squirrelCount -= 1;
+          this.sound.play('squirreldeath');
+        }
+        else if(event.pairs[0].bodyA.gameObject == squirrel7){
+          squirrel7.destroy();
+          this.squirrelCount -= 1;
+          this.sound.play('squirreldeath');
+        }
+        else if(event.pairs[0].bodyA.gameObject == squirrel8){
+          squirrel8.destroy();
+          this.squirrelCount -= 1;
+          this.sound.play('squirreldeath');
+        }
+        else if(event.pairs[0].bodyA.gameObject == squirrel9){
+          squirrel9.destroy();
+          this.squirrelCount -= 1;
+          this.sound.play('squirreldeath');
+        }
+        else if(event.pairs[0].bodyA.gameObject == this.kingsquirrel){
+          this.kingsquirrel.health -= 1;
+          if (this.kingsquirrel.health == 0){
+            this.kingsquirrel.destroy();
+            this.squirrelCount -= 1;
+            this.sound.play('squirreldeath');
+          }
+
+        }
+
         //Checks if the two objects colliding are the player and the player bullet
         else if(event.pairs[0].bodyA.gameObject == this.player){
           //GAME OVER
@@ -165,6 +191,10 @@ export default class Level9 extends Phaser.Scene {
         else if(event.pairs[0].bodyA.gameObject == plat1 ||
             event.pairs[0].bodyA.gameObject == plat2 ||
             event.pairs[0].bodyA.gameObject == plat3 ||
+            event.pairs[0].bodyA.gameObject == plat4 ||
+            event.pairs[0].bodyA.gameObject == plat5 ||
+            event.pairs[0].bodyA.gameObject == plat6 ||
+            event.pairs[0].bodyA.gameObject == plat7 ||
             event.pairs[0].bodyA.gameObject == ground ||
             event.pairs[0].bodyA.gameObject == hwall ||
             event.pairs[0].bodyA.gameObject == vwall1 ||
