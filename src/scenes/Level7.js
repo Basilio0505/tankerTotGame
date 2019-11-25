@@ -80,6 +80,11 @@ export default class Level7 extends Phaser.Scene {
     //player trajectory
     this.trajectory = this.add.image(68, 540, 'trajectory', null, {friction:0});
 
+    //create tutorial frames
+    this.tutorialActive = true;//bool used to stop all other actions while tutorialText is active
+    this.tutorialUpgrade = this.add.image(this.centerX, this.centerY, "upgradeText").setScale(1.5);
+    this.pug = this.add.image(this.centerX - 140, this.centerY - 110, "generalPug").setScale(1.5);
+
     //create text/UI
     this.countText = this.add.text( 16, 6, 'Bullets Left: ' + this.oneStar, { fontSize: '26px', fill: '#000', stroke: '#000', strokeThickness: 2 });
     var levelText = this.add.text( this.centerX - 30, 6, 'Level 7', { fontSize: '26px', fill: '#000', stroke: '#000', strokeThickness: 2 });
@@ -130,7 +135,7 @@ export default class Level7 extends Phaser.Scene {
       }, this
     );
 
-    this.input.on("pointerdown", this.shoot, this);
+    this.input.on("pointerdown", this.tutorial, this);
 
     //Decects collision of two objects
     this.matter.world.on('collisionstart', function(event){
@@ -252,8 +257,8 @@ export default class Level7 extends Phaser.Scene {
         this.registry.set('Level7Score', 0)
         this.scene.start('Section3End', {
           backgroundX: this.background.tilePositionX,
-          mountainsX: this.mountains.tilePositionX,
-          treesX: this.trees.tilePositionX,
+          buildingsfX: this.buildingsf.tilePositionX,
+          buildingsbX: this.buildingsb.tilePositionX,
           tankerX: this.player.x
           });
       }
@@ -291,6 +296,17 @@ export default class Level7 extends Phaser.Scene {
   }
 
 //#############FUNCTIONS########################################################FUNCTIONS
+  tutorial(pointer){
+    if(this.tutorialActive == true){
+      this.tutorialUpgrade.destroy();
+      this.pug.destroy();
+      this.tutorialActive = false;
+    }
+    else{
+      this.shoot(pointer);
+    }
+  }
+
   shoot(pointer){
     if(pointer.x > 30 && pointer.x < 770 &&
     pointer.y > 30 && pointer.y < 570){
