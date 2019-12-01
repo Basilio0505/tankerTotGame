@@ -191,7 +191,9 @@ export default class Level7 extends Phaser.Scene {
             event.pairs[0].bodyA.gameObject == vwall1 ||
             event.pairs[0].bodyA.gameObject == vwall2){
           this.bounceCount += 1;
-          this.bullet.setFrame(this.bounceCount);
+          if(this.bounceCount % 2 == 0){
+            this.bullet.setFrame(this.bounceCount/2);
+          }
           this.sound.play('bounce');
         }
       }
