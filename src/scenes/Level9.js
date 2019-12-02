@@ -67,6 +67,11 @@ export default class Level9 extends Phaser.Scene {
     var plat6 = this.matter.add.image(628, 333, "woodPlatform", null, { isStatic: true, friction: 0 , restitution: 1 }).setCollisionCategory(this.environmentCategory);
     var plat7 = this.matter.add.image(478, 458, "woodPlatform", null, { isStatic: true, friction: 0 , restitution: 1 }).setCollisionCategory(this.environmentCategory);
 
+    var break1frame = 0;
+    var break1 = this.matter.add.sprite(310, 120, 'break', null, { isStatic: true, friction: 0 , restitution: 1 }, break1frame).setScale(2).setCollisionCategory(this.environmentCategory).setAngle(90);
+    var break2frame = 0;
+    var break2 = this.matter.add.sprite(490, 120, 'break', null, { isStatic: true, friction: 0 , restitution: 1 }, break2frame).setScale(2).setCollisionCategory(this.environmentCategory).setAngle(90);
+
     //create enemies
     var squirrel0 = this.matter.add.image(72, 260, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(this.enemyCategory).setSensor(true).setAngle(90);
     var squirrel1 = this.matter.add.image(72, 330, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(this.enemyCategory).setSensor(true).setAngle(90);
@@ -79,7 +84,6 @@ export default class Level9 extends Phaser.Scene {
     var squirrel8 = this.matter.add.image(628, 275, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(this.enemyCategory).setSensor(true);
     var squirrel9 = this.matter.add.image(478, 400, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(this.enemyCategory).setSensor(true);
     this.kingsquirrel = this.matter.add.image(400, 112, "squirrel", null, { isStatic: true }).setScale(2).setCollisionCategory(this.enemyCategory).setSensor(true);
-    this.kingsquirrel.health = 4;
 
     //player trajectory
     this.trajectory = this.add.image(68, 540, 'trajectory', null, {friction:0});
@@ -163,12 +167,9 @@ export default class Level9 extends Phaser.Scene {
           this.sound.play('squirreldeath');
         }
         else if(event.pairs[0].bodyA.gameObject == this.kingsquirrel){
-          this.kingsquirrel.health -= 1;
-          if (this.kingsquirrel.health == 0){
-            this.kingsquirrel.destroy();
-            this.squirrelCount -= 1;
-            this.sound.play('squirreldeath');
-          }
+          this.kingsquirrel.destroy();
+          this.squirrelCount -= 1;
+          this.sound.play('squirreldeath');
 
         }
 
@@ -202,6 +203,26 @@ export default class Level9 extends Phaser.Scene {
           this.bounceCount += 1;
           if(this.bounceCount % 2 == 0){
             this.bullet.setFrame(this.bounceCount/2);
+          }
+          this.sound.play('bounce');
+        }else if(event.pairs[0].bodyA.gameObject == break1){
+          this.bounceCount += 1;
+          break1frame +=1;
+          if(break1frame > 2){
+            break1.destroy();
+          }
+          else{
+            break1.setFrame(break1frame);
+          }
+          this.sound.play('bounce');
+        }else if(event.pairs[0].bodyA.gameObject == break2){
+          this.bounceCount += 1;
+          break2frame +=1;
+          if(break2frame > 2){
+            break2.destroy();
+          }
+          else{
+            break2.setFrame(break2frame);
           }
           this.sound.play('bounce');
         }

@@ -9,7 +9,7 @@ export default class LevelSelect extends Phaser.Scene {
     //DEBUG MODE. Still go to level 1 first
     //this.registry.set('level', 9);
     //New Debug Mode:
-    this.ourDebug = false;
+    this.ourDebug = true;
     if (this.ourDebug){
       this.registry.set('Level1HighScore', 1);
       this.registry.set('Level2HighScore', 1);
