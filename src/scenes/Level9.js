@@ -235,9 +235,9 @@ export default class Level9 extends Phaser.Scene {
 
       if(event.pairs[0].bodyB.gameObject == this.enemy1bullet){
         if(event.pairs[0].bodyA.gameObject == this.player){
-          this.registry.set('Level8Score', 0);
-          if(this.registry.get('Level8HighScore') < this.registry.get('Level8Score')){
-            this.registry.set('Level8HighScore', this.registry.get('Level8Score'));
+          this.registry.set('Level9Score', 0);
+          if(this.registry.get('Level9HighScore') < this.registry.get('Level9Score')){
+            this.registry.set('Level9HighScore', this.registry.get('Level9Score'));
           }
           this.registry.set('selfHit', true)
           this.scene.start('Section3End', {
@@ -287,7 +287,6 @@ export default class Level9 extends Phaser.Scene {
 
     //Checks if Winning Condition is met
     if (this.bulletPresent == false) {
-
       //Makes sure there is no active bullet present
       if (this.squirrelCount == 0){
         //Loads score Scene and passes info for display over
@@ -311,7 +310,7 @@ export default class Level9 extends Phaser.Scene {
           });
       }
       else if(this.oneStar - this.shotCount < 1){
-        this.registry.set('Level7Score', 0)
+        this.registry.set('Level9Score', 0)
         this.scene.start('Section3End', {
           backgroundX: this.background.tilePositionX,
           buildingsfX: this.buildingsf.tilePositionX,
