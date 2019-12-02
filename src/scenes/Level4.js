@@ -235,8 +235,10 @@ export default class Level4 extends Phaser.Scene {
         this.registry.set('Level4Score', 0)
         this.scene.start('Section2End', {
           backgroundX: this.background.tilePositionX,
-          mountainsX: this.mountains.tilePositionX,
-          treesX: this.trees.tilePositionX,
+          dunes1X: this.dunes1.tilePositionX,
+          dunes2X: this.dunes1.tilePositionX,
+          dunes3X: this.dunes1.tilePositionX,
+          dunes4X: this.dunes1.tilePositionX,
           tankerX: this.player.x
           });
       }
