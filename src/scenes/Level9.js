@@ -6,7 +6,7 @@ export default class Level9 extends Phaser.Scene {
 
   init (data) {
     // Initialization code goes here
-    this.threeStar = 5;
+    this.threeStar = 4;
     this.twoStar = 6;
     this.oneStar = 8;
 
