@@ -19,6 +19,7 @@ export default class Level9 extends Phaser.Scene {
     this.enemyCategory = this.registry.get('enemyCategory');
     this.borderCategory = this.registry.get('borderCategory');
     this.bulletCategory = this.registry.get('bulletCategory');
+    this.enemybulletCategoy = this.registry.get('enemybulletCategoy');
     this.environmentCategory = this.registry.get('environmentCategory');
   }
 
@@ -33,6 +34,9 @@ export default class Level9 extends Phaser.Scene {
   //############CREATE#####################################################################CREATE
   create (data) {
     //create variables
+    this.enemy1bulletPresent = false;
+    this.kingDead = false;
+
     this.bulletPresent = false;
     this.gameOver = false;
     this.bounceCount = 0;
@@ -97,7 +101,7 @@ export default class Level9 extends Phaser.Scene {
     exit.on("pointerup", function(){this.scene.start("LevelSelect")}, this);
 
     //assign collisions
-    this.player.setCollidesWith([this.borderCategory, this.environmentCategory, this.bulletCategory]);
+    this.player.setCollidesWith([this.borderCategory, this.environmentCategory, this.bulletCategory, this.enemybulletCategoy]);
     this.cannon.setCollidesWith([this.borderCategory, this.environmentCategory]);
 
 
@@ -169,6 +173,7 @@ export default class Level9 extends Phaser.Scene {
         else if(event.pairs[0].bodyA.gameObject == this.kingsquirrel){
           this.kingsquirrel.destroy();
           this.squirrelCount -= 1;
+          this.kingDead = true;
           this.sound.play('squirreldeath');
 
         }
@@ -228,6 +233,29 @@ export default class Level9 extends Phaser.Scene {
         }
       }
 
+      if(event.pairs[0].bodyB.gameObject == this.enemy1bullet){
+        if(event.pairs[0].bodyA.gameObject == this.player){
+          this.registry.set('Level8Score', 0);
+          if(this.registry.get('Level8HighScore') < this.registry.get('Level8Score')){
+            this.registry.set('Level8HighScore', this.registry.get('Level8Score'));
+          }
+          this.registry.set('selfHit', true)
+          this.scene.start('Section3End', {
+            backgroundX: this.background.tilePositionX,
+            buildingsfX: this.buildingsf.tilePositionX,
+            buildingsbX: this.buildingsb.tilePositionX,
+            tankerX: this.player.x
+          });
+        }
+        //Checks if the two objects colliding are the walls or the enemy bullet
+        else if((event.pairs[0].bodyA.gameObject == ground ||
+          event.pairs[0].bodyA.gameObject == vwall1 ||
+          event.pairs[0].bodyA.gameObject == vwall2) && event.pairs[0].bodyB.gameObject == this.enemy1bullet){
+            this.enemy1bullet.destroy();
+            this.enemy1bulletPresent = false;
+        }
+      }
+
       //If player bullet bounce reaches limit
       if (this.bounceCount > 6){
         this.trajectory = this.add.image(68, 540, 'trajectory', null, {friction:0});
@@ -243,6 +271,10 @@ export default class Level9 extends Phaser.Scene {
     // Update the scene
     this.updateCannon(this.pointerLocation);
     this.cannon.setPosition(this.player.x, 540);
+
+    if(this.enemy1bulletPresent == false && !this.kingDead){
+      this.enemy1Shoot(this.kingsquirrel);
+    }
 
     //Gets rid of tank explosion
     if(this.explosionCounter > 0){
@@ -318,6 +350,13 @@ export default class Level9 extends Phaser.Scene {
         this.bounceCount = 0;
       }
     }
+
+    if (this.enemy1bulletPresent){
+      if ((this.enemy1bullet.x < 0) || (this.enemy1bullet.x > 800) || (this.enemy1bullet.y < 0) || (this.enemy1bullet.y > 600)){
+        this.enemy1bullet.destroy();
+        this.enemy1bulletPresent = false;
+      }
+    }
   }
 
   //#############FUNCTIONS########################################################FUNCTIONS
@@ -349,6 +388,28 @@ export default class Level9 extends Phaser.Scene {
           this.countText.setText('Bullets Left: ' + (this.oneStar - this.shotCount));
         }
       }
+    }
+  }
+
+  enemy1Shoot(enemy){
+    var betweenPoints = Phaser.Math.Angle.BetweenPoints;
+    var angle = betweenPoints(this.player, enemy);
+    if  (this.enemy1bulletPresent == false){
+      this.enemy1bullet = this.matter.add.sprite(enemy.x, enemy.y,
+        'enemybullet', null, {
+          shape: 'circle',
+          ignoreGravity: true,
+          collisionFilter:{category: this.enemybulletCategoy},
+          isStatic: false,
+          restitution: 1,
+          frictionAir: 0
+        });
+      this.enemy1bullet.setScale(.14)
+      this.enemy1bullet.setCollidesWith([this.playerCategory, this.borderCategory]);
+      this.enemy1bullet.setVelocity(Math.cos(angle) * -5, Math.sin(angle) * -5);
+      this.enemy1bullet.setAngle((angle * (180 / Math.PI))+90);
+      this.sound.play('shot');
+      this.enemy1bulletPresent = true;
     }
   }
 
