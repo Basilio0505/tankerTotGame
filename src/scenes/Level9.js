@@ -6,7 +6,7 @@ export default class Level9 extends Phaser.Scene {
 
   init (data) {
     // Initialization code goes here
-    this.threeStar = 4;
+    this.threeStar = 5;
     this.twoStar = 6;
     this.oneStar = 8;
 
@@ -83,7 +83,7 @@ export default class Level9 extends Phaser.Scene {
     var squirrel7 = this.matter.add.image(322, 400, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(this.enemyCategory).setSensor(true);
     var squirrel8 = this.matter.add.image(628, 275, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(this.enemyCategory).setSensor(true);
     var squirrel9 = this.matter.add.image(478, 400, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(this.enemyCategory).setSensor(true);
-    this.kingsquirrel = this.matter.add.image(400, 112, "squirrel", null, { isStatic: true }).setScale(2).setCollisionCategory(this.enemyCategory).setSensor(true);
+    this.kingsquirrel = this.matter.add.image(400, 115, "kingSquirrel", null, { isStatic: true }).setScale(2).setCollisionCategory(this.enemyCategory).setSensor(true);
 
     //player trajectory
     this.trajectory = this.add.image(68, 540, 'trajectory', null, {friction:0});
@@ -259,7 +259,7 @@ export default class Level9 extends Phaser.Scene {
       //Makes sure there is no active bullet present
       if (this.squirrelCount == 0){
         //Loads score Scene and passes info for display over
-        if(this.shotCount == this.threeStar){
+        if(this.shotCount <= this.threeStar){
           this.registry.set('Level9Score', 3)
         }else if(this.shotCount <= this.twoStar){
           this.registry.set('Level9Score', 2)
@@ -358,7 +358,7 @@ export default class Level9 extends Phaser.Scene {
     var angle = Phaser.Math.RAD_TO_DEG * betweenPoints(this.cannon, pointerLocation);
     var test = Math.sqrt((this.pointerLocation.x-this.cannon.x)*(this.pointerLocation.x-this.cannon.x)+
     (this.pointerLocation.y-this.cannon.y)*(this.pointerLocation.y-this.cannon.y))
-    var scale = test/730
+    var scale = test/723
     this.cannon.setAngle(angle);
     this.trajectory.setAngle(angle+45)
     this.trajectory.setPosition(this.player.x + (Math.cos(angle*Math.PI/180)*(370 * scale)),

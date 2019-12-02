@@ -104,8 +104,6 @@ export default class TitleScene extends Phaser.Scene {
 
     this.load.image('woodPlatform', './assets/Environment/smallWoodPlat.png');
     this.load.image('steelPlatform', './assets/Environment/steelPlat.png');
-    this.load.atlas('sheet', 'assets/Environment/curvy.png', 'assets/physics/curvy.json');
-    this.load.json('shapes', 'assets/physics/curvy.json');
     this.load.image('brickPlatform', './assets/Environment/smallBrickPlat.png')
     this.load.spritesheet('break', './assets/Environment/smallWoodPlat_Breakable.png',{
       frameWidth: 64,
@@ -120,6 +118,7 @@ export default class TitleScene extends Phaser.Scene {
     this.load.image('speedy','./assets/enemies/speedySquirrel.png');
     this.load.image('tanky','./assets/enemies/tankSquirrel.png' );
     this.load.image('squirrel','./assets/enemies/enemySquirrel.png');
+    this.load.image('kingSquirrel','./assets/enemies/kingSquirrel.png');
     this.load.image('enemybullet','./assets/enemies/enemybullet.png');
 
     //Load Sound FX

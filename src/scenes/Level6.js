@@ -401,6 +401,7 @@ export default class Level6 extends Phaser.Scene {
           restitution: 1,
           frictionAir: 0
         });
+      this.enemy1bullet.setScale(.14)
       this.enemy1bullet.setCollidesWith([this.playerCategory, this.borderCategory]);
       this.enemy1bullet.setVelocity(Math.cos(angle) * -4, Math.sin(angle) * -4);
       this.enemy1bullet.setAngle((angle * (180 / Math.PI))+90);
@@ -421,6 +422,7 @@ export default class Level6 extends Phaser.Scene {
           restitution: 1,
           frictionAir: 0
         });
+      this.enemy2bullet.setScale(.14)
       this.enemy2bullet.setCollidesWith([this.playerCategory, this.borderCategory]);
       this.enemy2bullet.setVelocity(Math.cos(angle) * -4, Math.sin(angle) * -4);
       this.enemy2bullet.setAngle((angle * (180 / Math.PI))+90);
@@ -441,6 +443,7 @@ export default class Level6 extends Phaser.Scene {
           restitution: 1,
           frictionAir: 0
         });
+      this.enemy3bullet.setScale(.14)
       this.enemy3bullet.setCollidesWith([this.playerCategory, this.borderCategory]);
       this.enemy3bullet.setVelocity(Math.cos(angle) * -4, Math.sin(angle) * -4);
       this.enemy3bullet.setAngle((angle * (180 / Math.PI))+90);
@@ -455,7 +458,7 @@ export default class Level6 extends Phaser.Scene {
     var angle = Phaser.Math.RAD_TO_DEG * betweenPoints(this.cannon, pointerLocation);
     var test = Math.sqrt((this.pointerLocation.x-this.cannon.x)*(this.pointerLocation.x-this.cannon.x)+
     (this.pointerLocation.y-this.cannon.y)*(this.pointerLocation.y-this.cannon.y))
-    var scale = test/730
+    var scale = test/723
     this.cannon.setAngle(angle);
     this.trajectory.setAngle(angle+45)
     this.trajectory.setPosition(this.player.x + (Math.cos(angle*Math.PI/180)*(370 * scale)),

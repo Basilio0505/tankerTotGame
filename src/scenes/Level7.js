@@ -81,10 +81,11 @@ export default class Level7 extends Phaser.Scene {
     this.trajectory = this.add.image(68, 540, 'trajectory', null, {friction:0});
 
     //create tutorial frames
-    this.tutorialActive = true;//bool used to stop all other actions while tutorialText is active
-    this.tutorialUpgrade = this.add.image(this.centerX, this.centerY, "upgradeText").setScale(1.5);
-    this.pug = this.add.image(this.centerX - 140, this.centerY - 110, "generalPug").setScale(1.5);
-
+    if(this.tutorialActive == undefined){
+      this.tutorialActive = true;//bool used to stop all other actions while tutorialText is active
+      this.tutorialUpgrade = this.add.image(this.centerX, this.centerY, "upgradeText").setScale(1.5);
+      this.pug = this.add.image(this.centerX - 140, this.centerY - 110, "generalPug").setScale(1.5);
+    }
     //create text/UI
     this.countText = this.add.text( 16, 6, 'Bullets Left: ' + this.oneStar, { fontSize: '26px', fill: '#000', stroke: '#000', strokeThickness: 2 });
     var levelText = this.add.text( this.centerX - 30, 6, 'Level 7', { fontSize: '26px', fill: '#000', stroke: '#000', strokeThickness: 2 });
@@ -346,7 +347,7 @@ export default class Level7 extends Phaser.Scene {
     var angle = Phaser.Math.RAD_TO_DEG * betweenPoints(this.cannon, pointerLocation);
     var test = Math.sqrt((this.pointerLocation.x-this.cannon.x)*(this.pointerLocation.x-this.cannon.x)+
     (this.pointerLocation.y-this.cannon.y)*(this.pointerLocation.y-this.cannon.y))
-    var scale = test/730
+    var scale = test/723
     this.cannon.setAngle(angle);
     this.trajectory.setAngle(angle+45)
     this.trajectory.setPosition(this.player.x + (Math.cos(angle*Math.PI/180)*(370 * scale)),

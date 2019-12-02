@@ -174,7 +174,6 @@ export default class Level1 extends Phaser.Scene {
     this.updateCannon(this.pointerLocation);
     this.cannon.setPosition(this.player.x, 540);
 
-
     //Gets rid of tank explosion
     if(this.explosionCounter > 0){
       this.explosionCounter -= 1
@@ -319,7 +318,7 @@ export default class Level1 extends Phaser.Scene {
     var angle = Phaser.Math.RAD_TO_DEG * betweenPoints(this.cannon, pointerLocation);
     var test = Math.sqrt((this.pointerLocation.x-this.cannon.x)*(this.pointerLocation.x-this.cannon.x)+
     (this.pointerLocation.y-this.cannon.y)*(this.pointerLocation.y-this.cannon.y))
-    var scale = test/730
+    var scale = test/723
     this.cannon.setAngle(angle);
     this.trajectory.setAngle(angle+45)
     this.trajectory.setPosition(this.player.x + (Math.cos(angle*Math.PI/180)*(370 * scale)),

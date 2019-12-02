@@ -50,8 +50,8 @@ export default class Level3 extends Phaser.Scene {
     this.trees = this.add.tileSprite(this.centerX,this.centerY+150,0,0, 'trees');
 
     //create player
-    this.player = this.matter.add.image(138, 535, 'tankertot', null, {friction:0, ignoreGravity: true}).setFixedRotation(true).setCollisionCategory(this.playerCategory);
-    this.cannon = this.matter.add.image(138, 540, 'cannon', null, {circle: 'circle', friction: 0, ignoreGravity: true}).setCollisionCategory(this.playerCategory).setScale(.78);
+    this.player = this.matter.add.image(125, 535, 'tankertot', null, {friction:0, ignoreGravity: true}).setFixedRotation(true).setCollisionCategory(this.playerCategory);
+    this.cannon = this.matter.add.image(125, 540, 'cannon', null, {circle: 'circle', friction: 0, ignoreGravity: true}).setCollisionCategory(this.playerCategory).setScale(.78);
 
     //create borders
     var vwall1 = this.matter.add.image(16,16, 'vwall', null, { isStatic: true, friction: 0 , restitution: 1 }).setCollisionCategory(this.borderCategory);
@@ -62,7 +62,7 @@ export default class Level3 extends Phaser.Scene {
     //create platforms
     var plat1 = this.matter.add.image(500, 200, "woodPlatform", null, { isStatic: true, friction: 0 , restitution: 1 }).setScale(1.5).setCollisionCategory(this.environmentCategory);
     var plat2 = this.matter.add.image(250, 200, "woodPlatform", null, { isStatic: true, friction: 0 , restitution: 1 }).setScale(1.5).setCollisionCategory(this.environmentCategory);
-    var plat3 = this.matter.add.image(100, 125, "brickPlatform", null, { isStatic: true, friction: 0 , restitution: 1 }).setScale(1.5).setCollisionCategory(this.environmentCategory).setAngle(-45);
+    var plat3 = this.matter.add.image(110, 125, "brickPlatform", null, { isStatic: true, friction: 0 , restitution: 1 }).setScale(1.5).setCollisionCategory(this.environmentCategory).setAngle(-45);
     var plat4 = this.matter.add.image(700, 125, "brickPlatform", null, { isStatic: true, friction: 0 , restitution: 1 }).setScale(1.5).setCollisionCategory(this.environmentCategory).setAngle(45);
     var plat5 = this.matter.add.image(this.centerX, 455, "woodPlatform", null, { isStatic: true, friction: 0 , restitution: 1 }).setScale(3).setCollisionCategory(this.environmentCategory);
 
@@ -300,7 +300,7 @@ export default class Level3 extends Phaser.Scene {
     var angle = Phaser.Math.RAD_TO_DEG * betweenPoints(this.cannon, pointerLocation);
     var test = Math.sqrt((this.pointerLocation.x-this.cannon.x)*(this.pointerLocation.x-this.cannon.x)+
     (this.pointerLocation.y-this.cannon.y)*(this.pointerLocation.y-this.cannon.y))
-    var scale = test/730
+    var scale = test/723
     this.cannon.setAngle(angle);
     this.trajectory.setAngle(angle+45)
     this.trajectory.setPosition(this.player.x + (Math.cos(angle*Math.PI/180)*(370 * scale)),
