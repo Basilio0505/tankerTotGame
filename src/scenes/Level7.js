@@ -63,14 +63,14 @@ export default class Level7 extends Phaser.Scene {
     this.plat1angle = 0;
     this.plat1 = this.matter.add.image(400, 300, "steelPlatform", null, { isStatic: true, friction: 0 , restitution: 1 }).setCollisionCategory(this.environmentCategory).setAngle(this.plat1angle).setScale(1.3);
     var plat2 = this.matter.add.image(400, 143, "woodPlatform", null, { isStatic: true, friction: 0 , restitution: 1 }).setCollisionCategory(this.environmentCategory);
-    var plat3 = this.matter.add.image(85, 364, "brickPlatform", null, { isStatic: true, friction: 0 , restitution: 1 }).setCollisionCategory(this.environmentCategory).setScale(1.6);
-    var plat4 = this.matter.add.image(715, 364, "brickPlatform", null, { isStatic: true, friction: 0 , restitution: 1 }).setCollisionCategory(this.environmentCategory).setScale(1.6);
-    var plat5 = this.matter.add.image(185, 364, "brickPlatform", null, { isStatic: true, friction: 0 , restitution: 1 }).setCollisionCategory(this.environmentCategory).setScale(1.6);
-    var plat6 = this.matter.add.image(615, 364, "brickPlatform", null, { isStatic: true, friction: 0 , restitution: 1 }).setCollisionCategory(this.environmentCategory).setScale(1.6);
-    var plat7 = this.matter.add.image(85, 230, "brickPlatform", null, { isStatic: true, friction: 0 , restitution: 1 }).setCollisionCategory(this.environmentCategory).setScale(1.6);
-    var plat8 = this.matter.add.image(715, 230, "brickPlatform", null, { isStatic: true, friction: 0 , restitution: 1 }).setCollisionCategory(this.environmentCategory).setScale(1.6);
-    var plat9 = this.matter.add.image(185, 230, "brickPlatform", null, { isStatic: true, friction: 0 , restitution: 1 }).setCollisionCategory(this.environmentCategory).setScale(1.6);
-    var plat0 = this.matter.add.image(615, 230, "brickPlatform", null, { isStatic: true, friction: 0 , restitution: 1 }).setCollisionCategory(this.environmentCategory).setScale(1.6);
+    var plat3 = this.matter.add.image(82, 364, "brickPlatform", null, { isStatic: true, friction: 0 , restitution: 1 }).setCollisionCategory(this.environmentCategory).setScale(1.6);
+    var plat4 = this.matter.add.image(718, 364, "brickPlatform", null, { isStatic: true, friction: 0 , restitution: 1 }).setCollisionCategory(this.environmentCategory).setScale(1.6);
+    var plat5 = this.matter.add.image(182, 364, "brickPlatform", null, { isStatic: true, friction: 0 , restitution: 1 }).setCollisionCategory(this.environmentCategory).setScale(1.6);
+    var plat6 = this.matter.add.image(618, 364, "brickPlatform", null, { isStatic: true, friction: 0 , restitution: 1 }).setCollisionCategory(this.environmentCategory).setScale(1.6);
+    var plat7 = this.matter.add.image(82, 230, "brickPlatform", null, { isStatic: true, friction: 0 , restitution: 1 }).setCollisionCategory(this.environmentCategory).setScale(1.6);
+    var plat8 = this.matter.add.image(718, 230, "brickPlatform", null, { isStatic: true, friction: 0 , restitution: 1 }).setCollisionCategory(this.environmentCategory).setScale(1.6);
+    var plat9 = this.matter.add.image(182, 230, "brickPlatform", null, { isStatic: true, friction: 0 , restitution: 1 }).setCollisionCategory(this.environmentCategory).setScale(1.6);
+    var plat0 = this.matter.add.image(618, 230, "brickPlatform", null, { isStatic: true, friction: 0 , restitution: 1 }).setCollisionCategory(this.environmentCategory).setScale(1.6);
 
     //create enemies
     var squirrel = this.matter.add.image(700, 298, "squirrel", null, { isStatic: true }).setScale(1.27).setCollisionCategory(this.enemyCategory).setSensor(true);
