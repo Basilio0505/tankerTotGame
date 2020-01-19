@@ -115,8 +115,6 @@ export default class TitleScene extends Phaser.Scene {
     this.load.image('vwall', './assets/Environment/verticalWall.png');
 
     //Enemies
-    this.load.image('speedy','./assets/enemies/speedySquirrel.png');
-    this.load.image('tanky','./assets/enemies/tankSquirrel.png' );
     this.load.image('squirrel','./assets/enemies/enemySquirrel.png');
     this.load.image('kingSquirrel','./assets/enemies/kingSquirrel.png');
     this.load.image('enemybullet','./assets/enemies/enemybullet.png');
