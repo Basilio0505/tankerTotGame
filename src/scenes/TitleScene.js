@@ -75,7 +75,7 @@ export default class TitleScene extends Phaser.Scene {
     this.load.image('upgradeText', './assets/Tutorial/TextBox_PugUpgrade.png')
 
     //Player Assets
-    this.load.image('ghost', './assets/tankerTot/ghost.png');
+    this.load.image('ghost', './assets/TankerTot/ghost.png');
     this.load.image('tankertot', './assets/TankerTot/tankerTot.png');
     this.load.image('cannon', './assets/TankerTot/cannon.png');
     this.load.image('bullet', './assets/TankerTot/bullet.png');
