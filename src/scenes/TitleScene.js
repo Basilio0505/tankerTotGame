@@ -128,6 +128,7 @@ export default class TitleScene extends Phaser.Scene {
 
     //Level Select
     this.load.spritesheet('start', './assets/StartMenu/Start_Button.png', {frameHeight: 20,frameWidth: 50});
+    this.load.spritesheet('credits', './assets/StartMenu/Credits_Button.png', {frameHeight: 15,frameWidth: 42});
     this.load.spritesheet('back', './assets/StartMenu/Back_Button.png', {frameHeight: 20,frameWidth: 50});
     this.load.spritesheet('exit', './assets/StartMenu/Exit_Button.png', {frameHeight: 20,frameWidth: 50});
     this.load.spritesheet('level1', './assets/StartMenu/Level1.png', {frameHeight: 20,frameWidth: 50});
@@ -180,19 +181,24 @@ export default class TitleScene extends Phaser.Scene {
 
     //Add Logo and Title
     var tankertot = this.add.image(this.centerX, this.centerY, 'image').setScale(0.1);
-    var title = this.add.image(this.centerX, this.centerY-150, 'title').setScale(1);
+    var title = this.add.image(this.centerX, this.centerY-180, 'title').setScale(1);
 
     //Start Button
-    var start1 = this.add.sprite(this.centerX - 150 ,this.centerY+180,'start',0).setInteractive().setScale(5);
+    var start1 = this.add.sprite(this.centerX - 150 ,this.centerY+130,'start',0).setInteractive().setScale(5);
     start1.on("pointerover", function(){this.setFrame(1);});
     start1.on("pointerout", function(){this.setFrame(0);});
     start1.on("pointerup", function(){this.scene.start("Level1")}, this);
 
     //Level Select Button
-    var startLS = this.add.sprite(this.centerX + 150 ,this.centerY+180,'select',0).setInteractive().setScale(5);
+    var startLS = this.add.sprite(this.centerX + 150 ,this.centerY+130,'select',0).setInteractive().setScale(5);
     startLS.on("pointerover", function(){this.setFrame(1);});
     startLS.on("pointerout", function(){this.setFrame(0);});
     startLS.on("pointerup", function(){this.scene.start("LevelSelect")}, this);
+
+    var credits = this.add.sprite(this.centerX, this.centerY + 220, 'credits',0).setInteractive().setScale(5);
+    credits.on("pointerover", function(){this.setFrame(1);});
+    credits.on("pointerout", function(){this.setFrame(0);});
+    credits.on("pointerup", function(){this.scene.start("Credits")}, this);
 
     //Create collision categories
     if(this.registry.get('playerCategory') == undefined){
