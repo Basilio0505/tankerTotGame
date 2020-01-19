@@ -34,6 +34,8 @@ export default class CreditScene extends Phaser.Scene {
     var topracText = this.add.text( this.centerX-140, this.centerY-20, 'Dr. Paul Toprac - Producer', { fontSize: '20px', fill: '#000', stroke: '#000', strokeThickness: 2 });
     var jasonText = this.add.text( this.centerX-190, this.centerY+10, 'Jason Harron - Assistant Producer', { fontSize: '20px', fill: '#000', stroke: '#000', strokeThickness: 2 });
 
+    var phaserText = this.add.text( this.centerX-70, this.centerY+180, 'Made in Phaser 3', { fontSize: '15px', fill: '#000', stroke: '#000', strokeThickness: 2 });
+
     var back = this.add.sprite(this.centerX,this.centerY+250,'back',0).setInteractive().setScale(5);
     back.on("pointerover", function(){this.setFrame(1);});
     back.on("pointerout", function(){this.setFrame(0);});
